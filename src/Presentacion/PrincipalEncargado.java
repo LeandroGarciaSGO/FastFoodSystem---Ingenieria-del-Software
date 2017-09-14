@@ -146,6 +146,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemNuevoCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemNuevoCliente.setText("Nuevo Cliente");
+        jMenuItemNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNuevoClienteActionPerformed(evt);
+            }
+        });
         jMenuClientes.add(jMenuItemNuevoCliente);
 
         jMenuItemModificarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
@@ -296,6 +301,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
         // TODO add your handling code here:
+        BuscarCliente BC = new BuscarCliente();
+        BC.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
@@ -306,6 +313,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jMenuItemGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGenerarFacturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemGenerarFacturaActionPerformed
+
+    private void jMenuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoClienteActionPerformed
+        // TODO add your handling code here:
+        BuscarCliente BC = new BuscarCliente();
+        BC.setVisible(true);
+    }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
 
     /**
      * @param args the command line arguments

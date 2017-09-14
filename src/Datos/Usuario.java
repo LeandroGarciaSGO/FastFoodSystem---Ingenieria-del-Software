@@ -126,8 +126,7 @@ public class Usuario {
     
  
    
-   
-    public ResultSet buscarUsuario(String nomb) throws ClassNotFoundException{
+   public ResultSet buscarUsuario(String nomb) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
             String ConsultaSQL = "SELECT * FROM usuario WHERE nombreUsuario = '" + nomb + "'"; 
@@ -138,6 +137,7 @@ public class Usuario {
         }       
         return rsDatos;       
     } 
+    
 
   
 }
