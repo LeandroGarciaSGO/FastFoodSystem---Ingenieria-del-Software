@@ -43,4 +43,20 @@ public class ABMComida {
         return null;
     }
     
+    public static int obtenerSiguienteId(){
+    return 1;
+}
+
+public int nuevaComida(Comida C) throws ClassNotFoundException, SQLException{
+    ResultSet NC;
+    NC = C.consultaComida(C.getDescripcion());
+    
+    if(NC.first()){
+        return 1;
+    }else{
+        C.agregarNuevaComida();
+        return 0;
+    }
+}
+    
 }

@@ -1,11 +1,7 @@
 
 package Datos;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -109,11 +105,26 @@ public ResultSet consultaComida(String desc) throws ClassNotFoundException{
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }       
         return rsDatos;       
-    } 
+    }
 
 
-
-
-
-    
+public void agregarNuevaComida() throws ClassNotFoundException{
+    try {
+            Connection conex = Conexion.Cadena();            
+            psPrepSencencias = conex.prepareStatement("insert into comida (descripcion, precio, tipo, estado) values (?, ?, ?, ?)",PreparedStatement.RETURN_GENERATED_KEYS); 
+            psPrepSencencias.setString(1, descripcion);
+            psPrepSencencias.setFloat(2, precio);
+            psPrepSencencias.setString(3, tipo);
+            psPrepSencencias.setBoolean(4, true);
+            
+            psPrepSencencias.executeUpdate();
+            
+            rsDatos = psPrepSencencias.getGeneratedKeys();
+            rsDatos.first();
+            idComida = rsDatos.getInt(1);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }           
+    }
 }
