@@ -56,6 +56,7 @@ public class GestionarCadete extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setText("Documento:");
 
+        jTextFieldNumeroDocumento.setText("algo");
         jTextFieldNumeroDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNumeroDocumentoActionPerformed(evt);
