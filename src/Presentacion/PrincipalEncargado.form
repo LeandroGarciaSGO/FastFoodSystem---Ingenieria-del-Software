@@ -112,6 +112,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nuevo Cadete"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNuevoCadeteActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemModificarCadete">
               <Properties>

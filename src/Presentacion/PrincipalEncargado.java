@@ -199,6 +199,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemNuevoCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemNuevoCadete.setText("Nuevo Cadete");
+        jMenuItemNuevoCadete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNuevoCadeteActionPerformed(evt);
+            }
+        });
         jMenuCadetes.add(jMenuItemNuevoCadete);
 
         jMenuItemModificarCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
@@ -319,6 +324,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         BuscarCliente BC = new BuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
+
+    private void jMenuItemNuevoCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCadeteActionPerformed
+        // TODO add your handling code here:
+        GestionarCadete DC = new GestionarCadete();
+        DC.setVisible(true);
+    }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
 
     /**
      * @param args the command line arguments
