@@ -100,7 +100,9 @@ public ResultSet consultaCliente(int telef) throws ClassNotFoundException{
         return rsDatos;       
     } 
 
-
+public static int obtenerSiguienteId(){
+    return 1;
+}
 
 
 
