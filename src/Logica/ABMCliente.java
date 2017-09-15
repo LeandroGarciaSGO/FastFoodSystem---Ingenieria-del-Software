@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Leandro
  */
-public class ABMClientes {
+public class ABMCliente {
     
     public Cliente buscarCliente(int telefono) throws ClassNotFoundException, SQLException {
         ResultSet datosCliente;

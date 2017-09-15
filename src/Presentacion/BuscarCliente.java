@@ -6,7 +6,7 @@
 package Presentacion;
 
 import Datos.Cliente;
-import Logica.ABMClientes;
+import Logica.ABMCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +58,12 @@ public class BuscarCliente extends javax.swing.JFrame {
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
+            }
+        });
+
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
             }
         });
 
@@ -137,10 +143,10 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
-        ABMClientes BC = new ABMClientes();
+        ABMCliente BC = new ABMCliente();
         Cliente C = new Cliente();
         try {
-            C = BC.buscarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
+            C = BC.buscarCliente(Integer.parseInt(jTextFieldTelefono.getText())); 
             if(C != null){
             Clientes VC = new Clientes();
             VC.setDatosCliente(C);
@@ -160,6 +166,10 @@ public class BuscarCliente extends javax.swing.JFrame {
             Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
 
     /**
      * @param args the command line arguments

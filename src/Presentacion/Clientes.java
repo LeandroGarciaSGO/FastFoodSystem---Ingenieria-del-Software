@@ -42,7 +42,15 @@ public class Clientes extends javax.swing.JFrame {
     
      void LlenarCampos() {
         if(condatos_vacio == 1){
+            jLabelNumeroCliente.setText(String.valueOf(datosCliente.getIdCliente()));
+            jTextFieldTelefono.setText(String.valueOf(datosCliente.getTelefono()));
             jTextFieldNombre.setText(datosCliente.getNombre());
+            jTextFieldApellido.setText(datosCliente.getApellido());
+            jTextFieldDomicilio.setText(datosCliente.getDomicilio());
+        }
+        else
+        {
+            jLabelNumeroCliente.setText(String.valueOf(Cliente.obtenerSiguienteId()));
         }
     }
     
@@ -75,8 +83,9 @@ public class Clientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Clientes");
-        setMaximumSize(new java.awt.Dimension(640, 380));
-        setMinimumSize(new java.awt.Dimension(640, 380));
+        setMaximumSize(new java.awt.Dimension(640, 410));
+        setMinimumSize(new java.awt.Dimension(640, 410));
+        setPreferredSize(new java.awt.Dimension(640, 410));
 
         jPanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
 
@@ -172,7 +181,7 @@ public class Clientes extends javax.swing.JFrame {
         );
         jPanelImagenLayout.setVerticalGroup(
             jPanelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 223, Short.MAX_VALUE)
+            .addGap(0, 231, Short.MAX_VALUE)
         );
 
         jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -219,7 +228,7 @@ public class Clientes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(jPanelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25)

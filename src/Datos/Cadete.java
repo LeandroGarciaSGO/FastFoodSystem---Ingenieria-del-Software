@@ -17,33 +17,50 @@ import java.util.logging.Logger;
  *
  * @author Leandro
  */
-public class Cliente {
+public class Cadete {
     private Statement sentencia;
     private ResultSet rsDatos;
     private PreparedStatement psPrepSencencias;
     
-    private int idCliente;
+    private int idCadete;
     private String nombre;
     private String apellido;
     private String domicilio;
     private int telefono;
+    private String tipoDocumento;
+    private int numDocumento;
     private boolean estado;
 
-    public Cliente() {
-        this.idCliente = 0;
-        this.nombre = "";
-        this.apellido = "";
-        this.domicilio = "";
-        this.telefono = 0;
-        this.estado = false;
+    public Statement getSentencia() {
+        return sentencia;
     }
 
-    public int getIdCliente() {
-        return idCliente;
+    public void setSentencia(Statement sentencia) {
+        this.sentencia = sentencia;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public ResultSet getRsDatos() {
+        return rsDatos;
+    }
+
+    public void setRsDatos(ResultSet rsDatos) {
+        this.rsDatos = rsDatos;
+    }
+
+    public PreparedStatement getPsPrepSencencias() {
+        return psPrepSencencias;
+    }
+
+    public void setPsPrepSencencias(PreparedStatement psPrepSencencias) {
+        this.psPrepSencencias = psPrepSencencias;
+    }
+
+    public int getIdCadete() {
+        return idCadete;
+    }
+
+    public void setIdCadete(int idCadete) {
+        this.idCadete = idCadete;
     }
 
     public String getNombre() {
@@ -78,6 +95,22 @@ public class Cliente {
         this.telefono = telefono;
     }
 
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public int getNumDocumento() {
+        return numDocumento;
+    }
+
+    public void setNumDocumento(int numDocumento) {
+        this.numDocumento = numDocumento;
+    }
+
     public boolean isEstado() {
         return estado;
     }
@@ -85,12 +118,25 @@ public class Cliente {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public Cadete() {
+        this.idCadete = 0;
+        this.nombre = "";
+        this.apellido = "";
+        this.domicilio = "";
+        this.telefono = 0;
+        this.tipoDocumento = "";
+        this.numDocumento = 0;
+        this.estado = false;
+    }
+
     
     
-public ResultSet consultaCliente(int telef) throws ClassNotFoundException{
+    
+public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM cliente WHERE telefono = '" + telef + "'"; 
+            String ConsultaSQL = "SELECT * FROM cadete WHERE numDocumento = '" + dni + "'"; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
             
@@ -100,9 +146,7 @@ public ResultSet consultaCliente(int telef) throws ClassNotFoundException{
         return rsDatos;       
     } 
 
-public static int obtenerSiguienteId(){
-    return 1;
-}
+
 
 
 
