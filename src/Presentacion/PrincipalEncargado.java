@@ -167,14 +167,29 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemNuevaComida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemNuevaComida.setText("Nueva Comida");
+        jMenuItemNuevaComida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNuevaComidaActionPerformed(evt);
+            }
+        });
         jMenuComidas.add(jMenuItemNuevaComida);
 
         jMenuItemModificarComida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemModificarComida.setText("Modificar Comida");
+        jMenuItemModificarComida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemModificarComidaActionPerformed(evt);
+            }
+        });
         jMenuComidas.add(jMenuItemModificarComida);
 
         jMenuItemBorrarComida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBorrarComida.setText("Borrar Comida");
+        jMenuItemBorrarComida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBorrarComidaActionPerformed(evt);
+            }
+        });
         jMenuComidas.add(jMenuItemBorrarComida);
 
         jMenuBar1.add(jMenuComidas);
@@ -293,7 +308,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
                         .addComponent(jButtonModificarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
                         .addComponent(jButtonGenerarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -319,6 +334,21 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         BuscarCliente BC = new BuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
+
+    private void jMenuItemNuevaComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaComidaActionPerformed
+        GestionarComida GC = new GestionarComida();
+        GC.setVisible(true);
+    }//GEN-LAST:event_jMenuItemNuevaComidaActionPerformed
+
+    private void jMenuItemModificarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarComidaActionPerformed
+        GestionarComida GC = new GestionarComida();
+        GC.setVisible(true);
+    }//GEN-LAST:event_jMenuItemModificarComidaActionPerformed
+
+    private void jMenuItemBorrarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarComidaActionPerformed
+        GestionarComida GC = new GestionarComida();
+        GC.setVisible(true);
+    }//GEN-LAST:event_jMenuItemBorrarComidaActionPerformed
 
     /**
      * @param args the command line arguments
