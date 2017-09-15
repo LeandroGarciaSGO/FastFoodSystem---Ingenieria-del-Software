@@ -16,6 +16,19 @@ import java.util.logging.Logger;
  * @author Leandro
  */
 public class ABMCliente {
+
+    public boolean nuevoCliente(Cliente C) throws ClassNotFoundException, SQLException {
+        ResultSet NC;
+        NC = C.consultaCliente(C.getTelefono());
+        if(NC.first()){
+            return true;
+        }
+        else
+        {
+            C.agregarNuevoCliente();
+            return false;
+        }
+    }
     
     public Cliente buscarCliente(int telefono) throws ClassNotFoundException, SQLException {
         ResultSet datosCliente;

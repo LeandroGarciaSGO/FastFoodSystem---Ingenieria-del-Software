@@ -104,6 +104,26 @@ public static int obtenerSiguienteId(){
     return 1;
 }
 
+    public void agregarNuevoCliente() throws ClassNotFoundException, SQLException {
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("INSERT INTO cliente(nombre,apellido,domicilio,telefono,estado) values (?, ?, ?, ?,?)",
+                                                          PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setString(1, nombre);
+            psPrepSencencias.setString(2, apellido);
+            psPrepSencencias.setString(3, domicilio);
+            psPrepSencencias.setInt(4, telefono);
+            psPrepSencencias.setBoolean(4, true);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+            rsDatos = psPrepSencencias.getGeneratedKeys();
+            rsDatos.first();
+            idCliente = rsDatos.getInt(1);
+    }
+
 
 
     

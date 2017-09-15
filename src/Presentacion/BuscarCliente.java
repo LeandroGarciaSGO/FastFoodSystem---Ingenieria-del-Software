@@ -105,6 +105,11 @@ public class BuscarCliente extends javax.swing.JFrame {
         jButtonRegistrar.setMaximumSize(new java.awt.Dimension(210, 50));
         jButtonRegistrar.setMinimumSize(new java.awt.Dimension(210, 50));
         jButtonRegistrar.setPreferredSize(new java.awt.Dimension(210, 50));
+        jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,6 +175,12 @@ public class BuscarCliente extends javax.swing.JFrame {
     private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
+
+    private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
+        // TODO add your handling code here:
+        Clientes C = new Clientes();
+        C.setVisible(true);
+    }//GEN-LAST:event_jButtonRegistrarActionPerformed
 
     /**
      * @param args the command line arguments

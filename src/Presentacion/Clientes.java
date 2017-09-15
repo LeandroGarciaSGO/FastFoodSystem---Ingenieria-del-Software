@@ -6,6 +6,10 @@
 package Presentacion;
 
 import Datos.Cliente;
+import Logica.ABMCliente;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -201,6 +205,11 @@ public class Clientes extends javax.swing.JFrame {
         jButtonGuardar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonGuardar.setMinimumSize(new java.awt.Dimension(180, 50));
         jButtonGuardar.setPreferredSize(new java.awt.Dimension(180, 50));
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -241,6 +250,29 @@ public class Clientes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        // TODO add your handling code here:
+        Cliente C = new Cliente();
+        C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
+        C.setNombre(jTextFieldNombre.getText());
+        C.setApellido(jTextFieldApellido.getText());
+        C.setDomicilio(jTextFieldDomicilio.getText());
+        ABMCliente AA= new ABMCliente();
+        try {
+            if(AA.nuevoCliente(C))
+            {
+                System.out.println("EXiste");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     /**
      * @param args the command line arguments
