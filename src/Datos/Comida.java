@@ -27,6 +27,13 @@ public class Comida {
         this.tipo = "";
         this.estado = false;
     }
+        public Comida(int id,String desc, float pre, String tipo) {
+        this.idComida = id;
+        this.descripcion = desc;
+        this.precio = pre;
+        this.tipo = tipo;
+        this.estado = false;
+    }
 
     public Statement getSentencia() {
         return sentencia;

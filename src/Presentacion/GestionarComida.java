@@ -6,11 +6,11 @@
 package Presentacion;
 import Datos.Comida;
 import Logica.ABMComida;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -128,6 +128,46 @@ public class GestionarComida extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -137,9 +177,16 @@ public class GestionarComida extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTableComida);
@@ -215,8 +262,21 @@ public class GestionarComida extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNuevaComidaActionPerformed
 
     private void jButtonEliminarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarComidaActionPerformed
-        Comidas C = new Comidas();
-        C.setVisible(true);
+//        DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
+//        
+//        int cod =Integer.parseInt((String) modelo.getValueAt(jTableComida.getSelectedRow(),0));
+//        String desc=String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(),1));
+//        float precio=Float.parseFloat((String) modelo.getValueAt(jTableComida.getSelectedRow(),2));
+//        String tipo=String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(),3));
+//        ABMComida BC = new ABMComida();
+//        Comidas VC = new Comidas();
+//        Comida C = new Comida(cod,desc,precio,tipo);
+//        VC.setDatosComida(C);
+//        VC.setCondatos_vacio(1);
+//        VC.LlenarCampos();
+//        VC.setVisible(true);
+//        this.dispose();
+        
     }//GEN-LAST:event_jButtonEliminarComidaActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
@@ -224,7 +284,58 @@ public class GestionarComida extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jTextFieldDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescripcionActionPerformed
-       ABMComida BC = new ABMComida();
+        ABMComida BC = new ABMComida();
+        Comida C = new Comida();
+        String cabecera[]={"Codigo","Descripcion","Precio","Tipo"};
+        String datos[][]={};
+        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
+        jTableComida.setModel(modelo);
+        try {
+            C = BC.buscarComida(String.valueOf(jTextFieldDescripcion.getText()));
+            if(C != null){
+               int cod = C.getIdComida();
+               String desc = C.getDescripcion();
+               float precio = C.getPrecio();
+               String tipo = C.getTipo();
+               Object fila[]= {cod,desc,precio,tipo};
+               modelo.addRow(fila);    
+            }
+            else
+            {
+                jLabelError.setText("Comida Inexistente!");
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+    }
+//        ABMComida BC = new ABMComida();
+//        Comida C = new Comida();
+//        try {
+//            C = BC.buscarComida(jTextFieldDescripcion.getText());
+//            if(C != null){
+//            Comidas VC = new Comidas();
+//            VC.setDatosComida(C);
+//            VC.setCondatos_vacio(1);
+//            VC.LlenarCampos();
+//            VC.setVisible(true);
+//            this.dispose();
+//            }
+//            else
+//            {
+//                jLabelError.setText("Comida Inexistente!");
+//            }
+//            
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+//    }      
+    }//GEN-LAST:event_jTextFieldDescripcionActionPerformed
+
+    private void jButtonModificarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarComidaActionPerformed
+        ABMComida BC = new ABMComida();
         Comida C = new Comida();
         try {
             C = BC.buscarComida(jTextFieldDescripcion.getText());
@@ -236,22 +347,15 @@ public class GestionarComida extends javax.swing.JFrame {
             VC.setVisible(true);
             this.dispose();
             }
-            else
-            {
+            else{
                 jLabelError.setText("Comida Inexistente!");
             }
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
-    }      
-    }//GEN-LAST:event_jTextFieldDescripcionActionPerformed
-
-    private void jButtonModificarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarComidaActionPerformed
-        Comidas C = new Comidas();
-        C.setVisible(true);
-        //this.dispose();
+            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);      
+    }
     }//GEN-LAST:event_jButtonModificarComidaActionPerformed
 
     /**

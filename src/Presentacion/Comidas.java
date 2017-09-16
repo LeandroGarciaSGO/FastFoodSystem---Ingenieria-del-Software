@@ -45,8 +45,10 @@ public class Comidas extends javax.swing.JFrame {
     
     void LlenarCampos() {
         if(condatos_vacio == 1){
-            jLabelCodComida.setText(String.valueOf(datosComida.getIdComida()));
+            jLabelCodigoComida.setText(String.valueOf(datosComida.getIdComida()));
             jTextFieldDescripComida.setText(datosComida.getDescripcion());
+            jTextFieldPrecioComida.setText(String.valueOf(datosComida.getPrecio()));
+            jComboBoxTipoComida.setSelectedItem(String.valueOf(datosComida.getTipo()));
         }else{
             jLabelCodComida.setText(String.valueOf(ABMComida.obtenerSiguienteId()));
         }
@@ -67,7 +69,7 @@ public class Comidas extends javax.swing.JFrame {
         jLabelDescComida = new javax.swing.JLabel();
         jLabelPrecioComida = new javax.swing.JLabel();
         jLabelTipoComida = new javax.swing.JLabel();
-        jLabelNumeroCliente = new javax.swing.JLabel();
+        jLabelCodigoComida = new javax.swing.JLabel();
         jTextFieldDescripComida = new javax.swing.JTextField();
         jTextFieldPrecioComida = new javax.swing.JTextField();
         jComboBoxTipoComida = new javax.swing.JComboBox();
@@ -81,7 +83,6 @@ public class Comidas extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(640, 380));
         setMinimumSize(new java.awt.Dimension(640, 380));
-        setPreferredSize(new java.awt.Dimension(640, 380));
 
         jPanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la Comida", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
 
@@ -97,8 +98,8 @@ public class Comidas extends javax.swing.JFrame {
         jLabelTipoComida.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabelTipoComida.setText("Tipo:");
 
-        jLabelNumeroCliente.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabelNumeroCliente.setText("9999999999");
+        jLabelCodigoComida.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabelCodigoComida.setText("9999999999");
 
         jTextFieldDescripComida.setMaximumSize(new java.awt.Dimension(210, 20));
         jTextFieldDescripComida.setMinimumSize(new java.awt.Dimension(210, 20));
@@ -126,7 +127,7 @@ public class Comidas extends javax.swing.JFrame {
                     .addComponent(jLabelTipoComida))
                 .addGap(46, 46, 46)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelNumeroCliente)
+                    .addComponent(jLabelCodigoComida)
                     .addComponent(jTextFieldDescripComida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextFieldPrecioComida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jComboBoxTipoComida, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -142,7 +143,7 @@ public class Comidas extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCodComida)
-                    .addComponent(jLabelNumeroCliente))
+                    .addComponent(jLabelCodigoComida))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDescComida)
@@ -222,9 +223,9 @@ public class Comidas extends javax.swing.JFrame {
                     .addComponent(jPanelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
 
@@ -296,9 +297,9 @@ public class Comidas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JComboBox jComboBoxTipoComida;
     private javax.swing.JLabel jLabelCodComida;
+    private javax.swing.JLabel jLabelCodigoComida;
     private javax.swing.JLabel jLabelDescComida;
     private javax.swing.JLabel jLabelError;
-    private javax.swing.JLabel jLabelNumeroCliente;
     private javax.swing.JLabel jLabelPrecioComida;
     private javax.swing.JLabel jLabelTipoComida;
     private javax.swing.JPanel jPanelDatos;
