@@ -146,13 +146,13 @@ public static int obtenerSiguienteId(){
         }
     }
 
- public void modificar() throws ClassNotFoundException {
+ public boolean modificar() throws ClassNotFoundException {
         try {
       
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("UPDATE cliente SET nombre = ? , SET apellido = ? , SET domicilio = ? , SET telefono = ?, SET estado = ? WHERE idCliente = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            psPrepSencencias = cn.prepareStatement("UPDATE cliente SET nombre = ? , apellido = ? , domicilio = ? , telefono = ?, estado = ? WHERE idCliente = ?",PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
             psPrepSencencias.setString(1, nombre);
             psPrepSencencias.setString(2, apellido);
@@ -167,6 +167,7 @@ public static int obtenerSiguienteId(){
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return true;
     }
 
     

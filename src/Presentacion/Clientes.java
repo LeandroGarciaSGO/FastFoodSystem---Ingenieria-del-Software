@@ -260,24 +260,42 @@ public class Clientes extends javax.swing.JFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
         Cliente C = new Cliente();
+        C.setIdCliente(Integer.parseInt(jLabelNumeroCliente.getText()));
         C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
         C.setNombre(jTextFieldNombre.getText());
         C.setApellido(jTextFieldApellido.getText());
         C.setDomicilio(jTextFieldDomicilio.getText());
         ABMCliente ABMC= new ABMCliente();  
         
-        try {
-            if(ABMC.nuevoCliente(C))
-            {
-                JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(this, "El Cliente se Registro Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+        if(condatos_vacio == 0){
+            try {
+                if(ABMC.nuevoCliente(C))
+                {
+                    JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El Cliente se Registro Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
         }
+        else{
+            try {
+                if(!C.modificar()){
+                    JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente No se Modifico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+                    
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+           
+      
         
         
         
@@ -286,7 +304,7 @@ public class Clientes extends javax.swing.JFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
-        
+              
         Cliente C = new Cliente();
         try {
             C.eliminar(Integer.parseInt(jLabelNumeroCliente.getText()));
