@@ -180,6 +180,9 @@
           <Dimension value="[210, 50]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRegistrarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
