@@ -104,27 +104,70 @@ public static int obtenerSiguienteId(){
     return 1;
 }
 
-    public void agregarNuevoCliente() throws ClassNotFoundException, SQLException {
+    public void insertarCliente() throws ClassNotFoundException{
+        try {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("INSERT INTO cliente(nombre,apellido,domicilio,telefono,estado) values (?, ?, ?, ?,?)",
-                                                          PreparedStatement.RETURN_GENERATED_KEYS);
+            psPrepSencencias = cn.prepareStatement("INSERT INTO cliente (nombre,apellido,domicilio,telefono,estado) VALUES (?, ?, ?, ?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
             psPrepSencencias.setString(1, nombre);
             psPrepSencencias.setString(2, apellido);
             psPrepSencencias.setString(3, domicilio);
             psPrepSencencias.setInt(4, telefono);
-            psPrepSencencias.setBoolean(4, true);
+            psPrepSencencias.setBoolean(5, true);
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();
             //obtengo el id del registro recien insertado
             rsDatos = psPrepSencencias.getGeneratedKeys();
             rsDatos.first();
             idCliente = rsDatos.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    public void eliminar(int cod) throws ClassNotFoundException {
+        try {
+      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE cliente SET estado = ? WHERE idCliente = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setBoolean(1, false);
+            psPrepSencencias.setInt(2, cod);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
+ public void modificar() throws ClassNotFoundException {
+        try {
+      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE cliente SET nombre = ? , SET apellido = ? , SET domicilio = ? , SET telefono = ?, SET estado = ? WHERE idCliente = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setString(1, nombre);
+            psPrepSencencias.setString(2, apellido);
+            psPrepSencencias.setString(3, domicilio);
+            psPrepSencencias.setInt(4, telefono);
+            psPrepSencencias.setBoolean(5, true);
+            psPrepSencencias.setInt(6, idCliente);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     
 }

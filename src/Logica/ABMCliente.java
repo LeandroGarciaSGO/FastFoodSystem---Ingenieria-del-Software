@@ -25,7 +25,7 @@ public class ABMCliente {
         }
         else
         {
-            C.agregarNuevoCliente();
+            C.insertarCliente();
             return false;
         }
     }

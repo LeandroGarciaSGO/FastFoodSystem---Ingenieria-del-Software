@@ -10,6 +10,7 @@ import Logica.ABMCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -199,6 +200,11 @@ public class Clientes extends javax.swing.JFrame {
         jButtonEliminar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonEliminar.setMinimumSize(new java.awt.Dimension(180, 50));
         jButtonEliminar.setPreferredSize(new java.awt.Dimension(180, 50));
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonGuardar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonGuardar.setText("Guardar");
@@ -258,11 +264,14 @@ public class Clientes extends javax.swing.JFrame {
         C.setNombre(jTextFieldNombre.getText());
         C.setApellido(jTextFieldApellido.getText());
         C.setDomicilio(jTextFieldDomicilio.getText());
-        ABMCliente AA= new ABMCliente();
+        ABMCliente ABMC= new ABMCliente();  
+        
         try {
-            if(AA.nuevoCliente(C))
+            if(ABMC.nuevoCliente(C))
             {
-                System.out.println("EXiste");
+                JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(this, "El Cliente se Registro Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
@@ -272,7 +281,20 @@ public class Clientes extends javax.swing.JFrame {
         
         
         
+        
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+        
+        Cliente C = new Cliente();
+        try {
+            C.eliminar(Integer.parseInt(jLabelNumeroCliente.getText()));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     /**
      * @param args the command line arguments
