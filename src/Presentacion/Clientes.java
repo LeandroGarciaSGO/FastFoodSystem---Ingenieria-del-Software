@@ -23,11 +23,15 @@ public class Clientes extends javax.swing.JFrame {
      */
     private Cliente datosCliente;
     private int condatos_vacio;
+    private String telefono;
     
     public Clientes() {
         initComponents();
+        setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
        
     }
+    
+    
 
     public Cliente getDatosCliente() {
         return datosCliente;
@@ -44,8 +48,20 @@ public class Clientes extends javax.swing.JFrame {
     public void setCondatos_vacio(int condatos_vacio) {
         this.condatos_vacio = condatos_vacio;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+ 
     
-     void LlenarCampos() {
+    
+    
+     void LlenarCampos() throws SQLException {
         if(condatos_vacio == 1){
             jLabelNumeroCliente.setText(String.valueOf(datosCliente.getIdCliente()));
             jTextFieldTelefono.setText(String.valueOf(datosCliente.getTelefono()));
@@ -55,7 +71,14 @@ public class Clientes extends javax.swing.JFrame {
         }
         else
         {
-            jLabelNumeroCliente.setText(String.valueOf(Cliente.obtenerSiguienteId()));
+            Cliente C = new Cliente();
+            try {
+                jLabelNumeroCliente.setText(String.valueOf(C.obtenerSiguienteId()));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            jTextFieldTelefono.setText(getTelefono());
+            jTextFieldTelefono.setEditable(false);
         }
     }
     
@@ -190,12 +213,19 @@ public class Clientes extends javax.swing.JFrame {
         );
 
         jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonCancelar.setMinimumSize(new java.awt.Dimension(180, 50));
         jButtonCancelar.setPreferredSize(new java.awt.Dimension(180, 50));
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-borrar-cliente.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonEliminar.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -207,6 +237,7 @@ public class Clientes extends javax.swing.JFrame {
         });
 
         jButtonGuardar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-guardar.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
         jButtonGuardar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonGuardar.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -267,13 +298,14 @@ public class Clientes extends javax.swing.JFrame {
         C.setDomicilio(jTextFieldDomicilio.getText());
         ABMCliente ABMC= new ABMCliente();  
         
-        if(condatos_vacio == 0){
+        if(condatos_vacio != 1){
             try {
                 if(ABMC.nuevoCliente(C))
                 {
                     JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "El Cliente se Registro Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+                    this.dispose();
                 }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
@@ -287,7 +319,7 @@ public class Clientes extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente No se Modifico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
-                    
+                    this.dispose();
                 }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
@@ -312,7 +344,13 @@ public class Clientes extends javax.swing.JFrame {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+        this.dispose();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments

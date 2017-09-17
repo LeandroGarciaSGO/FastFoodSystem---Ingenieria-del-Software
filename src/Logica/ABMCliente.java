@@ -30,7 +30,7 @@ public class ABMCliente {
         }
     }
     
-    public Cliente buscarCliente(int telefono) throws ClassNotFoundException, SQLException {
+    public Cliente consultarCliente(int telefono) throws ClassNotFoundException, SQLException {
         ResultSet datosCliente;
         Cliente miCliente = new Cliente();
         datosCliente = miCliente.consultaCliente(telefono);
