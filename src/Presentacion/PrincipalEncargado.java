@@ -113,6 +113,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jButtonGenerarFactura.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonGenerarFactura.setMinimumSize(new java.awt.Dimension(210, 80));
         jButtonGenerarFactura.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonGenerarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarFacturaActionPerformed(evt);
+            }
+        });
 
         jButtonModificarCliente.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonModificarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-cliente.png"))); // NOI18N
@@ -359,6 +364,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         GestionarComida GC = new GestionarComida();
         GC.setVisible(true);
     }//GEN-LAST:event_jMenuItemBorrarComidaActionPerformed
+
+    private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
+        // TODO add your handling code here:
+        VentanaFacturacion V = new VentanaFacturacion();
+        V.setVisible(true);
+    }//GEN-LAST:event_jButtonGenerarFacturaActionPerformed
 
     /**
      * @param args the command line arguments
