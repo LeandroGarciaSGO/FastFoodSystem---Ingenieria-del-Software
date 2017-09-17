@@ -367,7 +367,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
         // TODO add your handling code here:
-        VentanaFacturacion V = new VentanaFacturacion();
+        VentanaEmitirFacturacion V = new VentanaEmitirFacturacion();
         V.setVisible(true);
     }//GEN-LAST:event_jButtonGenerarFacturaActionPerformed
 

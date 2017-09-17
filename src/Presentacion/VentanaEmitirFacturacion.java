@@ -5,16 +5,22 @@
  */
 package Presentacion;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 /**
  *
  * @author Leandro
  */
-public class VentanaFacturacion extends javax.swing.JFrame {
+public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Printable{
 
     /**
      * Creates new form VentanaFacturacion
      */
-    public VentanaFacturacion() {
+    public VentanaEmitirFacturacion() {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
     }
@@ -72,9 +78,7 @@ public class VentanaFacturacion extends javax.swing.JFrame {
         jButtonImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 700));
         setMinimumSize(new java.awt.Dimension(800, 700));
-        setPreferredSize(new java.awt.Dimension(800, 700));
 
         jScrollPaneContenedor.setMaximumSize(new java.awt.Dimension(740, 500));
         jScrollPaneContenedor.setMinimumSize(new java.awt.Dimension(740, 500));
@@ -372,10 +376,10 @@ public class VentanaFacturacion extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanelDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jPanelDatosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 675, Short.MAX_VALUE))
                     .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanelDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanelDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 675, Short.MAX_VALUE)))
                 .addGap(68, 68, 68))
             .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
                 .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,6 +534,12 @@ public class VentanaFacturacion extends javax.swing.JFrame {
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
+        try {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setPrintable(this);
+            job.printDialog();
+            job.print();
+        } catch (PrinterException ex) { }  
 
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
@@ -555,22 +565,35 @@ public class VentanaFacturacion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaFacturacion().setVisible(true);
+                new VentanaEmitirFacturacion().setVisible(true);
             }
         });
+    }
+    
+    
+     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        if (pageIndex > 0) return NO_SUCH_PAGE;
+        Graphics2D g2d = (Graphics2D)graphics;
+        //Punto donde empezará a imprimir dentro la pagina (100, 50)
+        g2d.translate(  pageFormat.getImageableX()+100, 
+                        pageFormat.getImageableY()+50);
+        g2d.scale(0.50,0.50); //Reducción de la impresión al 50%
+        jPanelContenedorFactura.printAll(graphics);
+        return PAGE_EXISTS;                
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
