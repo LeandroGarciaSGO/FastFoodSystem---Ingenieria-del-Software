@@ -38,11 +38,11 @@
                       <EmptySpace min="-2" pref="356" max="-2" attributes="0"/>
                       <Component id="jButtonCancelar" min="-2" pref="180" max="-2" attributes="0"/>
                       <EmptySpace pref="25" max="32767" attributes="0"/>
-                      <Component id="jButtonGuardar" min="-2" pref="229" max="-2" attributes="0"/>
+                      <Component id="jButtonImprimir" min="-2" pref="229" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneContenedor" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -53,10 +53,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
+              <Component id="jScrollPaneContenedor" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButtonGuardar" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="jButtonImprimir" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   <Component id="jButtonCancelar" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -65,7 +65,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="jScrollPaneContenedor">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[740, 500]"/>
@@ -80,7 +80,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel4">
+        <Container class="javax.swing.JPanel" name="jPanelContenedorFactura">
           <Properties>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[720, 950]"/>
@@ -130,13 +130,6 @@
                       </Group>
                       <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jLabelTotalFactura" min="-2" pref="105" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabelPeso3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -169,21 +162,31 @@
                           <Component id="jSeparator1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                              <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelTituloComprobante" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                              <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelNroCadete" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="168" max="-2" attributes="0"/>
-                              <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelNombreApeCadete" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="53" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="jPanel5" pref="733" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabelTotalFactura" min="-2" pref="105" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabelPeso3" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jPanelDatosClienteComprobante" min="-2" pref="637" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -234,14 +237,14 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel18" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTituloComprobante" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel21" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="jLabelNroCadete" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNombreApeCadete" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanelDatosClienteComprobante" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -453,7 +456,7 @@
                           <Component id="jLabelTotal" min="-2" pref="189" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabelPeso1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="155" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -614,7 +617,7 @@
                 <Property name="text" type="java.lang.String" value="Telefono:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel18">
+            <Component class="javax.swing.JLabel" name="jLabelTituloComprobante">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="20" style="1"/>
@@ -622,7 +625,7 @@
                 <Property name="text" type="java.lang.String" value="Comprobante de Envio para el Cadete"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel21">
+            <Component class="javax.swing.JLabel" name="jLabelNombreApeCadete">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="12" style="0"/>
@@ -630,7 +633,7 @@
                 <Property name="text" type="java.lang.String" value="Nombre Y Apellido:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel19">
+            <Component class="javax.swing.JLabel" name="jLabelNroCadete">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="12" style="0"/>
@@ -638,7 +641,7 @@
                 <Property name="text" type="java.lang.String" value="Cadete Nro:"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JPanel" name="jPanel5">
+            <Container class="javax.swing.JPanel" name="jPanelDatosClienteComprobante">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -664,13 +667,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelDomicilioComprobante" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelNombreYApellidoComprobante" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelZonaComprobante" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelNumFacturaComprobante" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
                       </Group>
@@ -678,15 +681,15 @@
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelImporteEnvioComprobante" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelImporteFacturaComprobante" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jLabel28" min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Component id="jLabelImporteTotalComprobante" min="-2" pref="105" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelPeso4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -699,25 +702,25 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel24" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="jLabelNumFacturaComprobante" min="-2" pref="16" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelZonaComprobante" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel22" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="jLabelNombreYApellidoComprobante" min="-2" pref="16" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelDomicilioComprobante" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel26" min="-2" pref="16" max="-2" attributes="0"/>
+                          <Component id="jLabelImporteEnvioComprobante" min="-2" pref="16" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel28" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="jLabel29" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelImporteTotalComprobante" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="jLabelPeso4" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelImporteFacturaComprobante" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="20" max="32767" attributes="0"/>
                       </Group>
@@ -725,7 +728,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel22">
+                <Component class="javax.swing.JLabel" name="jLabelNombreYApellidoComprobante">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="12" style="0"/>
@@ -733,7 +736,7 @@
                     <Property name="text" type="java.lang.String" value="Nombre y Apellido:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel23">
+                <Component class="javax.swing.JLabel" name="jLabelDomicilioComprobante">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="12" style="0"/>
@@ -741,7 +744,7 @@
                     <Property name="text" type="java.lang.String" value="Domicilio:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel24">
+                <Component class="javax.swing.JLabel" name="jLabelNumFacturaComprobante">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="12" style="0"/>
@@ -749,7 +752,7 @@
                     <Property name="text" type="java.lang.String" value="Nro de Factura:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel25">
+                <Component class="javax.swing.JLabel" name="jLabelZonaComprobante">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="12" style="0"/>
@@ -757,7 +760,7 @@
                     <Property name="text" type="java.lang.String" value="Zona:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel26">
+                <Component class="javax.swing.JLabel" name="jLabelImporteEnvioComprobante">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="12" style="0"/>
@@ -765,7 +768,7 @@
                     <Property name="text" type="java.lang.String" value="Importe de Envio:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel27">
+                <Component class="javax.swing.JLabel" name="jLabelImporteFacturaComprobante">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="12" style="0"/>
@@ -773,7 +776,7 @@
                     <Property name="text" type="java.lang.String" value="Importe de Factura:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel28">
+                <Component class="javax.swing.JLabel" name="jLabelImporteTotalComprobante">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="12" style="0"/>
@@ -781,7 +784,7 @@
                     <Property name="text" type="java.lang.String" value="IMPORTE TOTAL:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel29">
+                <Component class="javax.swing.JLabel" name="jLabelPeso4">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Verdana" size="20" style="1"/>
@@ -818,7 +821,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonGuardar">
+    <Component class="javax.swing.JButton" name="jButtonImprimir">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="12" style="0"/>
@@ -838,7 +841,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGuardarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonImprimirActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
