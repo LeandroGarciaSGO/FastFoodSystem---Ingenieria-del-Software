@@ -79,6 +79,7 @@ public class Clientes extends javax.swing.JFrame {
             }
             jTextFieldTelefono.setText(getTelefono());
             jTextFieldTelefono.setEditable(false);
+            jButtonEliminar.setEnabled(false);
         }
     }
     

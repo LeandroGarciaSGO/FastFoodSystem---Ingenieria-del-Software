@@ -77,7 +77,8 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         jButtonCancelar = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FastFoodSystem - Emitir Factura");
         setMinimumSize(new java.awt.Dimension(800, 700));
 
         jScrollPaneContenedor.setMaximumSize(new java.awt.Dimension(740, 500));
