@@ -56,7 +56,6 @@ public class GestionarCadete extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel1.setText("Documento:");
 
-        jTextFieldNumeroDocumento.setText("algo");
         jTextFieldNumeroDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNumeroDocumentoActionPerformed(evt);
@@ -202,10 +201,14 @@ public class GestionarCadete extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNumeroDocumentoActionPerformed
 
     private void jButtonNuevoCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoCadeteActionPerformed
+Cadetes C = new Cadetes();
+        C.setVisible(true);
+        this.dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonNuevoCadeteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+   this.dispose();  
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 

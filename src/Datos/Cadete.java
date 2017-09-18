@@ -147,7 +147,27 @@ public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
     } 
 
 
-
+public void agregarNuevoCadete() throws ClassNotFoundException{
+    try {
+            Connection conex = Conexion.Cadena();            
+            psPrepSencencias = conex.prepareStatement("insert into cadete (nombre, apellido, domicilio, telefono, tipoDocumento, numDocumento, estado) values (?, ?, ?, ?, ?, ?, ? )",PreparedStatement.RETURN_GENERATED_KEYS); 
+            psPrepSencencias.setString(1, nombre);
+            psPrepSencencias.setString(2, apellido);
+            psPrepSencencias.setString(3, domicilio);
+            psPrepSencencias.setInt(4, telefono);
+            psPrepSencencias.setString(5, tipoDocumento);
+            psPrepSencencias.setInt(6, numDocumento);
+            psPrepSencencias.setBoolean(7, true);
+            psPrepSencencias.executeUpdate();
+            
+            rsDatos = psPrepSencencias.getGeneratedKeys();
+            rsDatos.first();
+            idCadete = rsDatos.getInt(1);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }           
+    }
 
 
     
