@@ -21,7 +21,15 @@ public class ABMCliente {
         ResultSet NC;
         NC = C.consultaCliente(C.getTelefono());
         if(NC.first()){
-            return true;
+            if(NC.getBoolean("estado"))
+            {
+                return true;
+            }
+            else
+            {
+                C.insertarCliente();
+                return false;
+            }
         }
         else
         {

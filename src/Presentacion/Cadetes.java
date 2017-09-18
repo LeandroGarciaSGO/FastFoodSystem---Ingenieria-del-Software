@@ -278,11 +278,13 @@ public class Cadetes extends javax.swing.JFrame {
 Cadete C = new Cadete();
         AMBCadete AMBC = new AMBCadete();
         C.setNombre(jTextFieldNombre.getText());
-        C.setApellido(jTextFieldNombre.getText());
+        //C.setApellido(jTextFieldNombre.getText());
+        C.setApellido(jTextFieldApellido.getText());
         C.setNumDocumento(Integer.parseInt(jTextFieldDocumento.getText()));
         C.setTipoDocumento(String.valueOf(jComboBoxTipoDoc.getSelectedItem()));
         C.setDomicilio(jTextFieldDomicilio.getText());
-        C.setTelefono(Integer.parseInt(jTextFieldDocumento.getText()));
+        //C.setTelefono(Integer.parseInt(jTextFieldDocumento.getText()));
+        C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
         C.setEstado(true);
          try {
              if (AMBC.nuevoCadete(C) == 1){
