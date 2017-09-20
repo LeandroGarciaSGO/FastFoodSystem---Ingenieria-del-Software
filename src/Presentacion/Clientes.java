@@ -344,7 +344,7 @@ public class Clientes extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+        JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
