@@ -7,6 +7,7 @@ package Logica;
 
 
 import Datos.Cadete;
+import Datos.Cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,6 +18,35 @@ import java.util.logging.Logger;
  * @author Luji
  */
 public class AMBCadete {
+    
+    public boolean modificarCadete(Cadete C) throws ClassNotFoundException, SQLException {
+        ResultSet NC;
+        NC = C.consultaCadete(C.getNumDocumento());
+        if(NC.first()){
+            if(NC.getBoolean("estado"))
+            {
+               C.modificar();
+                    return true;
+               
+            }
+            //else
+            //{
+              //  C.modificar();
+               // return true;
+            //}
+        }
+        else
+        {
+            //C.insertar();
+            return false;
+        }
+        return false;
+    }
+    
+    
+    
+    
+    
     public Cadete buscarCadete(int numDocumento) throws ClassNotFoundException, SQLException {
         ResultSet datosCadete;
         Cadete miCadete = new Cadete();

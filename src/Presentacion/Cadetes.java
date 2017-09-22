@@ -8,6 +8,7 @@ package Presentacion;
 import Datos.Cadete;
 import Logica.AMBCadete;
 import Datos.Cliente;
+import Logica.ABMCliente;
 import Logica.ABMComida;
 //import Datos.Comida;
 //import Logica.ABMComida;
@@ -54,7 +55,7 @@ public class Cadetes extends javax.swing.JFrame {
          if(condatos_vacio == 1){
             jLabel8.setText(String.valueOf(datosCadete.getIdCadete()));
             jTextFieldNombre.setText(datosCadete.getNombre());
-            jTextFieldNombre.setText(datosCadete.getApellido());
+            jTextFieldApellido.setText(datosCadete.getApellido());
             jTextFieldDocumento.setText(String.valueOf(datosCadete.getNumDocumento()));
             jComboBoxTipoDoc.setSelectedItem(String.valueOf(datosCadete.getTipoDocumento()));
             jTextFieldDomicilio.setText(datosCadete.getDomicilio());
@@ -94,8 +95,8 @@ public class Cadetes extends javax.swing.JFrame {
         jComboBoxTipoDoc = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonGuardar = new javax.swing.JButton();
         jLabelError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -215,17 +216,17 @@ public class Cadetes extends javax.swing.JFrame {
             .addGap(0, 294, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Guardar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonGuardarActionPerformed(evt);
             }
         });
 
@@ -245,9 +246,9 @@ public class Cadetes extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(jButtonCancelar)
                                 .addGap(123, 123, 123)
-                                .addComponent(jButton2)))))
+                                .addComponent(jButtonGuardar)))))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -262,8 +263,8 @@ public class Cadetes extends javax.swing.JFrame {
                         .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonGuardar)
+                    .addComponent(jButtonCancelar))
                 .addGap(21, 21, 21))
         );
 
@@ -274,38 +275,79 @@ public class Cadetes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDocumentoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-Cadete C = new Cadete();
-        AMBCadete AMBC = new AMBCadete();
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+
+        Cadete C = new Cadete();
+        
         C.setNombre(jTextFieldNombre.getText());
-        //C.setApellido(jTextFieldNombre.getText());
         C.setApellido(jTextFieldApellido.getText());
         C.setNumDocumento(Integer.parseInt(jTextFieldDocumento.getText()));
         C.setTipoDocumento(String.valueOf(jComboBoxTipoDoc.getSelectedItem()));
         C.setDomicilio(jTextFieldDomicilio.getText());
-        //C.setTelefono(Integer.parseInt(jTextFieldDocumento.getText()));
         C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
-        C.setEstado(true);
-         try {
-             if (AMBC.nuevoCadete(C) == 1){
-                  jLabelError.setText("El cadete ya existe!");
-             }else{
-         this.dispose();
-         JOptionPane.showMessageDialog(this, "El cadete se cargo correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        AMBCadete ABMC= new AMBCadete();          
+        if(condatos_vacio != 1){
+            try {
+                C.agregarNuevoCadete();
+                //if(ABMC.nuevoCliente(C))
+                //{
+                    //JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                //}else{
+                    JOptionPane.showMessageDialog(this, "El Cadete se Registro Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                //}
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+           // } catch (SQLException ex) {
+             //   Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (SQLException ex) {
-             Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
-         
-    } 
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        }
+        else{
+            try {
+                C.setIdCadete(datosCadete.getIdCadete());
+                if(!ABMC.modificarCadete(C)){
+                    JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "El Cadete se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+//Cadete C = new Cadete();
+//        AMBCadete AMBC = new AMBCadete();
+//        C.setNombre(jTextFieldNombre.getText());
+//        C.setApellido(jTextFieldApellido.getText());
+//        C.setNumDocumento(Integer.parseInt(jTextFieldDocumento.getText()));
+//        C.setTipoDocumento(String.valueOf(jComboBoxTipoDoc.getSelectedItem()));
+//        C.setDomicilio(jTextFieldDomicilio.getText());
+//        C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
+//        C.setEstado(true);
+//         
+//        try {
+//             if (AMBC.nuevoCadete(C) == 1){
+//                  jLabelError.setText("El cadete ya existe!");
+//             }else{
+//         this.dispose();
+//         JOptionPane.showMessageDialog(this, "El cadete se cargo correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+//            }
+//         } catch (ClassNotFoundException ex) {
+//             Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+//         } catch (SQLException ex) {
+//             Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+//         
+//    } 
+//        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
          this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,6 +376,8 @@ Cadete C = new Cadete();
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -344,8 +388,8 @@ Cadete C = new Cadete();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JComboBox jComboBoxTipoDoc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
