@@ -16,16 +16,16 @@ import javax.swing.JOptionPane;
  *
  * @author Leandro
  */
-public class Clientes extends javax.swing.JFrame {
+public class VentanaClientes extends javax.swing.JFrame {
 
     /**
-     * Creates new form Clientes
+     * Creates new form VentanaClientes
      */
     private Cliente datosCliente;
     private int condatos_vacio;
     private String telefono;
     
-    public Clientes() {
+    public VentanaClientes() {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
        
@@ -75,7 +75,7 @@ public class Clientes extends javax.swing.JFrame {
             try {
                 jLabelNumeroCliente.setText(String.valueOf(C.obtenerSiguienteId()));
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
             jTextFieldTelefono.setText(getTelefono());
             jTextFieldTelefono.setEditable(false);
@@ -112,9 +112,7 @@ public class Clientes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Clientes");
-        setMaximumSize(new java.awt.Dimension(640, 410));
         setMinimumSize(new java.awt.Dimension(640, 410));
-        setPreferredSize(new java.awt.Dimension(640, 410));
 
         jPanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
 
@@ -309,9 +307,9 @@ public class Clientes extends javax.swing.JFrame {
                     this.dispose();
                 //}
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
            // } catch (SQLException ex) {
-             //   Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+             //   Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else{
@@ -323,9 +321,9 @@ public class Clientes extends javax.swing.JFrame {
                     this.dispose();
                 }
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -343,7 +341,7 @@ public class Clientes extends javax.swing.JFrame {
         try {
             C.eliminar(Integer.parseInt(jLabelNumeroCliente.getText()));
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
@@ -371,20 +369,21 @@ public class Clientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clientes().setVisible(true);
+                new VentanaClientes().setVisible(true);
             }
         });
     }

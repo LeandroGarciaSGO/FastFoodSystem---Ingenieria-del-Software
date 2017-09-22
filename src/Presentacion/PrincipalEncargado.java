@@ -341,7 +341,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
@@ -358,7 +358,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
 
@@ -392,19 +392,19 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemModificarClienteActionPerformed
 
     private void jMenuItemBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemBorrarClienteActionPerformed
 
     private void jButtonModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonModificarClienteActionPerformed
 

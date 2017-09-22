@@ -254,9 +254,9 @@ public class GestionarCadete extends javax.swing.JFrame {
             }
             
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTextFieldNumeroDocumentoActionPerformed
 
