@@ -297,32 +297,34 @@ public class Clientes extends javax.swing.JFrame {
         C.setNombre(jTextFieldNombre.getText());
         C.setApellido(jTextFieldApellido.getText());
         C.setDomicilio(jTextFieldDomicilio.getText());
-        ABMCliente ABMC= new ABMCliente();  
-        
+        ABMCliente ABMC= new ABMCliente();          
         if(condatos_vacio != 1){
             try {
-                if(ABMC.nuevoCliente(C))
-                {
-                    JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                }else{
+                C.insertar();
+                //if(ABMC.nuevoCliente(C))
+                //{
+                    //JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                //}else{
                     JOptionPane.showMessageDialog(this, "El Cliente se Registro Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
-                }
+                //}
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+           // } catch (SQLException ex) {
+             //   Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else{
             try {
-                if(!C.modificar()){
-                    JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente No se Modifico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                if(!ABMC.modificarCliente(C)){
+                    JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -336,8 +338,7 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:
-              
+        // TODO add your handling code here:              
         Cliente C = new Cliente();
         try {
             C.eliminar(Integer.parseInt(jLabelNumeroCliente.getText()));

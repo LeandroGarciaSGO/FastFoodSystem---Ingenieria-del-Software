@@ -10,6 +10,7 @@ import Logica.ABMCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -155,30 +156,44 @@ public class BuscarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean validarCampos(){
+        try{
+            Long.parseLong(jTextFieldTelefono.getText());
+            return true;
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+    }
+    
+    
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
-        ABMCliente gestionC = new ABMCliente();
-        Cliente C = new Cliente();
-        try {
-            C = gestionC.consultarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
-            if (C != null) {
-                Clientes VC = new Clientes();
-                VC.setDatosCliente(C);
-                VC.setCondatos_vacio(1); // .- Parametro 1 por que lleva datos - Parametro 0 si no llega datos
-                VC.LlenarCampos();
-                VC.setVisible(true);
-                this.dispose();
-            } else {
-                jLabelMensaje.setText("Cliente Inexistente - Para Registrar Presione \"Registrar\"");
-                jButtonRegistrar.setEnabled(true);
-                jButtonBuscar.setEnabled(false);
-                jTextFieldTelefono.setEditable(false);
+        if (validarCampos()) {
+            ABMCliente gestionC = new ABMCliente();
+            Cliente C = new Cliente();
+            try {
+                C = gestionC.buscarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
+                if (C != null) {
+                    Clientes VC = new Clientes();
+                    VC.setDatosCliente(C);
+                    VC.setCondatos_vacio(1); // .- Parametro 1 por que lleva datos - Parametro 0 si no llega datos
+                    VC.LlenarCampos();
+                    VC.setVisible(true);
+                    this.dispose();
+                } else {
+                    jLabelMensaje.setText("Cliente Inexistente - Para Registrar Presione \"Registrar\"");
+                    jButtonRegistrar.setEnabled(true);
+                    jButtonBuscar.setEnabled(false);
+                    jTextFieldTelefono.setEditable(false);
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
