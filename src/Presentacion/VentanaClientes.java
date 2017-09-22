@@ -82,8 +82,30 @@ public class VentanaClientes extends javax.swing.JFrame {
             jButtonEliminar.setEnabled(false);
         }
     }
-    
-    
+     
+     private boolean validarCampos(){
+        try{
+            Long.parseLong(jTextFieldTelefono.getText());
+            if(jTextFieldNombre.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "-. ERROR: El Nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(jTextFieldApellido.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "-. ERROR: El Apellido No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if(jTextFieldDomicilio.getText().length() <= 0){
+                JOptionPane.showMessageDialog(this, "-. ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            return true;
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -289,46 +311,45 @@ public class VentanaClientes extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
-        Cliente C = new Cliente();
-        C.setIdCliente(Integer.parseInt(jLabelNumeroCliente.getText()));
-        C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
-        C.setNombre(jTextFieldNombre.getText());
-        C.setApellido(jTextFieldApellido.getText());
-        C.setDomicilio(jTextFieldDomicilio.getText());
-        ABMCliente ABMC= new ABMCliente();          
-        if(condatos_vacio != 1){
-            try {
-                C.insertar();
-                //if(ABMC.nuevoCliente(C))
-                //{
+        if (validarCampos()) {
+            Cliente C = new Cliente();
+            C.setIdCliente(Integer.parseInt(jLabelNumeroCliente.getText()));
+            C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
+            C.setNombre(jTextFieldNombre.getText());
+            C.setApellido(jTextFieldApellido.getText());
+            C.setDomicilio(jTextFieldDomicilio.getText());
+            ABMCliente ABMC = new ABMCliente();
+            if (condatos_vacio != 1) {
+                try {
+                    C.insertar();
+                    //if(ABMC.nuevoCliente(C))
+                    //{
                     //JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                //}else{
+                    //}else{
                     JOptionPane.showMessageDialog(this, "El Cliente se Registro Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
-                //}
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
-           // } catch (SQLException ex) {
-             //   Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else{
-            try {
-                if(!ABMC.modificarCliente(C)){
-                    JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                    //}
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
+                    // } catch (SQLException ex) {
+                    //   Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                try {
+                    if (!ABMC.modificarCliente(C)) {
+                        JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        this.dispose();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+
         }
-        
-           
-      
         
         
         
