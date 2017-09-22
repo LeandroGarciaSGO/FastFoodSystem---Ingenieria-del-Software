@@ -50,8 +50,6 @@ public class DatosPedido extends javax.swing.JFrame {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = formatoFecha.format(d);
         jLabelMostrarFecha.setText(fecha);
-        cargarJComboBox();
-        //jLabelMostrarPedidoNum.setText(String.valueOf(Cliente.obtenerSiguienteId()));
     }
 
     /**
@@ -668,14 +666,6 @@ public class DatosPedido extends javax.swing.JFrame {
             }
             
         }  
-    }
-    
-    public void cargarJComboBox() throws ClassNotFoundException, SQLException{
-        ABMPedido ABMP = new ABMPedido();
-        listaZonas = ABMP.buscarZona();
-        for(int i = 0; i<listaZonas.size(); i++){
-            jComboBoxZona.addItem(listaZonas.get(i).getDescripcion());
-        }
     }
     
     /**
