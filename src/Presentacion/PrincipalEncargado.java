@@ -118,6 +118,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jButtonGenerarFactura.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonGenerarFactura.setMinimumSize(new java.awt.Dimension(210, 80));
         jButtonGenerarFactura.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonGenerarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarFacturaActionPerformed(evt);
+            }
+        });
 
         jButtonModificarCliente.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonModificarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-cliente.png"))); // NOI18N
@@ -125,6 +130,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jButtonModificarCliente.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonModificarCliente.setMinimumSize(new java.awt.Dimension(210, 80));
         jButtonModificarCliente.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonModificarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarClienteActionPerformed(evt);
+            }
+        });
 
         jButtonSalir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cerrar-seccion.png"))); // NOI18N
@@ -160,10 +170,20 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemModificarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemModificarCliente.setText("Modificar Cliente");
+        jMenuItemModificarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemModificarClienteActionPerformed(evt);
+            }
+        });
         jMenuClientes.add(jMenuItemModificarCliente);
 
         jMenuItemBorrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemBorrarCliente.setText("Borrar Cliente");
+        jMenuItemBorrarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBorrarClienteActionPerformed(evt);
+            }
+        });
         jMenuClientes.add(jMenuItemBorrarCliente);
 
         jMenuBar1.add(jMenuClientes);
@@ -326,7 +346,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
@@ -337,11 +357,13 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGenerarFacturaActionPerformed
         // TODO add your handling code here:
+        VentanaGenerarFactura VGF = new VentanaGenerarFactura();
+        VGF.setVisible(true);
     }//GEN-LAST:event_jMenuItemGenerarFacturaActionPerformed
 
     private void jMenuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
 
@@ -349,6 +371,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         // TODO add your handling code here:
         GestionarCadete DC = new GestionarCadete();
         DC.setVisible(true);
+        
+        
     }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
     private void jMenuItemNuevaComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaComidaActionPerformed
         GestionarComida GC = new GestionarComida();
@@ -365,6 +389,29 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         GC.setVisible(true);
     }//GEN-LAST:event_jMenuItemBorrarComidaActionPerformed
 
+    private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
+        // TODO add your handling code here:
+        VentanaGenerarFactura VGF = new VentanaGenerarFactura();
+        VGF.setVisible(true);
+    }//GEN-LAST:event_jButtonGenerarFacturaActionPerformed
+
+    private void jMenuItemModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarClienteActionPerformed
+        // TODO add your handling code here:
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
+        BC.setVisible(true);
+    }//GEN-LAST:event_jMenuItemModificarClienteActionPerformed
+
+    private void jMenuItemBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarClienteActionPerformed
+        // TODO add your handling code here:
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
+        BC.setVisible(true);
+    }//GEN-LAST:event_jMenuItemBorrarClienteActionPerformed
+
+    private void jButtonModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarClienteActionPerformed
+        // TODO add your handling code here:
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
+        BC.setVisible(true);
+    }//GEN-LAST:event_jButtonModificarClienteActionPerformed
     private void jButtonNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPedidoActionPerformed
         // TODO add your handling code here:
         GestionarPedido GP = new GestionarPedido();

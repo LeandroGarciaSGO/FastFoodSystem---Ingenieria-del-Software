@@ -17,15 +17,23 @@ import java.util.logging.Logger;
  */
 public class ABMCliente {
 
-    public boolean nuevoCliente(Cliente C) throws ClassNotFoundException, SQLException {
+    public boolean modificarCliente(Cliente C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
-        NC = C.consultaCliente(C.getTelefono());
+        NC = C.obtenerCliente(C.getTelefono());
         if(NC.first()){
-            return true;
+            if(NC.getBoolean("estado"))
+            {
+                return false;
+            }
+            else
+            {
+                C.modificar();
+                return true;
+            }
         }
         else
         {
-            C.insertarCliente();
+            C.insertar();
             return false;
         }
     }
@@ -33,13 +41,7 @@ public class ABMCliente {
     public Cliente buscarCliente(int telefono) throws ClassNotFoundException, SQLException {
         ResultSet datosCliente;
         Cliente miCliente = new Cliente();
-        datosCliente = miCliente.consultaCliente(telefono);
-        
-        try {
-            boolean primercliente = datosCliente.first();
-        } catch (SQLException ex) {
-            Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        datosCliente = miCliente.obtenerCliente(telefono);
         if (datosCliente.first()) {
             miCliente.setIdCliente(datosCliente.getInt("idCliente"));
             miCliente.setNombre(datosCliente.getString("nombre"));
@@ -47,16 +49,11 @@ public class ABMCliente {
             miCliente.setDomicilio(datosCliente.getString("domicilio"));
             miCliente.setTelefono(datosCliente.getInt("telefono"));
             miCliente.setEstado(datosCliente.getBoolean("estado"));
-            System.out.print(miCliente.getApellido());
-            if (miCliente.isEstado()) {
-                return miCliente;
-            }
-            else
-            {
-                return null;
-            }
+            return miCliente;            
         }
         return null;
     }
+
+  
     
 }

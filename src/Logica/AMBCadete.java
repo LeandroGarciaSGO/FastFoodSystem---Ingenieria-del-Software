@@ -47,4 +47,18 @@ public class AMBCadete {
         }
         return null;
     }
+        public static int obtenerSiguienteId(){
+    return 1;
+}
+ public int nuevoCadete(Cadete C) throws ClassNotFoundException, SQLException{
+    ResultSet NC;
+    NC = C.consultaCadete(C.getNumDocumento());
+    
+    if(NC.first()){
+        return 1;
+    }else{
+        C.agregarNuevoCadete();
+        return 0;
+    }
+}  
 }

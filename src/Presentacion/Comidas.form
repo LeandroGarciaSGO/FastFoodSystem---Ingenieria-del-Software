@@ -93,7 +93,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabelNumeroCliente" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCodigoComida" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jTextFieldDescripComida" alignment="0" max="32767" attributes="0"/>
                       <Component id="jTextFieldPrecioComida" alignment="0" max="32767" attributes="0"/>
                       <Component id="jComboBoxTipoComida" alignment="0" max="32767" attributes="0"/>
@@ -113,7 +113,7 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelCodComida" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelNumeroCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelCodigoComida" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -170,7 +170,7 @@
             <Property name="text" type="java.lang.String" value="Tipo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabelNumeroCliente">
+        <Component class="javax.swing.JLabel" name="jLabelCodigoComida">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Verdana" size="12" style="0"/>

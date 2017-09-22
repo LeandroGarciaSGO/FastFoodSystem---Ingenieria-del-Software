@@ -10,19 +10,21 @@ import Logica.ABMCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Leandro
  */
-public class BuscarCliente extends javax.swing.JFrame {
+public class VentanaBuscarCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form BuscarCliente
      */
-    public BuscarCliente() {
+    public VentanaBuscarCliente() {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
+        jButtonRegistrar.setEnabled(false);
     }
 
     /**
@@ -43,9 +45,8 @@ public class BuscarCliente extends javax.swing.JFrame {
         jButtonRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(610, 310));
+        setTitle("FastFoodSystem - Buscar Cliente");
         setMinimumSize(new java.awt.Dimension(610, 310));
-        setPreferredSize(new java.awt.Dimension(610, 310));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
@@ -54,6 +55,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         jLabelTelefono.setText("Telefono:");
 
         jButtonBuscar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-buscar.png"))); // NOI18N
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,12 +97,19 @@ public class BuscarCliente extends javax.swing.JFrame {
         jLabelMensaje.setForeground(new java.awt.Color(255, 0, 0));
 
         jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setMaximumSize(new java.awt.Dimension(210, 50));
         jButtonCancelar.setMinimumSize(new java.awt.Dimension(210, 50));
         jButtonCancelar.setPreferredSize(new java.awt.Dimension(210, 50));
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jButtonRegistrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-nuevo-cliente.png"))); // NOI18N
         jButtonRegistrar.setText("Registrar");
         jButtonRegistrar.setMaximumSize(new java.awt.Dimension(210, 50));
         jButtonRegistrar.setMinimumSize(new java.awt.Dimension(210, 50));
@@ -116,18 +125,17 @@ public class BuscarCliente extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelMensaje)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(jButtonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMensaje))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,29 +154,44 @@ public class BuscarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean validarCampos(){
+        try{
+            Long.parseLong(jTextFieldTelefono.getText());
+            return true;
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+    }
+    
+    
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
-        ABMCliente BC = new ABMCliente();
-        Cliente C = new Cliente();
-        try {
-            C = BC.buscarCliente(Integer.parseInt(jTextFieldTelefono.getText())); 
-            if(C != null){
-            Clientes VC = new Clientes();
-            VC.setDatosCliente(C);
-            VC.setCondatos_vacio(1); // 1 por que va con datos 
-            VC.LlenarCampos();
-            VC.setVisible(true);
-            this.dispose();
+        if (validarCampos()) {
+            ABMCliente gestionC = new ABMCliente();
+            Cliente C = new Cliente();
+            try {
+                C = gestionC.buscarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
+                if (C != null) {
+                    VentanaClientes VC = new VentanaClientes();
+                    VC.setDatosCliente(C);
+                    VC.setCondatos_vacio(1); // .- Parametro 1 por que lleva datos - Parametro 0 si no llega datos
+                    VC.LlenarCampos();
+                    VC.setVisible(true);
+                    this.dispose();
+                } else {
+                    jLabelMensaje.setText("Cliente Inexistente - Para Registrar Presione \"Registrar\"");
+                    jButtonRegistrar.setEnabled(true);
+                    jButtonBuscar.setEnabled(false);
+                    jTextFieldTelefono.setEditable(false);
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else
-            {
-                jLabelMensaje.setText("Cliente Inexistente - Para Registrar Presione \"Registrar\"");
-            }
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
@@ -178,9 +201,22 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
         // TODO add your handling code here:
-        Clientes C = new Clientes();
+        VentanaClientes C = new VentanaClientes();
+        C.setTelefono(jTextFieldTelefono.getText());
+        C.setCondatos_vacio(0);
+        try {
+            C.LlenarCampos();
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         C.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonRegistrarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,20 +235,21 @@ public class BuscarCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarCliente().setVisible(true);
+                new VentanaBuscarCliente().setVisible(true);
             }
         });
     }

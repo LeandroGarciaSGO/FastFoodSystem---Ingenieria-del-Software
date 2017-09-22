@@ -84,27 +84,34 @@ public class Cliente {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }
+    }    
     
-    
-public ResultSet consultaCliente(int telef) throws ClassNotFoundException{
+public ResultSet obtenerCliente(int telef) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM cliente WHERE telefono = '" + telef + "'"; 
+            String ConsultaSQL = "SELECT * FROM cliente WHERE telefono = '" + telef + "' and estado = true"; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
-            
+            rsDatos = sentencia.executeQuery(ConsultaSQL);            
         } catch (SQLException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }       
         return rsDatos;       
     } 
 
-public static int obtenerSiguienteId(){
-    return 1;
-}
+    public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {        
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT (MAX(idCliente) )AS 'ID' FROM cliente";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+        if (rsDatos.first()) {
+            int id = rsDatos.getInt("ID") + 1;
+            return id;
+        } else {
+            return 1;
+        }
+    }
 
-    public void insertarCliente() throws ClassNotFoundException{
+    public void insertar() throws ClassNotFoundException{
         try {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
@@ -146,13 +153,12 @@ public static int obtenerSiguienteId(){
         }
     }
 
- public void modificar() throws ClassNotFoundException {
-        try {
-      
+ public boolean modificar() throws ClassNotFoundException {
+        try {      
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("UPDATE cliente SET nombre = ? , SET apellido = ? , SET domicilio = ? , SET telefono = ?, SET estado = ? WHERE idCliente = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            psPrepSencencias = cn.prepareStatement("UPDATE cliente SET nombre = ? , apellido = ? , domicilio = ? , telefono = ?, estado = ? WHERE idCliente = ?",PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
             psPrepSencencias.setString(1, nombre);
             psPrepSencencias.setString(2, apellido);
@@ -167,6 +173,7 @@ public static int obtenerSiguienteId(){
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return true;
     }
 
     

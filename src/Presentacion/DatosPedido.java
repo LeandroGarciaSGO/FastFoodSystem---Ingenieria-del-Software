@@ -606,7 +606,7 @@ public class DatosPedido extends javax.swing.JFrame {
     
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
         // TODO add your handling code here:
-        Clientes C = new Clientes();
+        VentanaClientes C = new VentanaClientes();
         C.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
