@@ -39,7 +39,7 @@ public class ABMPedido {
             P.setFecha(datosPedido.getDate("fecha"));
             P.setHora(datosPedido.getTime("hora"));
             P.setLugarDeEnvio(datosPedido.getString("lugarDeEnvio"));
-            P.setZona(datosPedido.getString("zona"));
+            P.setEstado(datosPedido.getInt("estado"));
             if (P.getEstado() == 0) {
                 return P;
             }

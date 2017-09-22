@@ -111,7 +111,7 @@ public class Pedido {
     public ResultSet consultaPedido(int idPedido) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();         
-            String ConsultaSQL = "SELECT idPedido, fecha, hora, lugarDeEnvio, zona FROM pedido WHERE idPedido = '" + idPedido + "' AND estado = '" + 0 + "'";
+            String ConsultaSQL = "SELECT idPedido, fecha, hora, lugarDeEnvio, estado FROM pedido WHERE idPedido = '" + idPedido + "' AND estado = '" + 0 + "'";
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
         } catch (SQLException ex) {

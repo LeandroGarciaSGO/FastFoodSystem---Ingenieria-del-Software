@@ -114,6 +114,19 @@ public ResultSet consultaComida(String desc) throws ClassNotFoundException{
         return rsDatos;       
     }
 
+public ResultSet consultaComidaId(int idComida) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT descripcion,precio FROM comida WHERE idComida = '" + idComida + "'"; 
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;       
+    }
+
 
 public void agregarNuevaComida() throws ClassNotFoundException{
     try {
@@ -129,7 +142,6 @@ public void agregarNuevaComida() throws ClassNotFoundException{
             rsDatos = psPrepSencencias.getGeneratedKeys();
             rsDatos.first();
             idComida = rsDatos.getInt(1);
-            
         } catch (SQLException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }           
