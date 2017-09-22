@@ -5,24 +5,35 @@
  */
 package Presentacion;
 import Datos.Cadete;
+import Datos.Comida;
+import Datos.Conexion;
+import Datos.Usuario;
+import Logica.ABMComida;
 
 import Logica.AMBCadete;
+import java.sql.Connection;
+import java.sql.ResultSet;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Luji
  */
 public class GestionarCadete extends javax.swing.JFrame {
-
+   private Statement sentencia;
+    private ResultSet rsDatos;
     /**
      * Creates new form GestionarCadete
      */
-    public GestionarCadete() {
+    public GestionarCadete() { 
         initComponents();
+       // setLocationRelativeTo(null);
+        //cargarTablaCadetes();
     }
 
     /**
@@ -37,12 +48,12 @@ public class GestionarCadete extends javax.swing.JFrame {
         jLabel2Mensaje = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldNumeroDocumento = new javax.swing.JTextField();
-        jLabelMensaje = new javax.swing.JLabel();
+        jLabelMensajeError = new javax.swing.JLabel();
         jButtonNuevoCadete = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCadetes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -62,9 +73,8 @@ public class GestionarCadete extends javax.swing.JFrame {
             }
         });
 
-        jLabelMensaje.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
-        jLabelMensaje.setForeground(new java.awt.Color(255, 0, 0));
-        jLabelMensaje.setText("\" EL CADETE NO EXISTE\"");
+        jLabelMensajeError.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabelMensajeError.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout jLabel2MensajeLayout = new javax.swing.GroupLayout(jLabel2Mensaje);
         jLabel2Mensaje.setLayout(jLabel2MensajeLayout);
@@ -75,7 +85,7 @@ public class GestionarCadete extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jLabel2MensajeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelMensaje)
+                    .addComponent(jLabelMensajeError)
                     .addComponent(jTextFieldNumeroDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -87,11 +97,11 @@ public class GestionarCadete extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldNumeroDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabelMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelMensajeError, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButtonNuevoCadete.setText("Nuevo Cadete");
+        jButtonNuevoCadete.setText("Nuevo");
         jButtonNuevoCadete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevoCadeteActionPerformed(evt);
@@ -99,10 +109,15 @@ public class GestionarCadete extends javax.swing.JFrame {
         });
 
         jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
 
         jButtonEliminar.setText("Eliminar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCadetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -122,7 +137,7 @@ public class GestionarCadete extends javax.swing.JFrame {
                 "Codigo", "Documento", "Nombre", "Apellido", "Telefono"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableCadetes);
 
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -138,20 +153,22 @@ public class GestionarCadete extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(100, 100, 100)
-                            .addComponent(jButtonNuevoCadete)
-                            .addGap(50, 50, 50)
-                            .addComponent(jButtonModificar)
-                            .addGap(54, 54, 54)
-                            .addComponent(jButtonEliminar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(33, 33, 33)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2Mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1)))))
-                .addContainerGap(141, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(100, 100, 100)
+                                .addComponent(jButtonNuevoCadete)
+                                .addGap(50, 50, 50)
+                                .addComponent(jButtonModificar)
+                                .addGap(54, 54, 54)
+                                .addComponent(jButtonEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2Mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1))))
+                        .addGap(2, 2, 2)))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,24 +190,67 @@ public class GestionarCadete extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Codigo copiado de PABLO
+//    public void cargarTablaCadetes() throws ClassNotFoundException{
+//        String datos []= new String[5];
+//        DefaultTableModel dtm = (DefaultTableModel) jTableCadetes.getModel();
+//        while(dtm.getRowCount()>0)dtm.removeRow(0);
+//        try{
+//            Connection conex = Conexion.Cadena();            
+//            String ConsultaSQL = "SELECT * FROM Cadetes"; 
+//            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//            rsDatos = sentencia.executeQuery(ConsultaSQL);
+//            while(rsDatos.next()){
+//            datos[0]= rsDatos.getString(0);
+//            datos[1]= rsDatos.getString(1);
+//            datos[2]= rsDatos.getString(2);
+//            datos[3]= rsDatos.getString(6);
+//            datos[4]= rsDatos.getString(4);
+//            dtm.addRow(datos);
+//            }
+//        }
+//        catch (SQLException ex) {
+//            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+//        }           
+//    }
+    
+    
+    
+    
     private void jTextFieldNumeroDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumeroDocumentoActionPerformed
         // TODO add your handling code here:
         // TODO add your handling code here:
         AMBCadete CD = new AMBCadete();
         Cadete CA = new Cadete();
+        String cabecera[]={"Codigo","Documento","Nombre","Apellido","Telefono"};
+        String datos[][]={};
+        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
+        jTableCadetes.setModel(modelo);
         try {
             CA = CD.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
             if(CA != null){
-            Cadetes VC = new Cadetes();
-            VC.setDatosCadete(CA);
-            VC.setCondatos_vacio(1); // 1 por que va con datos 
-            VC.LlenarCampos();
-            VC.setVisible(true);
-            this.dispose();
+              int cod = CA.getIdCadete();
+              int doc = CA.getNumDocumento();
+              String nombre = CA.getNombre();
+              String apellido = CA.getApellido();
+              int tel = CA.getTelefono();
+              Object fila[]= {cod,doc,nombre,apellido,tel};
+              modelo.addRow(fila);
+              
+              //sacado de internet
+                            //            Cadetes VC = new Cadetes();
+//            VC.setDatosCadete(CA);
+//            VC.setCondatos_vacio(1); // 1 por que va con datos 
+//            VC.LlenarCampos();
+//            VC.setVisible(true);
+//            this.dispose();
             }
             else
             {
-                jLabelMensaje.setText("Cliente Inexistente - Para Registrar Presione \"Registrar\"");
+                jLabelMensajeError.setText("Cadete Inexistente - Para Agregar presione nuevo cadedete");
+                jButtonEliminar.setEnabled(false);
+                jButtonModificar.setEnabled(false);
+                
             }
             
         } catch (ClassNotFoundException ex) {
@@ -212,10 +272,35 @@ Cadetes C = new Cadetes();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        AMBCadete BC = new AMBCadete();
+        Cadete C = new Cadete();
+        try {
+            C = BC.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
+            if(C != null){
+            Cadetes VC = new Cadetes();
+            VC.setDatosCadete(C);
+            VC.setCondatos_vacio(1); // 1 por que va con datos 
+            VC.LlenarCampos();
+            VC.setVisible(true);
+            this.dispose();
+            }
+            else{
+                //jLabelError.setText("Comida Inexistente!");
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);      
+    }
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+   public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -247,6 +332,7 @@ Cadetes C = new Cadetes();
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonEliminar;
@@ -254,9 +340,9 @@ Cadetes C = new Cadetes();
     private javax.swing.JButton jButtonNuevoCadete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jLabel2Mensaje;
-    private javax.swing.JLabel jLabelMensaje;
+    private javax.swing.JLabel jLabelMensajeError;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableCadetes;
     private javax.swing.JTextField jTextFieldNumeroDocumento;
     // End of variables declaration//GEN-END:variables
 }

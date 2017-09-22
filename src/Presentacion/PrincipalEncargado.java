@@ -366,6 +366,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         // TODO add your handling code here:
         GestionarCadete DC = new GestionarCadete();
         DC.setVisible(true);
+        
+        
     }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
     private void jMenuItemNuevaComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaComidaActionPerformed
         GestionarComida GC = new GestionarComida();
