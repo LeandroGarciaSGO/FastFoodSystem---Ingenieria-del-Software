@@ -588,9 +588,12 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         if (pageIndex > 0) return NO_SUCH_PAGE;
         Graphics2D g2d = (Graphics2D)graphics;
         //Punto donde empezará a imprimir dentro la pagina (100, 50)
-        g2d.translate(  pageFormat.getImageableX()+100, 
-                        pageFormat.getImageableY()+50);
-        g2d.scale(0.50,0.50); //Reducción de la impresión al 50%
+        //g2d.translate(  pageFormat.getImageableX()+100, 
+        //                pageFormat.getImageableY()+50);
+        //g2d.scale(0.50,0.50); //Reducción de la impresión al 50%
+        g2d.translate(  pageFormat.getImageableX()+10, 
+                        pageFormat.getImageableY()+10);
+        g2d.scale(0.80,0.80); //Reducción de la impresión al 50%
         jPanelContenedorFactura.printAll(graphics);
         return PAGE_EXISTS;                
     }
