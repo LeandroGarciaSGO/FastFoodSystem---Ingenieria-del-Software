@@ -38,7 +38,7 @@ public class ABMCliente {
         }
     }
     
-    public Cliente buscarCliente(int telefono) throws ClassNotFoundException, SQLException {
+    public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException {
         ResultSet datosCliente;
         Cliente miCliente = new Cliente();
         datosCliente = miCliente.obtenerCliente(telefono);
@@ -47,13 +47,11 @@ public class ABMCliente {
             miCliente.setNombre(datosCliente.getString("nombre"));
             miCliente.setApellido(datosCliente.getString("apellido"));
             miCliente.setDomicilio(datosCliente.getString("domicilio"));
-            miCliente.setTelefono(datosCliente.getInt("telefono"));
+            miCliente.setTelefono(datosCliente.getLong("telefono"));
             miCliente.setEstado(datosCliente.getBoolean("estado"));
             return miCliente;            
         }
         return null;
     }
-
-  
     
 }

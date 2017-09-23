@@ -39,17 +39,20 @@ public class DatosPedido extends javax.swing.JFrame {
     private int numLinea;
     private ArrayList<DetallePedido> listaDetallePedido;
     private ArrayList<Zona> listaZonas;
+    private Cliente Cl;
     
     public DatosPedido() throws ClassNotFoundException, SQLException {
         initComponents();
         total = 0;
         listaDetallePedido = new ArrayList<DetallePedido>();
         listaZonas = new ArrayList<Zona>();
+        Cl = new Cliente();
         setLocationRelativeTo(null);
         Date d = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = formatoFecha.format(d);
         jLabelMostrarFecha.setText(fecha);
+        cargarJComboBox();
     }
 
     /**
@@ -137,11 +140,6 @@ public class DatosPedido extends javax.swing.JFrame {
 
         jTextFieldTelefono.setMaximumSize(new java.awt.Dimension(120, 20));
         jTextFieldTelefono.setMinimumSize(new java.awt.Dimension(120, 20));
-        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTelefonoActionPerformed(evt);
-            }
-        });
 
         jButtonBuscar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonBuscar.setText("Buscar");
@@ -318,11 +316,6 @@ public class DatosPedido extends javax.swing.JFrame {
         jComboBoxSeleccionarComida.setMaximumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setMinimumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setPreferredSize(new java.awt.Dimension(150, 20));
-        jComboBoxSeleccionarComida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxSeleccionarComidaActionPerformed(evt);
-            }
-        });
 
         jLabelCantidad.setText("Cantidad:");
 
@@ -523,10 +516,6 @@ public class DatosPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
-
     private void jComboBoxZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxZonaActionPerformed
         // TODO add your handling code here:
         switch(String.valueOf(jComboBoxZona.getSelectedItem())){
@@ -547,10 +536,6 @@ public class DatosPedido extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_jComboBoxZonaActionPerformed
-
-    private void jComboBoxSeleccionarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSeleccionarComidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxSeleccionarComidaActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         // TODO add your handling code here:
@@ -582,17 +567,23 @@ public class DatosPedido extends javax.swing.JFrame {
         // TODO add your handling code here:
         Pedido P = new Pedido();
         Cliente C = new Cliente();
+        ABMPedido ABMP = new ABMPedido();
         java.util.Date FP = new java.util.Date();
         try {
-            C = buscarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
-            P.setIdCliente(C.getIdCliente());
-            P.setEstado(0);
-            java.sql.Date fecha = new java.sql.Date(FP.getTime());
-            P.setFecha(fecha);
-            java.sql.Time hora = new java.sql.Time(FP.getTime());
-            P.setHora(hora);
-            P.setLugarDeEnvio(jTextFieldLugarDeEnvio.getText());
-            P.setZona(String.valueOf(jComboBoxZona.getSelectedItem()));
+            if(Cl.isEstado()){
+                
+            }
+            else{
+                C = buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
+                P.setIdCliente(C.getIdCliente());
+                P.setEstado(0);
+                java.sql.Date fecha = new java.sql.Date(FP.getTime());
+                P.setFecha(fecha);
+                java.sql.Time hora = new java.sql.Time(FP.getTime());
+                P.setHora(hora);
+                P.setLugarDeEnvio(jTextFieldLugarDeEnvio.getText());
+                P.setZona(String.valueOf(jComboBoxZona.getSelectedItem()));
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DatosPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -629,15 +620,15 @@ public class DatosPedido extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    public Cliente buscarCliente(int telefono) throws ClassNotFoundException, SQLException{
+    public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException{
         ABMCliente ABMC = new ABMCliente();
         Cliente C = new Cliente();
         C = ABMC.buscarCliente(telefono);
         return C;
     }
     
-    public void mostrarTablaModificar(int cod, int telefono) throws ClassNotFoundException, SQLException{
-        Cliente C = new Cliente();
+    public void mostrarTablaModificar(int cod, long telefono) throws ClassNotFoundException, SQLException{
+        //Cliente C = new Cliente();
         Pedido P = new Pedido();
         Comida Co = new Comida();
         DefaultTableModel modelo = (DefaultTableModel) jTableDetallesPedido.getModel();
@@ -646,12 +637,12 @@ public class DatosPedido extends javax.swing.JFrame {
         ABMComida ABMCo = new ABMComida();
         ArrayList<DetallePedido> listaDetallePedido = new ArrayList<DetallePedido>();
         P = ABMP.buscarPedido(cod);
-        C = buscarCliente(telefono);
+        Cl = buscarCliente(telefono);
         listaDetallePedido = ABMP.buscarDetallePedido(P.getIdPedido());
-        if(C!=null){
-            jLabelMostrarTelefono.setText(String.valueOf(C.getTelefono()));
-            jLabelMostrarApeNom.setText(C.getApellido() + " " + C.getNombre());
-            jLabelMostrarDomicilio.setText(C.getDomicilio());
+        if(Cl!=null){
+            jLabelMostrarTelefono.setText(String.valueOf(Cl.getTelefono()));
+            jLabelMostrarApeNom.setText(Cl.getApellido() + " " + Cl.getNombre());
+            jLabelMostrarDomicilio.setText(Cl.getDomicilio());
             jTextFieldLugarDeEnvio.setText(P.getLugarDeEnvio());
             for(int i = 0; i<listaDetallePedido.size(); i++){
                 Co = ABMCo.buscarComidaId(listaDetallePedido.get(i).getIdComida());
@@ -666,6 +657,14 @@ public class DatosPedido extends javax.swing.JFrame {
             }
             
         }  
+    }
+    
+    public void cargarJComboBox() throws ClassNotFoundException, SQLException{
+        ABMPedido ABMP = new ABMPedido();
+        listaZonas = ABMP.buscarZona();
+        for(int i = 0; i<listaZonas.size(); i++){
+            jComboBoxZona.addItem(listaZonas.get(i).getDescripcion());
+        }
     }
     
     /**

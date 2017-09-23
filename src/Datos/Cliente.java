@@ -26,7 +26,7 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private String domicilio;
-    private int telefono;
+    private long telefono;
     private boolean estado;
 
     public Cliente() {
@@ -70,11 +70,11 @@ public class Cliente {
         this.domicilio = domicilio;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
@@ -86,7 +86,7 @@ public class Cliente {
         this.estado = estado;
     }    
     
-public ResultSet obtenerCliente(int telef) throws ClassNotFoundException{
+public ResultSet obtenerCliente(long telef) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
             String ConsultaSQL = "SELECT * FROM cliente WHERE telefono = '" + telef + "' and estado = true"; 
@@ -96,7 +96,7 @@ public ResultSet obtenerCliente(int telef) throws ClassNotFoundException{
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }       
         return rsDatos;       
-    } 
+    }
 
     public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {        
         Connection conex = Conexion.Cadena();
@@ -121,7 +121,7 @@ public ResultSet obtenerCliente(int telef) throws ClassNotFoundException{
             psPrepSencencias.setString(1, nombre);
             psPrepSencencias.setString(2, apellido);
             psPrepSencencias.setString(3, domicilio);
-            psPrepSencencias.setInt(4, telefono);
+            psPrepSencencias.setLong(4, telefono);
             psPrepSencencias.setBoolean(5, true);
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();
@@ -163,7 +163,7 @@ public ResultSet obtenerCliente(int telef) throws ClassNotFoundException{
             psPrepSencencias.setString(1, nombre);
             psPrepSencencias.setString(2, apellido);
             psPrepSencencias.setString(3, domicilio);
-            psPrepSencencias.setInt(4, telefono);
+            psPrepSencencias.setLong(4, telefono);
             psPrepSencencias.setBoolean(5, true);
             psPrepSencencias.setInt(6, idCliente);
             //ejecuto sentencia

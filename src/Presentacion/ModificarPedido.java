@@ -224,7 +224,7 @@ public class ModificarPedido extends javax.swing.JFrame {
             datos[3] = String.valueOf(P.getFecha());
             datos[4] = String.valueOf(P.getHora());
             
-            C = ABMC.buscarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
+            C = ABMC.buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
             datos[1] = String.valueOf(C.getTelefono());
             datos[2] = C.getNombre();
             dtm.addRow(datos);
@@ -239,20 +239,20 @@ public class ModificarPedido extends javax.swing.JFrame {
         try {
             DatosPedido DP = new DatosPedido();
             int fila = jTableMostrarPedidos.getSelectedRow();
-        int cod = 0;
-        int telefono = 0;
-        if (fila >= 0) {
-            int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
-            for (int i=0; i<filasselec.length;i++){
-                cod = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0)));
-                telefono = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 1)));
-                DP.mostrarTablaModificar(cod, telefono);
+            int cod = 0;
+            long telefono = 0;
+            if (fila >= 0) {
+                int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
+                for (int i=0; i<filasselec.length;i++){
+                    cod = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0)));
+                    telefono = Long.parseLong(String.valueOf(modelo.getValueAt(filasselec[i], 1)));
+                    DP.mostrarTablaModificar(cod, telefono);
+                }
+                DP.setVisible(true);
             }
-            DP.setVisible(true);
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "No Selecciono Ninguna Fila", "Fast Food System", JOptionPane.ERROR_MESSAGE);
-        }
+            else{
+                JOptionPane.showMessageDialog(null, "No Selecciono Ninguna Fila", "Fast Food System", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -311,7 +311,7 @@ public class ModificarPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarPedido().setVisible(true);
+                    new ModificarPedido().setVisible(true);
             }
         });
     }

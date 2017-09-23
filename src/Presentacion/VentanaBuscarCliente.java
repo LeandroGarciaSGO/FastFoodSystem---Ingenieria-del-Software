@@ -173,7 +173,7 @@ public class VentanaBuscarCliente extends javax.swing.JFrame {
             ABMCliente gestionC = new ABMCliente();
             Cliente C = new Cliente();
             try {
-                C = gestionC.buscarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
+                C = gestionC.buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
                 if (C != null) {
                     VentanaClientes VC = new VentanaClientes();
                     VC.setDatosCliente(C);
