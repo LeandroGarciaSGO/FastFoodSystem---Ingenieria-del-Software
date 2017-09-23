@@ -314,7 +314,7 @@ public class VentanaClientes extends javax.swing.JFrame {
         if (validarCampos()) {
             Cliente C = new Cliente();
             C.setIdCliente(Integer.parseInt(jLabelNumeroCliente.getText()));
-            C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
+            C.setTelefono(Long.parseLong(jTextFieldTelefono.getText()));
             C.setNombre(jTextFieldNombre.getText());
             C.setApellido(jTextFieldApellido.getText());
             C.setDomicilio(jTextFieldDomicilio.getText());
