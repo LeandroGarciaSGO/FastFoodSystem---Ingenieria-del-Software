@@ -24,6 +24,11 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
     }
+    
+    
+    void enviarDatosFactura() {
+    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

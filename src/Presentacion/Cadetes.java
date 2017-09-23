@@ -8,7 +8,7 @@ package Presentacion;
 import Datos.Cadete;
 import Logica.AMBCadete;
 import Datos.Cliente;
-import Logica.ABMCliente;
+import Logica.OperacionesCliente;
 import Logica.ABMComida;
 //import Datos.Comida;
 //import Logica.ABMComida;

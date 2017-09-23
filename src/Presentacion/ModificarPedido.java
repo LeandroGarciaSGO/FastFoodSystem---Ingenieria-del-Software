@@ -11,7 +11,7 @@ package Presentacion;
  */
 import Datos.Cliente;
 import Datos.Pedido;
-import Logica.ABMCliente;
+import Logica.OperacionesCliente;
 import Logica.ABMPedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -212,7 +212,7 @@ public class ModificarPedido extends javax.swing.JFrame {
 
     private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
 
-        ABMCliente ABMC = new ABMCliente();
+        OperacionesCliente ABMC = new OperacionesCliente();
         Cliente C = new Cliente();
         ABMPedido ABMP = new ABMPedido();
         Pedido P = new Pedido();

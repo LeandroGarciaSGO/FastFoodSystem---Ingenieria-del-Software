@@ -6,7 +6,7 @@
 package Presentacion;
 
 import Datos.Cliente;
-import Logica.ABMCliente;
+import Logica.OperacionesCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -170,7 +170,7 @@ public class VentanaBuscarCliente extends javax.swing.JFrame {
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
         if (validarCampos()) {
-            ABMCliente gestionC = new ABMCliente();
+            OperacionesCliente gestionC = new OperacionesCliente();
             Cliente C = new Cliente();
             try {
                 C = gestionC.buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));

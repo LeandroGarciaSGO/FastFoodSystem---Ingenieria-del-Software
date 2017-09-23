@@ -10,7 +10,7 @@ package Presentacion;
  * @author Mariano
  */
 
-import Logica.ABMCliente;
+import Logica.OperacionesCliente;
 import Datos.Cliente;
 import Datos.Comida;
 import Datos.DetallePedido;
@@ -621,7 +621,7 @@ public class DatosPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException{
-        ABMCliente ABMC = new ABMCliente();
+        OperacionesCliente ABMC = new OperacionesCliente();
         Cliente C = new Cliente();
         C = ABMC.buscarCliente(telefono);
         return C;

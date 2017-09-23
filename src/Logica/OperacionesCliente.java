@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Leandro
  */
-public class ABMCliente {
+public class OperacionesCliente {
 
     public boolean modificarCliente(Cliente C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
@@ -42,6 +42,22 @@ public class ABMCliente {
         ResultSet datosCliente;
         Cliente miCliente = new Cliente();
         datosCliente = miCliente.obtenerCliente(telefono);
+        if (datosCliente.first()) {
+            miCliente.setIdCliente(datosCliente.getInt("idCliente"));
+            miCliente.setNombre(datosCliente.getString("nombre"));
+            miCliente.setApellido(datosCliente.getString("apellido"));
+            miCliente.setDomicilio(datosCliente.getString("domicilio"));
+            miCliente.setTelefono(datosCliente.getLong("telefono"));
+            miCliente.setEstado(datosCliente.getBoolean("estado"));
+            return miCliente;            
+        }
+        return null;
+    }
+    
+    public Cliente buscarClienteConId(int id) throws ClassNotFoundException, SQLException {
+        ResultSet datosCliente;
+        Cliente miCliente = new Cliente();
+        datosCliente = miCliente.obtenerClienteConId(id);
         if (datosCliente.first()) {
             miCliente.setIdCliente(datosCliente.getInt("idCliente"));
             miCliente.setNombre(datosCliente.getString("nombre"));

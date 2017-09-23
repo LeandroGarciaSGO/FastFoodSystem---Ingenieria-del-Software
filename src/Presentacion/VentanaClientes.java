@@ -6,7 +6,7 @@
 package Presentacion;
 
 import Datos.Cliente;
-import Logica.ABMCliente;
+import Logica.OperacionesCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -318,7 +318,7 @@ public class VentanaClientes extends javax.swing.JFrame {
             C.setNombre(jTextFieldNombre.getText());
             C.setApellido(jTextFieldApellido.getText());
             C.setDomicilio(jTextFieldDomicilio.getText());
-            ABMCliente ABMC = new ABMCliente();
+            OperacionesCliente ABMC = new OperacionesCliente();
             if (condatos_vacio != 1) {
                 try {
                     C.insertar();

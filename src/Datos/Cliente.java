@@ -98,6 +98,18 @@ public ResultSet obtenerCliente(long telef) throws ClassNotFoundException{
         return rsDatos;       
     }
 
+public ResultSet obtenerClienteConId(int id) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT * FROM cliente WHERE idCliente = " + id + " and estado = true"; 
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;       
+    }
+
     public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {        
         Connection conex = Conexion.Cadena();
         String ConsultaSQL = "SELECT (MAX(idCliente) )AS 'ID' FROM cliente";
