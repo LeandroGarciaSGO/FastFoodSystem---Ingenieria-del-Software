@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Leandro
  */
 public class VentanaGenerarFactura extends javax.swing.JFrame {
+    ArrayList<Facturacion> listaPedListos = new ArrayList<Facturacion>();
 
     /**
      * Creates new form VentanaGenerarFactura
@@ -39,8 +40,7 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
     
     public void llenarTabla() throws ClassNotFoundException, SQLException {
         String datos[] = new String[4];
-        DefaultTableModel tablaP = (DefaultTableModel) jTablePedidosListos.getModel();        
-        ArrayList<Facturacion> listaPedListos = new ArrayList<Facturacion>();
+        DefaultTableModel tablaP = (DefaultTableModel) jTablePedidosListos.getModel();       
         OperacionesFacturacion facturacion = new OperacionesFacturacion();
         listaPedListos = facturacion.obtenerInformacionPedidosListos();
         if (listaPedListos != null) {
@@ -166,8 +166,10 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
         // TODO add your handling code here:
      if (jTablePedidosListos.getSelectedRows().length > 0) {
+            int indice = jTablePedidosListos.getRowCount();
+            System.out.print(indice);
             VentanaEmitirFacturacion VEF = new VentanaEmitirFacturacion();
-            VEF.enviarDatosFactura();
+            VEF.cargarDatosFactura(listaPedListos.get(indice-1));
             VEF.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "-. ERROR: Debe Seleccionar un Pedido para Facturar", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);

@@ -62,6 +62,19 @@ public class Facturacion {
         this.datoscliente = datoscliente;
     }
     
+    public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {        
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT (MAX(numFactura) )AS 'ID' FROM factura";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+        if (rsDatos.first()) {
+            int id = rsDatos.getInt("ID") + 1;
+            return id;
+        } else {
+            return 1;
+        }
+    }
+    
     
     
     public ResultSet obtenerPedidosListos() throws ClassNotFoundException, SQLException {
