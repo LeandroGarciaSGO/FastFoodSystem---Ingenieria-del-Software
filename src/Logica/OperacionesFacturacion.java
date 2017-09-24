@@ -1,6 +1,8 @@
 package Logica;
 
 import Datos.Cliente;
+import Datos.Comida;
+import Datos.DetallePedido;
 import Datos.Facturacion;
 import Datos.Pedido;
 import java.sql.ResultSet;
@@ -14,11 +16,12 @@ public class OperacionesFacturacion {
     
     public ArrayList<Facturacion> obtenerInformacionPedidosListos() throws ClassNotFoundException, SQLException {
         ResultSet pedidoslistos;
+        Pedido ped = new Pedido();
         Facturacion factura = new Facturacion();
-        ArrayList<Facturacion> listafacturas = new ArrayList<Facturacion>();        
-        pedidoslistos = factura.obtenerPedidosListos();
+        ArrayList<Facturacion> listafacturas = new ArrayList<Facturacion>();
+        pedidoslistos = ped.obtenerPedidosListos();
         while (pedidoslistos.next()) {
-            Pedido ped = new Pedido();
+            ped = new Pedido();
             ped.setIdPedido(pedidoslistos.getInt("idPedido"));
             ped.setIdCliente(pedidoslistos.getInt("idCliente"));
             ped.setEstado(pedidoslistos.getInt("estado"));
@@ -26,31 +29,45 @@ public class OperacionesFacturacion {
             ped.setHora(pedidoslistos.getTime("hora"));
             ped.setLugarDeEnvio(pedidoslistos.getString("lugarDeEnvio"));
             ped.setZona(pedidoslistos.getString("zona"));
-            ped.setIdCadete(pedidoslistos.getInt("idCadete"));         
-            System.out.print(pedidoslistos.getInt("idPedido"));
-            System.out.print(ped.getIdPedido());
+            ped.setIdCadete(pedidoslistos.getInt("idCadete"));
             OperacionesCliente opCli = new OperacionesCliente();
             Cliente cli = opCli.buscarClienteConId(ped.getIdCliente());
-            if(cli != null){
-               
-            factura.setDatospedido(ped);
-            factura.setDatoscliente(cli);
-            
-//fa.setPed((Pedido) pedidoslistos);
-            //fa.setPed(pedidoslistos.get);
-            //fa.algo = 10;
-            listafacturas.add(factura);
-            return listafacturas;}else{
-                System.out.println("ERROR");
+            if (cli != null) {
+                factura.setDatospedido(ped);
+                factura.setDatoscliente(cli);
+                listafacturas.add(factura);
+                return listafacturas;
             }
         }
-        //}
         return null;
-        //DetallePedido DP1 = new DetallePedido();
-        //ArrayList<DetallePedido> listaDetallePedido = new ArrayList<DetallePedido>();
-
     }
 
+     public ArrayList<DetallePedido> obtenerDetallesDePedidos(Facturacion fac) throws SQLException, ClassNotFoundException{
+        ResultSet listadetalles =  null;
+        DetallePedido detalle = new DetallePedido();
+        Pedido pd = new Pedido();
+        ArrayList<DetallePedido> listaDetalles = new ArrayList<DetallePedido>();        
+        listadetalles = pd.obtenerDetallesPedidosListos(fac.getDatospedido().getIdPedido());
+        while (listadetalles.next()) {
+            //ped = new Pedido2();
+            detalle = new DetallePedido();
+            detalle.setNumLinea(listadetalles.getInt("numLinea"));
+            detalle.setCantidad(listadetalles.getInt("cantidad"));
+            Comida C = new Comida();
+            ResultSet comida = C.consultaComidaId(listadetalles.getInt("idComida"));
+            if(comida.first()){
+                C.setDescripcion(comida.getString("descripcion"));
+                C.setPrecio(comida.getFloat("precio"));
+                detalle.setDatoscomida(C);
+            }
+            listaDetalles.add(detalle);
+        }
+        return listaDetalles;
+    }
+     
+     
+    
+   
 
     
 }

@@ -5,7 +5,9 @@
  */
 package Presentacion;
 
+import Datos.DetallePedido;
 import Datos.Facturacion;
+import Logica.OperacionesFacturacion;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
@@ -13,14 +15,16 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Leandro
  */
 public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Printable{
-
+ ArrayList<DetallePedido> listaDetalles = new ArrayList<DetallePedido>();
     /**
      * Creates new form VentanaFacturacion
      */
@@ -30,19 +34,38 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
     }
     
     
-    void cargarDatosFactura(Facturacion factura) {
-         Facturacion fac = new Facturacion();
-        try {
-            jLabelValorNroFactura.setText(String.valueOf(fac.obtenerSiguienteId()));
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void cargarDatosFactura(Facturacion factura) throws ClassNotFoundException, SQLException {      
+        jLabelValorNroFactura.setText(String.valueOf(factura.obtenerSiguienteId()));
         //jLabelValorFecha.setText(String.valueOf());
         jLabelValorNombreCliente.setText(factura.getDatoscliente().getNombre() + " " + factura.getDatoscliente().getApellido());
         jLabelValorDomicilio.setText(factura.getDatospedido().getLugarDeEnvio());
+        jLabelValorTelefono.setText(String.valueOf(factura.getDatoscliente().getTelefono()));
+        //jLabelValorZona.getText(OBTENER ZONA);
+        jLabelValorFecha.setText(factura.obtenerFechaActual());
+        llenarTablaConDetalleYcalcularTotal(factura);
+    }
+    
+    
+    public void llenarTablaConDetalleYcalcularTotal(Facturacion factura) throws ClassNotFoundException, SQLException {
+        String datos[] = new String[5];
+        DefaultTableModel tablaP = (DefaultTableModel) jTableDetalle.getModel();       
+        OperacionesFacturacion facturacion = new OperacionesFacturacion();
+        listaDetalles = facturacion.obtenerDetallesDePedidos(factura);
+        float total = 0;
+       
+            for (int i = 0; i < listaDetalles.size(); i++) {
+                datos[0] = String.valueOf(listaDetalles.get(i).getNumLinea());
+                datos[1] = String.valueOf(listaDetalles.get(i).getDatoscomida().getDescripcion());
+                datos[2] = String.valueOf(listaDetalles.get(i).getCantidad());
+                datos[3] = String.valueOf(listaDetalles.get(i).getDatoscomida().getPrecio());
+                float totlinea = listaDetalles.get(i).getDatoscomida().getPrecio() * listaDetalles.get(i).getCantidad();
+                datos[4] = String.valueOf(totlinea);
+                tablaP.addRow(datos);
+                total = total + totlinea;
+            }
+            jLabelValorImporte.setText(String.valueOf(total));
         
+
     }
 
     /**
@@ -69,11 +92,14 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         jLabelZonaFactura = new javax.swing.JLabel();
         jLabelValorNombreCliente = new javax.swing.JLabel();
         jLabelValorDomicilio = new javax.swing.JLabel();
+        jLabelValorTelefono = new javax.swing.JLabel();
+        jLabelValorZona = new javax.swing.JLabel();
         jPanelDetalle = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableDetalle = new javax.swing.JTable();
         jLabelTotal = new javax.swing.JLabel();
         jLabelPeso1 = new javax.swing.JLabel();
+        jLabelValorImporte = new javax.swing.JLabel();
         jLabelImporteEnvioFactura = new javax.swing.JLabel();
         jLabelTotalFactura = new javax.swing.JLabel();
         jLabelPeso2 = new javax.swing.JLabel();
@@ -170,6 +196,10 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         jLabelZonaFactura.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabelZonaFactura.setText("Zona:");
 
+        jLabelValorTelefono.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorZona.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanelDatosClienteLayout = new javax.swing.GroupLayout(jPanelDatosCliente);
         jPanelDatosCliente.setLayout(jPanelDatosClienteLayout);
         jPanelDatosClienteLayout.setHorizontalGroup(
@@ -186,10 +216,16 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelValorNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelZonaFactura)
-                    .addComponent(jLabelTelefonoFactura))
-                .addGap(151, 151, 151))
+                .addGroup(jPanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelDatosClienteLayout.createSequentialGroup()
+                        .addComponent(jLabelZonaFactura)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelValorZona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelDatosClienteLayout.createSequentialGroup()
+                        .addComponent(jLabelTelefonoFactura)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelValorTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanelDatosClienteLayout.setVerticalGroup(
             jPanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,9 +233,13 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                 .addContainerGap()
                 .addGroup(jPanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDatosClienteLayout.createSequentialGroup()
-                        .addComponent(jLabelTelefonoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelTelefonoFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelValorTelefono))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelZonaFactura))
+                        .addGroup(jPanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelZonaFactura)
+                            .addComponent(jLabelValorZona)))
                     .addGroup(jPanelDatosClienteLayout.createSequentialGroup()
                         .addGroup(jPanelDatosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelNomApeClienteFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,10 +258,7 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
 
         jTableDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Codigo", "Descripcion", "Cantidad", "Precio Unitario", "Total Linea"
@@ -238,20 +275,24 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         jLabelPeso1.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
         jLabelPeso1.setText("$");
 
+        jLabelValorImporte.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanelDetalleLayout = new javax.swing.GroupLayout(jPanelDetalle);
         jPanelDetalle.setLayout(jPanelDetalleLayout);
         jPanelDetalleLayout.setHorizontalGroup(
             jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelDetalleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDetalleLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelPeso1)
-                .addGap(167, 167, 167))
+                .addContainerGap()
+                .addGroup(jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelDetalleLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPeso1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelValorImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
         );
         jPanelDetalleLayout.setVerticalGroup(
             jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +301,8 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDetalleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPeso1))
+                    .addComponent(jLabelPeso1)
+                    .addComponent(jLabelValorImporte))
                 .addContainerGap())
         );
 
@@ -679,8 +721,11 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
     private javax.swing.JLabel jLabelTotalFactura;
     private javax.swing.JLabel jLabelValorDomicilio;
     private javax.swing.JLabel jLabelValorFecha;
+    private javax.swing.JLabel jLabelValorImporte;
     private javax.swing.JLabel jLabelValorNombreCliente;
     private javax.swing.JLabel jLabelValorNroFactura;
+    private javax.swing.JLabel jLabelValorTelefono;
+    private javax.swing.JLabel jLabelValorZona;
     private javax.swing.JLabel jLabelZonaComprobante;
     private javax.swing.JLabel jLabelZonaFactura;
     private javax.swing.JPanel jPanelContenedorFactura;

@@ -26,6 +26,17 @@ public class DetallePedido {
     private int numLinea;
     private int idComida;
     private int cantidad;
+    private Comida datoscomida;
+
+    public Comida getDatoscomida() {
+        return datoscomida;
+    }
+
+    public void setDatoscomida(Comida datoscomida) {
+        this.datoscomida = datoscomida;
+    }
+    
+    
 
     public DetallePedido() {
         this.idPedido = 0;

@@ -32,6 +32,7 @@ public class Pedido {
     private String lugarDeEnvio;
     private String zona;
     private int idCadete;
+    private DetallePedido detalle;
 
     public Pedido() {
         this.idPedido = 0;
@@ -107,6 +108,16 @@ public class Pedido {
     public void setIdCadete(int idCadete) {
         this.idCadete = idCadete;
     }
+
+    public DetallePedido getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetallePedido detalle) {
+        this.detalle = detalle;
+    }
+    
+    
     
     public ResultSet consultaPedido(int idPedido) throws ClassNotFoundException{
         try {
@@ -155,5 +166,21 @@ public class Pedido {
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ResultSet obtenerPedidosListos() throws ClassNotFoundException, SQLException {
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT * FROM pedido WHERE estado = 3";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+        return rsDatos;
+    }
+    
+    public ResultSet obtenerDetallesPedidosListos(int idPedido) throws ClassNotFoundException, SQLException {
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT * FROM detallePedido WHERE idPedido = " + idPedido;
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+        return rsDatos;
     }
 }

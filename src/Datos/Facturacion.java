@@ -1,10 +1,12 @@
 package Datos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 /**
  *
  * @author Leandro
@@ -74,14 +76,18 @@ public class Facturacion {
             return 1;
         }
     }
-    
-    
-    
-    public ResultSet obtenerPedidosListos() throws ClassNotFoundException, SQLException {
+ 
+    public String obtenerFechaActual() throws ClassNotFoundException, SQLException {
+        String fecha = new String();
         Connection conex = Conexion.Cadena();
-        String ConsultaSQL = "SELECT * FROM pedido WHERE estado = 3";
+        String ConsultaSQL = "SELECT CURDATE() AS 'fechaActual'";
         sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         rsDatos = sentencia.executeQuery(ConsultaSQL);
-        return rsDatos;
+        Date fe = new Date(0);
+        if (rsDatos.first()) {
+            fe = rsDatos.getDate("fechaActual");
+            fecha = String.valueOf(fe);
+        }
+        return fecha;
     }
 }

@@ -169,7 +169,13 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
             int indice = jTablePedidosListos.getRowCount();
             System.out.print(indice);
             VentanaEmitirFacturacion VEF = new VentanaEmitirFacturacion();
-            VEF.cargarDatosFactura(listaPedListos.get(indice-1));
+         try {
+             VEF.cargarDatosFactura(listaPedListos.get(indice-1));
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(VentanaGenerarFactura.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(VentanaGenerarFactura.class.getName()).log(Level.SEVERE, null, ex);
+         }
             VEF.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "-. ERROR: Debe Seleccionar un Pedido para Facturar", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
