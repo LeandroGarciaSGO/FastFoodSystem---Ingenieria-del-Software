@@ -133,10 +133,10 @@ public class Cadete {
     
     
     
-public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
+public ResultSet consultaCadete2(int dni,int cod) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM cadete WHERE numDocumento = '" + dni + "'"; 
+            String ConsultaSQL = "SELECT * FROM cadete WHERE numDocumento = '" + dni + "' AND idCadete != " + cod; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
             
@@ -145,6 +145,47 @@ public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
         }       
         return rsDatos;       
     } 
+
+public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT * FROM cadete WHERE numDocumento = " + dni ; 
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;       
+    }
+
+
+
+//COpiado de leandro
+public boolean modificar() throws ClassNotFoundException {
+        try {      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE cadete SET nombre = ? , apellido = ? , domicilio = ? , telefono = ?, tipoDocumento = ?, numDocumento = ?, estado = ? WHERE idCadete = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setString(1, nombre);
+            psPrepSencencias.setString(2, apellido);
+            psPrepSencencias.setString(3, domicilio);
+            psPrepSencencias.setLong(4, telefono);
+            psPrepSencencias.setString(5,tipoDocumento);
+            psPrepSencencias.setInt(6,numDocumento);
+            psPrepSencencias.setBoolean(7, true);
+            psPrepSencencias.setInt(8, idCadete);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
 
 
 public void agregarNuevoCadete() throws ClassNotFoundException{

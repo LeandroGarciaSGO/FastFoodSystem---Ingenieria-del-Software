@@ -85,7 +85,7 @@ public class Comidas extends javax.swing.JFrame {
             try {
                 jLabelCodigoComida.setText(String.valueOf(C.obtenerSiguienteId()));
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
             }
             jTextFieldDescripComida.setText(getDescripcion());
             //jTextFieldDescripComida.setEditable(false);

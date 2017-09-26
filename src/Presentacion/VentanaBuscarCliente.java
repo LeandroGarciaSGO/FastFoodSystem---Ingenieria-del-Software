@@ -6,21 +6,22 @@
 package Presentacion;
 
 import Datos.Cliente;
-import Logica.ABMCliente;
+import Logica.OperacionesCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Leandro
  */
-public class BuscarCliente extends javax.swing.JFrame {
+public class VentanaBuscarCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form BuscarCliente
      */
-    public BuscarCliente() {
+    public VentanaBuscarCliente() {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
         jButtonRegistrar.setEnabled(false);
@@ -45,9 +46,7 @@ public class BuscarCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Buscar Cliente");
-        setMaximumSize(new java.awt.Dimension(610, 310));
         setMinimumSize(new java.awt.Dimension(610, 310));
-        setPreferredSize(new java.awt.Dimension(610, 310));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
@@ -155,30 +154,44 @@ public class BuscarCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean validarCampos(){
+        try{
+            Long.parseLong(jTextFieldTelefono.getText());
+            return true;
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+    }
+    
+    
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
-        ABMCliente gestionC = new ABMCliente();
-        Cliente C = new Cliente();
-        try {
-            C = gestionC.consultarCliente(Long.parseLong(jTextFieldTelefono.getText()));
-            if (C != null) {
-                Clientes VC = new Clientes();
-                VC.setDatosCliente(C);
-                VC.setCondatos_vacio(1); // .- Parametro 1 por que lleva datos - Parametro 0 si no llega datos
-                VC.LlenarCampos();
-                VC.setVisible(true);
-                this.dispose();
-            } else {
-                jLabelMensaje.setText("Cliente Inexistente - Para Registrar Presione \"Registrar\"");
-                jButtonRegistrar.setEnabled(true);
-                jButtonBuscar.setEnabled(false);
-                jTextFieldTelefono.setEditable(false);
+        if (validarCampos()) {
+            OperacionesCliente gestionC = new OperacionesCliente();
+            Cliente C = new Cliente();
+            try {
+                C = gestionC.buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
+                if (C != null) {
+                    VentanaClientes VC = new VentanaClientes();
+                    VC.setDatosCliente(C);
+                    VC.setCondatos_vacio(1); // .- Parametro 1 por que lleva datos - Parametro 0 si no llega datos
+                    VC.LlenarCampos();
+                    VC.setVisible(true);
+                    this.dispose();
+                } else {
+                    jLabelMensaje.setText("Cliente Inexistente - Para Registrar Presione \"Registrar\"");
+                    jButtonRegistrar.setEnabled(true);
+                    jButtonBuscar.setEnabled(false);
+                    jTextFieldTelefono.setEditable(false);
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
@@ -188,13 +201,13 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
         // TODO add your handling code here:
-        Clientes C = new Clientes();
+        VentanaClientes C = new VentanaClientes();
         C.setTelefono(jTextFieldTelefono.getText());
         C.setCondatos_vacio(0);
         try {
             C.LlenarCampos();
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         C.setVisible(true);
         this.dispose();
@@ -222,20 +235,21 @@ public class BuscarCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaBuscarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarCliente().setVisible(true);
+                new VentanaBuscarCliente().setVisible(true);
             }
         });
     }

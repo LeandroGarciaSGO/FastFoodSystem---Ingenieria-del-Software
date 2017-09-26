@@ -79,6 +79,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jButtonNuevoPedido.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonNuevoPedido.setMinimumSize(new java.awt.Dimension(210, 80));
         jButtonNuevoPedido.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonNuevoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoPedidoActionPerformed(evt);
+            }
+        });
 
         jButtonCancelarPedido.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonCancelarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar-pedido.png"))); // NOI18N
@@ -321,10 +326,15 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
+    private void jMenuGestionarComidaActionPerformed(java.awt.event.ActionEvent evt){
+        GestionarComida GC = new GestionarComida();
+        GC.setVisible(true);
+    }
+    
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
         //JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cerrar sesion?", "ATENCION", JOptionPane.WARNING_MESSAGE);
@@ -340,7 +350,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
 
@@ -348,6 +358,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         // TODO add your handling code here:
         GestionarCadete DC = new GestionarCadete();
         DC.setVisible(true);
+        
+        
     }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
 
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
@@ -358,26 +370,26 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemModificarClienteActionPerformed
 
     private void jMenuItemBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemBorrarClienteActionPerformed
 
     private void jButtonModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarClienteActionPerformed
         // TODO add your handling code here:
-        BuscarCliente BC = new BuscarCliente();
+        VentanaBuscarCliente BC = new VentanaBuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonModificarClienteActionPerformed
-
-    private void jMenuGestionarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGestionarComidaActionPerformed
-        GestionarComida GC = new GestionarComida();
-        GC.setVisible(true);
-    }//GEN-LAST:event_jMenuGestionarComidaActionPerformed
+    private void jButtonNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPedidoActionPerformed
+        // TODO add your handling code here:
+        GestionarPedido GP = new GestionarPedido();
+        GP.setVisible(true);
+    }//GEN-LAST:event_jButtonNuevoPedidoActionPerformed
 
     /**
      * @param args the command line arguments

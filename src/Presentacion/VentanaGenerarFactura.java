@@ -5,11 +5,22 @@
  */
 package Presentacion;
 
+import Datos.Facturacion;
+import Logica.OperacionesCliente;
+import Logica.OperacionesFacturacion;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Leandro
  */
 public class VentanaGenerarFactura extends javax.swing.JFrame {
+    ArrayList<Facturacion> listaPedListos = new ArrayList<Facturacion>();
 
     /**
      * Creates new form VentanaGenerarFactura
@@ -17,6 +28,30 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
     public VentanaGenerarFactura() {
         initComponents();
         setLocationRelativeTo(null);
+        try {
+            llenarTabla();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VentanaGenerarFactura.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaGenerarFactura.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public void llenarTabla() throws ClassNotFoundException, SQLException {
+        String datos[] = new String[4];
+        DefaultTableModel tablaP = (DefaultTableModel) jTablePedidosListos.getModel();       
+        OperacionesFacturacion facturacion = new OperacionesFacturacion();
+        listaPedListos = facturacion.obtenerInformacionPedidosListos();
+        if (listaPedListos != null) {
+            for (int i = 0; i < listaPedListos.size(); i++) {
+                datos[0] = String.valueOf(listaPedListos.get(i).getDatospedido().getIdPedido());
+                datos[1] = String.valueOf(listaPedListos.get(i).getDatospedido().getIdCliente());
+                datos[2] = String.valueOf(listaPedListos.get(i).getDatoscliente().getTelefono());
+                tablaP.addRow(datos);
+            }
+        }
+
     }
 
     /**
@@ -30,7 +65,7 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablePedidosListos = new javax.swing.JTable();
         jButtonGenerarFactura = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
@@ -45,21 +80,18 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(610, 350));
         jPanel1.setPreferredSize(new java.awt.Dimension(610, 350));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePedidosListos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Codigo de Pedido", "Codigo de Cliente", "Telefono", "Importe"
             }
         ));
-        jTable1.setMaximumSize(new java.awt.Dimension(580, 330));
-        jTable1.setMinimumSize(new java.awt.Dimension(580, 330));
-        jTable1.setPreferredSize(new java.awt.Dimension(580, 330));
-        jScrollPane1.setViewportView(jTable1);
+        jTablePedidosListos.setMaximumSize(new java.awt.Dimension(580, 330));
+        jTablePedidosListos.setMinimumSize(new java.awt.Dimension(580, 330));
+        jTablePedidosListos.setPreferredSize(new java.awt.Dimension(580, 330));
+        jScrollPane1.setViewportView(jTablePedidosListos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,9 +165,21 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
 
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
         // TODO add your handling code here:
-     VentanaEmitirFacturacion VEF = new VentanaEmitirFacturacion();
-     VEF.setVisible(true);
-
+     if (jTablePedidosListos.getSelectedRows().length > 0) {
+            int indice = jTablePedidosListos.getRowCount();
+            System.out.print(indice);
+            VentanaEmitirFacturacion VEF = new VentanaEmitirFacturacion();
+         try {
+             VEF.cargarDatosFactura(listaPedListos.get(indice-1));
+         } catch (ClassNotFoundException ex) {
+             Logger.getLogger(VentanaGenerarFactura.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (SQLException ex) {
+             Logger.getLogger(VentanaGenerarFactura.class.getName()).log(Level.SEVERE, null, ex);
+         }
+            VEF.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "-. ERROR: Debe Seleccionar un Pedido para Facturar", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonGenerarFacturaActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -183,6 +227,6 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGenerarFactura;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTablePedidosListos;
     // End of variables declaration//GEN-END:variables
 }
