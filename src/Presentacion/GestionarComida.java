@@ -4,19 +4,31 @@
  * and open the template in the editor.
  */
 package Presentacion;
+
 import Datos.Comida;
 import Logica.ABMComida;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author Gonzalez
  */
 public class GestionarComida extends javax.swing.JFrame {
+
+    private TableRowSorter trsFiltro;
+    private DefaultTableModel modelo;
 
     /**
      * Creates new form GestionarComida
@@ -25,6 +37,14 @@ public class GestionarComida extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        jButtonEliminarComida.setEnabled(false);
+        jButtonModificarComida.setEnabled(false);
+        String cabecera[] = {"Codigo", "Descripcion", "Precio", "Tipo"};
+        String datos[][] = {};
+        modelo = new DefaultTableModel(datos, cabecera);
+        jTableComida.setModel(modelo);
+        cargarTablaComida();
+
     }
 
     /**
@@ -43,15 +63,18 @@ public class GestionarComida extends javax.swing.JFrame {
         jButtonEliminarComida = new javax.swing.JButton();
         jButtonModificarComida = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableComida = new javax.swing.JTable();
-        jButtonSalir = new javax.swing.JButton();
-        jLabelError = new javax.swing.JLabel();
+        jTableComida = new JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
+        jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestionar Comida");
-        setMaximumSize(new java.awt.Dimension(600, 400));
-        setMinimumSize(new java.awt.Dimension(600, 400));
-        setPreferredSize(new java.awt.Dimension(600, 400));
+        setMaximumSize(new java.awt.Dimension(600, 440));
+        setMinimumSize(new java.awt.Dimension(600, 440));
+        setPreferredSize(new java.awt.Dimension(600, 440));
         setResizable(false);
 
         jPanelDescComida.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar Comida", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
@@ -67,6 +90,14 @@ public class GestionarComida extends javax.swing.JFrame {
                 jTextFieldDescripcionActionPerformed(evt);
             }
         });
+        jTextFieldDescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldDescripcionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDescripcionKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelDescComidaLayout = new javax.swing.GroupLayout(jPanelDescComida);
         jPanelDescComida.setLayout(jPanelDescComidaLayout);
@@ -76,7 +107,7 @@ public class GestionarComida extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabelDescripcionComida)
                 .addGap(18, 18, 18)
-                .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addComponent(jTextFieldDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
         jPanelDescComidaLayout.setVerticalGroup(
@@ -90,10 +121,11 @@ public class GestionarComida extends javax.swing.JFrame {
         );
 
         jButtonNuevaComida.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonNuevaComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-nueva-comida.png"))); // NOI18N
         jButtonNuevaComida.setText("Nueva Comida");
-        jButtonNuevaComida.setMaximumSize(new java.awt.Dimension(71, 25));
-        jButtonNuevaComida.setMinimumSize(new java.awt.Dimension(71, 25));
-        jButtonNuevaComida.setPreferredSize(new java.awt.Dimension(71, 25));
+        jButtonNuevaComida.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonNuevaComida.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonNuevaComida.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonNuevaComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevaComidaActionPerformed(evt);
@@ -101,7 +133,11 @@ public class GestionarComida extends javax.swing.JFrame {
         });
 
         jButtonEliminarComida.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonEliminarComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-eliminar-comida.png"))); // NOI18N
         jButtonEliminarComida.setText("Eliminar Comida");
+        jButtonEliminarComida.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonEliminarComida.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonEliminarComida.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonEliminarComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarComidaActionPerformed(evt);
@@ -109,7 +145,11 @@ public class GestionarComida extends javax.swing.JFrame {
         });
 
         jButtonModificarComida.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonModificarComida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-comida.png"))); // NOI18N
         jButtonModificarComida.setText("Modificar Comida");
+        jButtonModificarComida.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonModificarComida.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonModificarComida.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonModificarComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModificarComidaActionPerformed(evt);
@@ -191,43 +231,34 @@ public class GestionarComida extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableComida);
 
-        jButtonSalir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonSalir.setText("Salir");
-        jButtonSalir.setMaximumSize(new java.awt.Dimension(71, 25));
-        jButtonSalir.setMinimumSize(new java.awt.Dimension(71, 25));
-        jButtonSalir.setPreferredSize(new java.awt.Dimension(71, 25));
-        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonCancelar.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonCancelar.setPreferredSize(new java.awt.Dimension(180, 50));
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalirActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
-
-        jLabelError.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabelError.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonNuevaComida, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonModificarComida, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205))
-                    .addComponent(jPanelDescComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelError)
-                        .addGap(85, 85, 85)
-                        .addComponent(jButtonEliminarComida))
-                    .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButtonNuevaComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonModificarComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEliminarComida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelDescComida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -235,18 +266,16 @@ public class GestionarComida extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelDescComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jLabelError)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonEliminarComida, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonModificarComida, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonNuevaComida, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonEliminarComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonModificarComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonNuevaComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -254,109 +283,151 @@ public class GestionarComida extends javax.swing.JFrame {
 
     private void jButtonNuevaComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevaComidaActionPerformed
         Comidas C = new Comidas();
+        C.setDescripcion(jTextFieldDescripcion.getText());
+        C.setCondatos_vacio(0);
+        try {
+            C.LlenarCampos(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+        }
         C.setVisible(true);
         this.dispose();
-        
-        
-        
     }//GEN-LAST:event_jButtonNuevaComidaActionPerformed
 
     private void jButtonEliminarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarComidaActionPerformed
-//        DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
-//        
-//        int cod =Integer.parseInt((String) modelo.getValueAt(jTableComida.getSelectedRow(),0));
-//        String desc=String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(),1));
-//        float precio=Float.parseFloat((String) modelo.getValueAt(jTableComida.getSelectedRow(),2));
-//        String tipo=String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(),3));
-//        ABMComida BC = new ABMComida();
-//        Comidas VC = new Comidas();
-//        Comida C = new Comida(cod,desc,precio,tipo);
-//        VC.setDatosComida(C);
-//        VC.setCondatos_vacio(1);
-//        VC.LlenarCampos();
-//        VC.setVisible(true);
-//        this.dispose();
-        
+        //DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
+        int cod = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 0);
+        String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
+        float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
+        int tipo = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 3);
+        //ABMComida BC = new ABMComida();
+        Comidas VC = new Comidas();
+        Comida C = new Comida(cod, desc, precio, tipo);
+        VC.setDatosComida(C);
+        VC.setCondatos_vacio(1);
+        try {
+            VC.LlenarCampos(2);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        VC.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_jButtonEliminarComidaActionPerformed
 
-    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButtonSalirActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescripcionActionPerformed
         ABMComida BC = new ABMComida();
         Comida C = new Comida();
-        String cabecera[]={"Codigo","Descripcion","Precio","Tipo"};
-        String datos[][]={};
-        DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
-        jTableComida.setModel(modelo);
         try {
             C = BC.buscarComida(String.valueOf(jTextFieldDescripcion.getText()));
-            if(C != null){
-               int cod = C.getIdComida();
-               String desc = C.getDescripcion();
-               float precio = C.getPrecio();
-               String tipo = C.getTipo();
-               Object fila[]= {cod,desc,precio,tipo};
-               modelo.addRow(fila);    
+            if (C != null) {
+                jButtonEliminarComida.setEnabled(true);
+                jButtonModificarComida.setEnabled(true);
+                jButtonNuevaComida.setEnabled(false);
+                jTextFieldDescripcion.setEditable(false);
+                int cod = C.getIdComida();
+                String desc = C.getDescripcion();
+                float precio = C.getPrecio();
+                int tipo = C.getTipo();
+                Object fila[] = {cod, desc, precio, tipo};
+                modelo.addRow(fila);
+            } else {
+                //jLabelError.setText("Comida Inexistente - Para Registrar presione \"Nueva Comida\"");
+                JOptionPane.showMessageDialog(this, "La comida no existe!\nPara registrarla presione\"Nueva Comida\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                jButtonNuevaComida.setEnabled(true);
+                jButtonModificarComida.setEnabled(false);
+                jButtonEliminarComida.setEnabled(false);
+                //jTextFieldDescripcion.setEditable(false);
             }
-            else
-            {
-                jLabelError.setText("Comida Inexistente!");
-            }
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
-    }
-//        ABMComida BC = new ABMComida();
-//        Comida C = new Comida();
-//        try {
-//            C = BC.buscarComida(jTextFieldDescripcion.getText());
-//            if(C != null){
-//            Comidas VC = new Comidas();
-//            VC.setDatosComida(C);
-//            VC.setCondatos_vacio(1);
-//            VC.LlenarCampos();
-//            VC.setVisible(true);
-//            this.dispose();
-//            }
-//            else
-//            {
-//                jLabelError.setText("Comida Inexistente!");
-//            }
-//            
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
-//    }      
+        }
     }//GEN-LAST:event_jTextFieldDescripcionActionPerformed
 
     private void jButtonModificarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarComidaActionPerformed
-        ABMComida BC = new ABMComida();
-        Comida C = new Comida();
+        //DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
+        int cod = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 0);
+        String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
+        float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
+        int tipo = Integer.parseInt((String)modelo.getValueAt(jTableComida.getSelectedRow(), 3));
+        System.out.print(cod + desc + precio + tipo);
+        //ABMComida BC = new ABMComida();
+        Comidas VC = new Comidas();
+        Comida C = new Comida(cod, desc, precio, tipo);
+        VC.setDatosComida(C);
+        VC.setCondatos_vacio(1);
         try {
-            C = BC.buscarComida(jTextFieldDescripcion.getText());
-            if(C != null){
-            Comidas VC = new Comidas();
-            VC.setDatosComida(C);
-            VC.setCondatos_vacio(1); // 1 por que va con datos 
-            VC.LlenarCampos();
-            VC.setVisible(true);
-            this.dispose();
-            }
-            else{
-                jLabelError.setText("Comida Inexistente!");
-            }
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+            VC.LlenarCampos(3);
         } catch (SQLException ex) {
-            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);      
-    }
+            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        VC.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonModificarComidaActionPerformed
+
+    private void jTextFieldDescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescripcionKeyTyped
+        jTextFieldDescripcion.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                //String cadena = (jTextFieldDescripcion.getText());
+                //jTextFieldDescripcion.setText(cadena);
+                //repaint();
+                trsFiltro.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldDescripcion.getText(), 1));
+            }
+        });
+
+        trsFiltro = new TableRowSorter(jTableComida.getModel());
+        jTableComida.setRowSorter(trsFiltro);
+        jTableComida.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int fila = jTableComida.rowAtPoint(e.getPoint());
+                int columna = jTableComida.columnAtPoint(e.getPoint());
+                if ((fila > -1) && (columna > -1)) {
+                   jButtonEliminarComida.setEnabled(true);
+                   jButtonModificarComida.setEnabled(true);
+                   jButtonNuevaComida.setEnabled(false);
+                }
+            }
+        });
+    }//GEN-LAST:event_jTextFieldDescripcionKeyTyped
+
+    private void jTextFieldDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescripcionKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDescripcionKeyReleased
+
+    private void cargarTablaComida() {
+        //String cabecera[]={"Codigo","Descripcion","Precio","Tipo"};
+        //String datos[][]={};
+        //DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
+        //jTableComida.setModel(modelo);
+        ResultSet Re;
+        try {
+            Comida C = new Comida();
+            Re = C.consultarTodasLasComidas();
+            try {
+                while (Re.next()) {
+                    int cod = Re.getInt("idComida");
+                    String desc = Re.getString("descripcion");
+                    float precio = Re.getFloat("precio");
+                    String tipo = Re.getString("tipo");
+                    Object fila[] = {cod, desc, precio, tipo};
+                    modelo.addRow(fila);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -394,12 +465,11 @@ public class GestionarComida extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminarComida;
     private javax.swing.JButton jButtonModificarComida;
     private javax.swing.JButton jButtonNuevaComida;
-    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabelDescripcionComida;
-    private javax.swing.JLabel jLabelError;
     private javax.swing.JPanel jPanelDescComida;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableComida;

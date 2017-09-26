@@ -38,7 +38,7 @@ public class ABMCliente {
         }
     }
     
-    public Cliente consultarCliente(int telefono) throws ClassNotFoundException, SQLException {
+    public Cliente consultarCliente(long telefono) throws ClassNotFoundException, SQLException {
         ResultSet datosCliente;
         Cliente miCliente = new Cliente();
         datosCliente = miCliente.consultaCliente(telefono);
@@ -53,7 +53,7 @@ public class ABMCliente {
             miCliente.setNombre(datosCliente.getString("nombre"));
             miCliente.setApellido(datosCliente.getString("apellido"));
             miCliente.setDomicilio(datosCliente.getString("domicilio"));
-            miCliente.setTelefono(datosCliente.getInt("telefono"));
+            miCliente.setTelefono(datosCliente.getLong("telefono"));
             miCliente.setEstado(datosCliente.getBoolean("estado"));
             System.out.print(miCliente.getApellido());
             if (miCliente.isEstado()) {

@@ -10,16 +10,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author Gonzalez
  */
 public class ABMComida {
+
+    public int nuevaComida(Comida C) throws ClassNotFoundException, SQLException {
+        ResultSet NC;
+        NC = C.consultaComida(C.getDescripcion());
+
+        if (NC.first()) {
+            if (NC.getBoolean("estado")) {
+                return 1;
+            } else {
+                C.agregarNuevaComida();
+                return 0;
+            }
+        } else {
+            C.agregarNuevaComida();
+            return 0;
+        }
+    }
+
     public Comida buscarComida(String desc) throws ClassNotFoundException, SQLException {
         ResultSet datosComida;
         Comida miComida = new Comida();
         datosComida = miComida.consultaComida(desc);
-        
+
         try {
             boolean primeraComida = datosComida.first();
         } catch (SQLException ex) {
@@ -27,36 +46,17 @@ public class ABMComida {
         }
         if (datosComida.first()) {
             miComida.setIdComida(datosComida.getInt("idComida"));
-            miComida.setDescripcion(datosComida.getString("Descripcion"));
-            miComida.setPrecio(datosComida.getFloat("Precio"));
-            miComida.setTipo(datosComida.getString("Tipo"));
-            miComida.setEstado(datosComida.getBoolean("Estado"));
+            miComida.setDescripcion(datosComida.getString("descripcion"));
+            miComida.setPrecio(datosComida.getFloat("precio"));
+            miComida.setTipo(datosComida.getInt("tipo"));
+            miComida.setEstado(datosComida.getBoolean("estado"));
             //System.out.println(miComida.getIdComida());
             if (miComida.isEstado()) {
                 return miComida;
-            }
-            else
-            {
+            } else {
                 return null;
             }
         }
         return null;
     }
-    
-    public static int obtenerSiguienteId(){
-    return 1;
-}
-
-public int nuevaComida(Comida C) throws ClassNotFoundException, SQLException{
-    ResultSet NC;
-    NC = C.consultaComida(C.getDescripcion());
-    
-    if(NC.first()){
-        return 1;
-    }else{
-        C.agregarNuevaComida();
-        return 0;
-    }
-}
-    
 }

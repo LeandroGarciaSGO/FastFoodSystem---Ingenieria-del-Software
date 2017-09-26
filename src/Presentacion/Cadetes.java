@@ -284,7 +284,7 @@ Cadete C = new Cadete();
         C.setTipoDocumento(String.valueOf(jComboBoxTipoDoc.getSelectedItem()));
         C.setDomicilio(jTextFieldDomicilio.getText());
         //C.setTelefono(Integer.parseInt(jTextFieldDocumento.getText()));
-        C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
+        C.setTelefono(Long.parseLong(jTextFieldTelefono.getText()));
         C.setEstado(true);
          try {
              if (AMBC.nuevoCadete(C) == 1){

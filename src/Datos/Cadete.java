@@ -26,7 +26,7 @@ public class Cadete {
     private String nombre;
     private String apellido;
     private String domicilio;
-    private int telefono;
+    private long telefono;
     private String tipoDocumento;
     private int numDocumento;
     private boolean estado;
@@ -87,11 +87,11 @@ public class Cadete {
         this.domicilio = domicilio;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
@@ -154,7 +154,7 @@ public void agregarNuevoCadete() throws ClassNotFoundException{
             psPrepSencencias.setString(1, nombre);
             psPrepSencencias.setString(2, apellido);
             psPrepSencencias.setString(3, domicilio);
-            psPrepSencencias.setInt(4, telefono);
+            psPrepSencencias.setLong(4, telefono);
             psPrepSencencias.setString(5, tipoDocumento);
             psPrepSencencias.setInt(6, numDocumento);
             psPrepSencencias.setBoolean(7, true);

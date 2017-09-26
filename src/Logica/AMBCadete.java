@@ -32,7 +32,7 @@ public class AMBCadete {
             miCadete.setNombre(datosCadete.getString("nombre"));
             miCadete.setApellido(datosCadete.getString("apellido"));
             miCadete.setDomicilio(datosCadete.getString("domicilio"));
-            miCadete.setTelefono(datosCadete.getInt("telefono"));
+            miCadete.setTelefono(datosCadete.getLong("telefono"));
             miCadete.setTipoDocumento(datosCadete.getString("TipoDocumento"));
             miCadete.setNumDocumento(datosCadete.getInt("numDocumento"));
             miCadete.setEstado(datosCadete.getBoolean("estado"));

@@ -319,7 +319,7 @@ public class Clientes extends javax.swing.JFrame {
                 if(!C.modificar()){
                     JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente No se Modifico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 }else{
-                    JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
+                    JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 }
             } catch (ClassNotFoundException ex) {

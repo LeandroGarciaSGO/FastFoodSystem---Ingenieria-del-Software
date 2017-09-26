@@ -86,6 +86,11 @@ public class Login extends javax.swing.JFrame {
         jPasswordFieldContraseña.setMaximumSize(new java.awt.Dimension(200, 20));
         jPasswordFieldContraseña.setMinimumSize(new java.awt.Dimension(200, 20));
         jPasswordFieldContraseña.setPreferredSize(new java.awt.Dimension(200, 20));
+        jPasswordFieldContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordFieldContraseñaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -213,6 +218,39 @@ public class Login extends javax.swing.JFrame {
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
+
+    private void jPasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaActionPerformed
+        Logeo L = new Logeo();
+        try {        
+            int respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
+            if(respuesta != 0){
+                JOptionPane.showMessageDialog(this, "BIENVENIDO A FASTFOODSYSTEM", "Ingreso Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                if(respuesta == 1){
+                    PrincipalAdministrador PA = new PrincipalAdministrador();
+                    PA.setVisible(true); 
+                }else{
+                    if(respuesta == 2)
+                    {
+                        PrincipalEncargado PE = new PrincipalEncargado();
+                        PE.setVisible(true); 
+                    }else{
+                        PrincipalCocina PC = new PrincipalCocina();
+                        PC.setVisible(true); 
+                    }
+                }                    
+                this.dispose();                               
+            }
+            else
+            {
+                 JOptionPane.showMessageDialog(this, "Nombre de Usuario Y/O Contraseña Incorrecta", "-. ERROR!!!", JOptionPane.ERROR_MESSAGE);
+
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jPasswordFieldContraseñaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -7,6 +7,7 @@
 package Presentacion;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -49,9 +50,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jMenuItemModificarCliente = new javax.swing.JMenuItem();
         jMenuItemBorrarCliente = new javax.swing.JMenuItem();
         jMenuComidas = new javax.swing.JMenu();
-        jMenuItemNuevaComida = new javax.swing.JMenuItem();
-        jMenuItemModificarComida = new javax.swing.JMenuItem();
-        jMenuItemBorrarComida = new javax.swing.JMenuItem();
+        jMenuGestionarComida = new javax.swing.JMenuItem();
         jMenuPedidos = new javax.swing.JMenu();
         jMenuItemNuevoPedido = new javax.swing.JMenuItem();
         jMenuItemModificarPedido = new javax.swing.JMenuItem();
@@ -185,32 +184,13 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuComidas.setText("Comidas");
 
-        jMenuItemNuevaComida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemNuevaComida.setText("Nueva Comida");
-        jMenuItemNuevaComida.addActionListener(new java.awt.event.ActionListener() {
+        jMenuGestionarComida.setText("Gestionar Comida");
+        jMenuGestionarComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNuevaComidaActionPerformed(evt);
+                jMenuGestionarComidaActionPerformed(evt);
             }
         });
-        jMenuComidas.add(jMenuItemNuevaComida);
-
-        jMenuItemModificarComida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemModificarComida.setText("Modificar Comida");
-        jMenuItemModificarComida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemModificarComidaActionPerformed(evt);
-            }
-        });
-        jMenuComidas.add(jMenuItemModificarComida);
-
-        jMenuItemBorrarComida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemBorrarComida.setText("Borrar Comida");
-        jMenuItemBorrarComida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemBorrarComidaActionPerformed(evt);
-            }
-        });
-        jMenuComidas.add(jMenuItemBorrarComida);
+        jMenuComidas.add(jMenuGestionarComida);
 
         jMenuBar1.add(jMenuComidas);
 
@@ -347,6 +327,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
+        //JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cerrar sesion?", "ATENCION", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "La sesion se cerrara", "ATENCION", JOptionPane.WARNING_MESSAGE);
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
@@ -367,20 +349,6 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         GestionarCadete DC = new GestionarCadete();
         DC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
-    private void jMenuItemNuevaComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaComidaActionPerformed
-        GestionarComida GC = new GestionarComida();
-        GC.setVisible(true);
-    }//GEN-LAST:event_jMenuItemNuevaComidaActionPerformed
-
-    private void jMenuItemModificarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarComidaActionPerformed
-        GestionarComida GC = new GestionarComida();
-        GC.setVisible(true);
-    }//GEN-LAST:event_jMenuItemModificarComidaActionPerformed
-
-    private void jMenuItemBorrarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarComidaActionPerformed
-        GestionarComida GC = new GestionarComida();
-        GC.setVisible(true);
-    }//GEN-LAST:event_jMenuItemBorrarComidaActionPerformed
 
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
         // TODO add your handling code here:
@@ -405,6 +373,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         BuscarCliente BC = new BuscarCliente();
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonModificarClienteActionPerformed
+
+    private void jMenuGestionarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuGestionarComidaActionPerformed
+        GestionarComida GC = new GestionarComida();
+        GC.setVisible(true);
+    }//GEN-LAST:event_jMenuGestionarComidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -458,19 +431,17 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuClientes;
     private javax.swing.JMenu jMenuComidas;
     private javax.swing.JMenu jMenuFacturacion;
+    private javax.swing.JMenuItem jMenuGestionarComida;
     private javax.swing.JMenuItem jMenuItemAnularFactura;
     private javax.swing.JMenuItem jMenuItemBorrarCadete;
     private javax.swing.JMenuItem jMenuItemBorrarCliente;
-    private javax.swing.JMenuItem jMenuItemBorrarComida;
     private javax.swing.JMenuItem jMenuItemCancelarPedido;
     private javax.swing.JMenuItem jMenuItemGenerarFactura;
     private javax.swing.JMenuItem jMenuItemInformacion;
     private javax.swing.JMenuItem jMenuItemManual;
     private javax.swing.JMenuItem jMenuItemModificarCadete;
     private javax.swing.JMenuItem jMenuItemModificarCliente;
-    private javax.swing.JMenuItem jMenuItemModificarComida;
     private javax.swing.JMenuItem jMenuItemModificarPedido;
-    private javax.swing.JMenuItem jMenuItemNuevaComida;
     private javax.swing.JMenuItem jMenuItemNuevoCadete;
     private javax.swing.JMenuItem jMenuItemNuevoCliente;
     private javax.swing.JMenuItem jMenuItemNuevoPedido;

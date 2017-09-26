@@ -198,6 +198,9 @@
               <Dimension value="[200, 20]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordFieldContrase&#xf1;aActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

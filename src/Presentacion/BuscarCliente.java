@@ -160,7 +160,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         ABMCliente gestionC = new ABMCliente();
         Cliente C = new Cliente();
         try {
-            C = gestionC.consultarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
+            C = gestionC.consultarCliente(Long.parseLong(jTextFieldTelefono.getText()));
             if (C != null) {
                 Clientes VC = new Clientes();
                 VC.setDatosCliente(C);
