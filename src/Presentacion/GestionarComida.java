@@ -300,12 +300,12 @@ public class GestionarComida extends javax.swing.JFrame {
 //        String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
 //        float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
 //        int tipo = Integer.parseInt((String)modelo.getValueAt(jTableComida.getSelectedRow(), 3));
-         int fila = jTableComida.getSelectedRow();
-        
+        int fila = jTableComida.getSelectedRow();
+
         int cod = (int) jTableComida.getValueAt(fila, 0);
-        String desc = String.valueOf(jTableComida.getValueAt(fila,1));
+        String desc = String.valueOf(jTableComida.getValueAt(fila, 1));
         float precio = (float) jTableComida.getValueAt(fila, 2);
-        int tipo = Integer.parseInt((String)jTableComida.getValueAt(fila, 3));
+        int tipo = Integer.parseInt((String) jTableComida.getValueAt(fila, 3));
         System.out.print(cod + desc + precio + tipo);
 //        int tipo = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 3);
         //ABMComida BC = new ABMComida();
@@ -328,11 +328,13 @@ public class GestionarComida extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescripcionActionPerformed
-        ABMComida BC = new ABMComida();
-        Comida C = new Comida();
-        try {
-            C = BC.buscarComida(String.valueOf(jTextFieldDescripcion.getText()));
-            if (C == null) {
+        if (validarCampoDescripcion()) {
+            ABMComida BC = new ABMComida();
+            Comida C = new Comida();
+            try {
+
+                C = BC.buscarComida(String.valueOf(jTextFieldDescripcion.getText()));
+                if (C == null) {
 //                jButtonEliminarComida.setEnabled(true);
 //                jButtonModificarComida.setEnabled(true);
 //                jButtonNuevaComida.setEnabled(false);
@@ -345,17 +347,18 @@ public class GestionarComida extends javax.swing.JFrame {
 //                modelo.addRow(fila);
 //            } else {
 //                //jLabelError.setText("Comida Inexistente - Para Registrar presione \"Nueva Comida\"");
-                JOptionPane.showMessageDialog(this, "La comida no existe!\nPara registrarla presione\"Nueva Comida\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "La comida no existe!\nPara registrarla presione\"Nueva Comida\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
 //                jButtonNuevaComida.setEnabled(true);
 //                jButtonModificarComida.setEnabled(false);
 //                jButtonEliminarComida.setEnabled(false);
 //                //jTextFieldDescripcion.setEditable(false);
-            }
+                }
 //
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jTextFieldDescripcionActionPerformed
 
@@ -366,13 +369,13 @@ public class GestionarComida extends javax.swing.JFrame {
         //float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
         //int tipo = Integer.parseInt((String)modelo.getValueAt(jTableComida.getSelectedRow(), 3));
         int fila = jTableComida.getSelectedRow();
-        
+
         int cod = (int) jTableComida.getValueAt(fila, 0);
-        String desc = String.valueOf(jTableComida.getValueAt(fila,1));
+        String desc = String.valueOf(jTableComida.getValueAt(fila, 1));
         float precio = (float) jTableComida.getValueAt(fila, 2);
-        int tipo = Integer.parseInt((String)jTableComida.getValueAt(fila, 3));
+        int tipo = Integer.parseInt((String) jTableComida.getValueAt(fila, 3));
         System.out.print(cod + desc + precio + tipo);
-        
+
         //ABMComida BC = new ABMComida();
         Comidas VC = new Comidas();
         Comida C = new Comida(cod, desc, precio, tipo);
@@ -405,9 +408,9 @@ public class GestionarComida extends javax.swing.JFrame {
                 int fila = jTableComida.rowAtPoint(e.getPoint());
                 int columna = jTableComida.columnAtPoint(e.getPoint());
                 if ((fila > -1) && (columna > -1)) {
-                   jButtonEliminarComida.setEnabled(true);
-                   jButtonModificarComida.setEnabled(true);
-                   jButtonNuevaComida.setEnabled(false);
+                    jButtonEliminarComida.setEnabled(true);
+                    jButtonModificarComida.setEnabled(true);
+                    jButtonNuevaComida.setEnabled(false);
                 }
             }
         });
@@ -437,6 +440,15 @@ public class GestionarComida extends javax.swing.JFrame {
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean validarCampoDescripcion() {
+        if (!jTextFieldDescripcion.getText().matches("[^A-Za-z]")) {
+            JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
         }
     }
 

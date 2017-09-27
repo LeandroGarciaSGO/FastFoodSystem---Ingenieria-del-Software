@@ -58,28 +58,31 @@ public class Comidas extends javax.swing.JFrame {
     }
 
     void LlenarCampos(int boton) throws SQLException {
-        
-        switch(boton){
-        //nueva comida
-        case 1: jButtonEliminar.setEnabled(false);
+
+        switch (boton) {
+            //nueva comida
+            case 1:
+                jButtonEliminar.setEnabled(false);
                 jButtonGuardar.setEnabled(true);
-            break;
-        //eliminar comida
-        case 2: jButtonEliminar.setEnabled(true);
-                jButtonGuardar.setEnabled(false);  
-            break;
-        //modificar comida
-        case 3: jButtonEliminar.setEnabled(false);
+                break;
+            //eliminar comida
+            case 2:
+                jButtonEliminar.setEnabled(true);
+                jButtonGuardar.setEnabled(false);
+                break;
+            //modificar comida
+            case 3:
+                jButtonEliminar.setEnabled(false);
                 jButtonGuardar.setEnabled(true);
-            break;
+                break;
         }
-        
+
         if (condatos_vacio == 1) {
             jLabelCodigoComida.setText(String.valueOf(datosComida.getIdComida()));
             jTextFieldDescripComida.setText(datosComida.getDescripcion());
             jTextFieldPrecioComida.setText(String.valueOf(datosComida.getPrecio()));
             //jComboBoxTipoComida.setSelectedItem(String.valueOf(datosComida.getTipo()));
-            jComboBoxTipoComida.setSelectedIndex(datosComida.getTipo()-1);
+            jComboBoxTipoComida.setSelectedIndex(datosComida.getTipo() - 1);
         } else {
             Comida C = new Comida();
             try {
@@ -89,7 +92,7 @@ public class Comidas extends javax.swing.JFrame {
             }
             jTextFieldDescripComida.setText(getDescripcion());
             //jTextFieldDescripComida.setEditable(false);
-            
+
         }
     }
 
@@ -297,40 +300,45 @@ public class Comidas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        Comida C = new Comida();
-        ABMComida ABMC = new ABMComida();
-        C.setIdComida(Integer.parseInt(jLabelCodigoComida.getText()));
-        C.setDescripcion(jTextFieldDescripComida.getText());
-        C.setPrecio(Float.parseFloat(jTextFieldPrecioComida.getText()));
-        C.setTipo(Integer.parseInt(String.valueOf(jComboBoxTipoComida.getSelectedIndex()+1)));
-        C.setEstado(true);
+//        if (validarCampoDescripcion()&&validarCampoPrecio()) {
+//        if ((!validarCampoDescripcion()) && jTextFieldDescripComida.getText().length()<= 0) {
+ //           if ((!validarCampoPrecio()) && jTextFieldPrecioComida.getText().isEmpty()) {
+                Comida C = new Comida();
+                ABMComida ABMC = new ABMComida();
+                C.setIdComida(Integer.parseInt(jLabelCodigoComida.getText()));
+                C.setDescripcion(jTextFieldDescripComida.getText());
+                C.setPrecio(Float.parseFloat(jTextFieldPrecioComida.getText()));
+                C.setTipo(Integer.parseInt(String.valueOf(jComboBoxTipoComida.getSelectedIndex() + 1)));
+                C.setEstado(true);
 
-        if (condatos_vacio != 1) {
-            try {
-                if (ABMC.nuevaComida(C) == 1) {
-                    JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                if (condatos_vacio != 1) {
+                    try {
+                        if (ABMC.nuevaComida(C) == 1) {
+                            JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "La comida se cargo correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "La comida se cargo correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
+                    try {
+                        if (!C.modificar()) {
+                            JOptionPane.showMessageDialog(this, "ERROR: La comida no se modifico!", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "La comida se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
-                if (!C.modificar()) {
-                    JOptionPane.showMessageDialog(this, "ERROR: La comida no se modifico!", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "La comida se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }
-            } catch (ClassNotFoundException ex) {
-                //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
-                Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//            }
+//        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -345,26 +353,59 @@ public class Comidas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-    private void cargarTipoComida(){
+    private void cargarTipoComida() {
         try {
             Comida C = new Comida();
-            R=C.consultaTipoComida();
+            R = C.consultaTipoComida();
             jComboBoxTipoComida.removeAllItems();
             try {
-                while(R.next()){
+                while (R.next()) {
                     jComboBoxTipoComida.addItem(R.getObject("descripcion"));
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public boolean validarCampoDescripcion() {
+        if (!jTextFieldDescripComida.getText().matches("[^A-Za-z]")) {
+            JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean validarCampoPrecio() {
+        try {
+            Float.parseFloat(jTextFieldPrecioComida.getText());
+            return true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "ERROR: El precio debe ser numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+//    private boolean validarCamposComidas() {
+//        if ((!validarCampoDescripcion()) && jTextFieldDescripComida.getText().isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "ERROR: El campo \"Descripcion\" no debe ser vacio y debe contener solo palabras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+//            if ((!validarCampoPrecio()) && jTextFieldPrecioComida.getText().isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "ERROR: El campo \"Precio\" no debe ser vacio y debe ser numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+//            } else {
+//                return true;
+//            }
+//        } else {
+//            return true;
+//        }
+//        return false;
+//    }
+
     private void jComboBoxTipoComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoComidaActionPerformed
-        
+
     }//GEN-LAST:event_jComboBoxTipoComidaActionPerformed
 
     /**
