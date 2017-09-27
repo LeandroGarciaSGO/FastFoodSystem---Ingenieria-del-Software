@@ -324,26 +324,26 @@ public class GestionarComida extends javax.swing.JFrame {
         Comida C = new Comida();
         try {
             C = BC.buscarComida(String.valueOf(jTextFieldDescripcion.getText()));
-            if (C != null) {
-                jButtonEliminarComida.setEnabled(true);
-                jButtonModificarComida.setEnabled(true);
-                jButtonNuevaComida.setEnabled(false);
-                jTextFieldDescripcion.setEditable(false);
-                int cod = C.getIdComida();
-                String desc = C.getDescripcion();
-                float precio = C.getPrecio();
-                int tipo = C.getTipo();
-                Object fila[] = {cod, desc, precio, tipo};
-                modelo.addRow(fila);
-            } else {
-                //jLabelError.setText("Comida Inexistente - Para Registrar presione \"Nueva Comida\"");
+            if (C == null) {
+//                jButtonEliminarComida.setEnabled(true);
+//                jButtonModificarComida.setEnabled(true);
+//                jButtonNuevaComida.setEnabled(false);
+//                jTextFieldDescripcion.setEditable(false);
+//                int cod = C.getIdComida();
+//                String desc = C.getDescripcion();
+//                float precio = C.getPrecio();
+//                int tipo = C.getTipo();
+//                Object fila[] = {cod, desc, precio, tipo};
+//                modelo.addRow(fila);
+//            } else {
+//                //jLabelError.setText("Comida Inexistente - Para Registrar presione \"Nueva Comida\"");
                 JOptionPane.showMessageDialog(this, "La comida no existe!\nPara registrarla presione\"Nueva Comida\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                jButtonNuevaComida.setEnabled(true);
-                jButtonModificarComida.setEnabled(false);
-                jButtonEliminarComida.setEnabled(false);
-                //jTextFieldDescripcion.setEditable(false);
+//                jButtonNuevaComida.setEnabled(true);
+//                jButtonModificarComida.setEnabled(false);
+//                jButtonEliminarComida.setEnabled(false);
+//                //jTextFieldDescripcion.setEditable(false);
             }
-
+//
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
