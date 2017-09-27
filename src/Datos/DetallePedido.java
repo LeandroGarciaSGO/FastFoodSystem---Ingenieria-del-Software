@@ -103,5 +103,35 @@ public class DetallePedido {
         }
     }
     
+    public void eliminarDetallePedido(int idPedido) throws ClassNotFoundException{
+        try {      
+            Connection cn = Conexion.Cadena();
+            sentencia = cn.createStatement();
+            sentencia.executeUpdate("DELETE FROM detallePedido WHERE idPedido = '"+idPedido+"'");
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
+    public boolean modificarDetallePedido() throws ClassNotFoundException{
+        try {      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE detallePedido SET idPedido = ? , numLinea = ? , idComida = ? , cantidad = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setInt(1, idPedido);
+            psPrepSencencias.setInt(2, numLinea);
+            psPrepSencencias.setInt(3, idComida);
+            psPrepSencencias.setInt(4, cantidad);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
 }

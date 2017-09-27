@@ -28,8 +28,10 @@ public class OperacionesFacturacion {
             ped.setFecha(pedidoslistos.getDate("fecha"));
             ped.setHora(pedidoslistos.getTime("hora"));
             ped.setLugarDeEnvio(pedidoslistos.getString("lugarDeEnvio"));
-            ped.setZona(pedidoslistos.getString("zona"));
-            ped.setIdCadete(pedidoslistos.getInt("idCadete"));
+            ped.setZona(pedidoslistos.getInt("zona"));
+            ped.setIdCadete(pedidoslistos.getInt("idCadete"));         
+            System.out.print(pedidoslistos.getInt("idPedido"));
+            System.out.print(ped.getIdPedido());
             OperacionesCliente opCli = new OperacionesCliente();
             Cliente cli = opCli.buscarClienteConId(ped.getIdCliente());
             if (cli != null) {

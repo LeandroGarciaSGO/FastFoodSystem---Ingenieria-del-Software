@@ -38,15 +38,16 @@ public class GestionarPedido extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Gestionar Pedidos");
-        setMaximumSize(new java.awt.Dimension(400, 200));
-        setMinimumSize(new java.awt.Dimension(400, 200));
+        setMaximumSize(new java.awt.Dimension(500, 200));
+        setMinimumSize(new java.awt.Dimension(500, 200));
         setResizable(false);
 
         jButtonNuevoPedido.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonNuevoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-nuevo-pedido.png"))); // NOI18N
         jButtonNuevoPedido.setText("Nuevo Pedido");
-        jButtonNuevoPedido.setMaximumSize(new java.awt.Dimension(130, 40));
-        jButtonNuevoPedido.setMinimumSize(new java.awt.Dimension(130, 40));
-        jButtonNuevoPedido.setPreferredSize(new java.awt.Dimension(130, 40));
+        jButtonNuevoPedido.setMaximumSize(new java.awt.Dimension(210, 80));
+        jButtonNuevoPedido.setMinimumSize(new java.awt.Dimension(210, 80));
+        jButtonNuevoPedido.setPreferredSize(new java.awt.Dimension(210, 80));
         jButtonNuevoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevoPedidoActionPerformed(evt);
@@ -54,10 +55,11 @@ public class GestionarPedido extends javax.swing.JFrame {
         });
 
         jButtonModificarPedido.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonModificarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-pedido.png"))); // NOI18N
         jButtonModificarPedido.setText("Modificar Pedido");
-        jButtonModificarPedido.setMaximumSize(new java.awt.Dimension(130, 40));
-        jButtonModificarPedido.setMinimumSize(new java.awt.Dimension(130, 40));
-        jButtonModificarPedido.setPreferredSize(new java.awt.Dimension(130, 40));
+        jButtonModificarPedido.setMaximumSize(new java.awt.Dimension(210, 80));
+        jButtonModificarPedido.setMinimumSize(new java.awt.Dimension(210, 80));
+        jButtonModificarPedido.setPreferredSize(new java.awt.Dimension(210, 80));
         jButtonModificarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModificarPedidoActionPerformed(evt);
@@ -82,22 +84,22 @@ public class GestionarPedido extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(jButtonNuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(jButtonModificarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonNuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonModificarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(172, 172, 172)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(214, 214, 214))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonModificarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonNuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonModificarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonNuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -121,8 +123,15 @@ public class GestionarPedido extends javax.swing.JFrame {
 
     private void jButtonModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarPedidoActionPerformed
         // TODO add your handling code here:
-        ModificarPedido MP = new ModificarPedido();
-        MP.setVisible(true);
+        ModificarPedido MP;
+        try {
+            MP = new ModificarPedido();
+            MP.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestionarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonModificarPedidoActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed

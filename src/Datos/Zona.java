@@ -22,6 +22,7 @@ public class Zona {
     private ResultSet rsDatos;
     private PreparedStatement psPrepSencencias;
     
+    private int idZona;
     private String descripcion;
     private float precio;
 
@@ -30,6 +31,14 @@ public class Zona {
         this.precio = 0;
     }
 
+    public int getIdZona() {
+        return idZona;
+    }
+
+    public void setIdZona(int idZona) {
+        this.idZona = idZona;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
