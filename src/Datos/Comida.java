@@ -116,7 +116,7 @@ public class Comida {
     public ResultSet consultarTodasLasComidas() throws ClassNotFoundException {
         try {
             Connection conex = Conexion.Cadena();
-            String ConsultaSQL = "SELECT * FROM comida";
+            String ConsultaSQL = "SELECT * FROM comida WHERE estado = 1";
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
 
