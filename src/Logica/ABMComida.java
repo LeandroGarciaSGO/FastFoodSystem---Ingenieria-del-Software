@@ -82,8 +82,8 @@ public class ABMComida {
         return null;
     }
     
-    public static int obtenerSiguienteId(){
-    return 1;
-}
+//    public static int obtenerSiguienteId(){
+//    return 1;
+//}
     
 }

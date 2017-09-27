@@ -296,10 +296,18 @@ public class GestionarComida extends javax.swing.JFrame {
 
     private void jButtonEliminarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarComidaActionPerformed
         //DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
-        int cod = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 0);
-        String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
-        float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
-        int tipo = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 3);
+//        int cod = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 0);
+//        String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
+//        float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
+//        int tipo = Integer.parseInt((String)modelo.getValueAt(jTableComida.getSelectedRow(), 3));
+         int fila = jTableComida.getSelectedRow();
+        
+        int cod = (int) jTableComida.getValueAt(fila, 0);
+        String desc = String.valueOf(jTableComida.getValueAt(fila,1));
+        float precio = (float) jTableComida.getValueAt(fila, 2);
+        int tipo = Integer.parseInt((String)jTableComida.getValueAt(fila, 3));
+        System.out.print(cod + desc + precio + tipo);
+//        int tipo = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 3);
         //ABMComida BC = new ABMComida();
         Comidas VC = new Comidas();
         Comida C = new Comida(cod, desc, precio, tipo);
@@ -353,11 +361,18 @@ public class GestionarComida extends javax.swing.JFrame {
 
     private void jButtonModificarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarComidaActionPerformed
         //DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
-        int cod = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 0);
-        String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
-        float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
-        int tipo = Integer.parseInt((String)modelo.getValueAt(jTableComida.getSelectedRow(), 3));
+        //int cod = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 0);
+        //String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
+        //float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
+        //int tipo = Integer.parseInt((String)modelo.getValueAt(jTableComida.getSelectedRow(), 3));
+        int fila = jTableComida.getSelectedRow();
+        
+        int cod = (int) jTableComida.getValueAt(fila, 0);
+        String desc = String.valueOf(jTableComida.getValueAt(fila,1));
+        float precio = (float) jTableComida.getValueAt(fila, 2);
+        int tipo = Integer.parseInt((String)jTableComida.getValueAt(fila, 3));
         System.out.print(cod + desc + precio + tipo);
+        
         //ABMComida BC = new ABMComida();
         Comidas VC = new Comidas();
         Comida C = new Comida(cod, desc, precio, tipo);
@@ -403,10 +418,6 @@ public class GestionarComida extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescripcionKeyReleased
 
     private void cargarTablaComida() {
-        //String cabecera[]={"Codigo","Descripcion","Precio","Tipo"};
-        //String datos[][]={};
-        //DefaultTableModel modelo = new DefaultTableModel(datos,cabecera);
-        //jTableComida.setModel(modelo);
         ResultSet Re;
         try {
             Comida C = new Comida();
