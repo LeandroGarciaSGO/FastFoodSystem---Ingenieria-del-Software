@@ -151,6 +151,7 @@ public class Comidas extends javax.swing.JFrame {
         jTextFieldPrecioComida.setMinimumSize(new java.awt.Dimension(210, 20));
         jTextFieldPrecioComida.setPreferredSize(new java.awt.Dimension(210, 20));
 
+        jComboBoxTipoComida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar el tipo..." }));
         jComboBoxTipoComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTipoComidaActionPerformed(evt);
@@ -300,7 +301,7 @@ public class Comidas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        if (validarCampoDescripcion()&&validarCampoPrecio()){
+        if ((validarCampoDescripcion()&&validarCampoPrecio())&&validarTipo()){
                 Comida C = new Comida();
                 ABMComida ABMC = new ABMComida();
                 C.setIdComida(Integer.parseInt(jLabelCodigoComida.getText()));
@@ -354,7 +355,7 @@ public class Comidas extends javax.swing.JFrame {
         try {
             Comida C = new Comida();
             R = C.consultaTipoComida();
-            jComboBoxTipoComida.removeAllItems();
+            //jComboBoxTipoComida.removeAllItems();
             try {
                 while (R.next()) {
                     jComboBoxTipoComida.addItem(R.getObject("descripcion"));
@@ -365,6 +366,15 @@ public class Comidas extends javax.swing.JFrame {
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public boolean validarTipo(){
+        if (jComboBoxTipoComida.getSelectedIndex()!=0){
+            return true;
+        }else{
+           JOptionPane.showMessageDialog(this, "ERROR: Debe seleccionar un tipo de comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+           return false; 
         }
     }
 
