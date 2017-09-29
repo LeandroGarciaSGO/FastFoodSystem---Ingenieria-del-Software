@@ -123,7 +123,7 @@ public class AMBCadete {
  public Cadete consultaCadeteEstado(int idCadete) throws SQLException, ClassNotFoundException{
      ResultSet datosCadete;
      Cadete miCadete = new Cadete();
-     datosCadete = miCadete.consultaCadeteEstado(idCadete);
+     datosCadete = miCadete.consultaEstado(idCadete);
      try {
          boolean primercadete = datosCadete.first();
      } catch (SQLException ex) {

@@ -48,10 +48,10 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
                 datos[0] = String.valueOf(listaPedListos.get(i).getDatospedido().getIdPedido());
                 datos[1] = String.valueOf(listaPedListos.get(i).getDatospedido().getIdCliente());
                 datos[2] = String.valueOf(listaPedListos.get(i).getDatoscliente().getTelefono());
+                datos[3] = "Listo Para Enviar";
                 tablaP.addRow(datos);
             }
         }
-
     }
 
     /**
@@ -85,13 +85,28 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo de Pedido", "Codigo de Cliente", "Telefono", "Importe"
+                "Codigo de Pedido", "Codigo de Cliente", "Telefono", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTablePedidosListos.setMaximumSize(new java.awt.Dimension(580, 330));
         jTablePedidosListos.setMinimumSize(new java.awt.Dimension(580, 330));
         jTablePedidosListos.setPreferredSize(new java.awt.Dimension(580, 330));
+        jTablePedidosListos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTablePedidosListos);
+        if (jTablePedidosListos.getColumnModel().getColumnCount() > 0) {
+            jTablePedidosListos.getColumnModel().getColumn(0).setResizable(false);
+            jTablePedidosListos.getColumnModel().getColumn(1).setResizable(false);
+            jTablePedidosListos.getColumnModel().getColumn(2).setResizable(false);
+            jTablePedidosListos.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

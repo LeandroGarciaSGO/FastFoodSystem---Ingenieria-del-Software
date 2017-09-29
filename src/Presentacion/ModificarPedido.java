@@ -11,6 +11,8 @@ package Presentacion;
  */
 import Datos.Pedido;
 import Logica.OperacionesPedido;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -29,6 +31,10 @@ public class ModificarPedido extends javax.swing.JFrame {
     public ModificarPedido() throws ClassNotFoundException, SQLException {
         initComponents();
         setLocationRelativeTo(null);
+        jButtonModificar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonCancelarSeleccion.setEnabled(false);
+        jButtonCancelarSeleccion.setBackground(java.awt.Color.red);
         cargarTabla("","",0);
     }
 
@@ -52,6 +58,7 @@ public class ModificarPedido extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMostrarPedidos = new javax.swing.JTable();
         jButtonSalir = new javax.swing.JButton();
+        jButtonCancelarSeleccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Modificar Pedido");
@@ -122,6 +129,7 @@ public class ModificarPedido extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButtonModificar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-pedido_1.png"))); // NOI18N
         jButtonModificar.setText("Modificar");
         jButtonModificar.setMaximumSize(new java.awt.Dimension(180, 50));
@@ -133,6 +141,7 @@ public class ModificarPedido extends javax.swing.JFrame {
             }
         });
 
+        jButtonEliminar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-eliminar-pedido.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setMaximumSize(new java.awt.Dimension(180, 50));
@@ -173,6 +182,7 @@ public class ModificarPedido extends javax.swing.JFrame {
             jTableMostrarPedidos.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        jButtonSalir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonSalir.setText("Salir");
         jButtonSalir.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonSalir.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -183,12 +193,25 @@ public class ModificarPedido extends javax.swing.JFrame {
             }
         });
 
+        jButtonCancelarSeleccion.setBackground(new java.awt.Color(255, 0, 0));
+        jButtonCancelarSeleccion.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonCancelarSeleccion.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelarSeleccion.setText("Cancelar seleccion");
+        jButtonCancelarSeleccion.setMaximumSize(new java.awt.Dimension(140, 23));
+        jButtonCancelarSeleccion.setMinimumSize(new java.awt.Dimension(140, 23));
+        jButtonCancelarSeleccion.setPreferredSize(new java.awt.Dimension(140, 23));
+        jButtonCancelarSeleccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarSeleccionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelBuscarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -202,7 +225,9 @@ public class ModificarPedido extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(34, 34, 34)
+                        .addComponent(jButtonCancelarSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)))
                 .addContainerGap(11, Short.MAX_VALUE))
@@ -219,7 +244,9 @@ public class ModificarPedido extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelarSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -235,8 +262,6 @@ public class ModificarPedido extends javax.swing.JFrame {
             int cod = 0;
             long telefono = 0;
             if (fila >= 0) {
-                jButtonModificar.setEnabled(true);
-                jButtonEliminar.setEnabled(true);
                 int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
                 for (int i=0; i<filasselec.length;i++){
                     cod = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0)));
@@ -303,9 +328,28 @@ public class ModificarPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldTelefonoKeyReleased
 
+    private void jButtonCancelarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarSeleccionActionPerformed
+        // TODO add your handling code here:
+        jTableMostrarPedidos.clearSelection();
+        jButtonModificar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonCancelarSeleccion.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelarSeleccionActionPerformed
+
     public void cargarTabla(String idPedido, String telefono, int p) throws ClassNotFoundException, SQLException{
         OperacionesPedido ABMP = new OperacionesPedido();
         ABMP.cargarTabla(jTableMostrarPedidos, idPedido, telefono, p);
+        jTableMostrarPedidos.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                int fila = jTableMostrarPedidos.rowAtPoint(e.getPoint());
+                int columna = jTableMostrarPedidos.columnAtPoint(e.getPoint());
+                if ((fila > -1) && (columna > -1)){
+                    jButtonModificar.setEnabled(true);
+                    jButtonEliminar.setEnabled(true);
+                    jButtonCancelarSeleccion.setEnabled(true);
+                }
+            }
+        });
     }
     /**
      * @param args the command line arguments
@@ -349,6 +393,7 @@ public class ModificarPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelarSeleccion;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonSalir;

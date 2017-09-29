@@ -335,6 +335,11 @@ public class DatosPedido extends javax.swing.JFrame {
         jTextFieldCantidad.setMaximumSize(new java.awt.Dimension(100, 20));
         jTextFieldCantidad.setMinimumSize(new java.awt.Dimension(100, 20));
         jTextFieldCantidad.setPreferredSize(new java.awt.Dimension(100, 20));
+        jTextFieldCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCantidadKeyTyped(evt);
+            }
+        });
 
         jButtonAgregar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-agregar-comida-detalle-pedido.png"))); // NOI18N
@@ -615,6 +620,8 @@ public class DatosPedido extends javax.swing.JFrame {
                     cargarDetallePedido(1);//carga un detalle de pedido a modificar
                     CP.setB(1);//mando 1 porque es un pedido a modificar
                     CP.setDPMod(listaDPModificar);
+                    CP.setCod(idP);
+                    CP.mostrarNumPedido(1);
                 }
                 else{//Para tratar un pedido que es nuevo
                     C = buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
@@ -627,6 +634,7 @@ public class DatosPedido extends javax.swing.JFrame {
                     P.setLugarDeEnvio(jTextFieldLugarDeEnvio.getText());
                     cargarDetallePedido(0);//carga un detalle de pedido nuevo
                     CP.setB(0);//mando 0 porque es un nuevo pedido
+                    CP.mostrarNumPedido(0);
                 }
                 CP.setP(P);
                 CP.setDP(listaDetallePedido);
@@ -665,6 +673,17 @@ public class DatosPedido extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    //Validar que la cantidad debe ser un número
+    private void jTextFieldCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCantidadKeyTyped
+        // TODO add your handling code here:
+        char c=evt.getKeyChar();
+        if(Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "La Cantidad Deben Ser Números","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jTextFieldCantidadKeyTyped
 
     public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException{
         OperacionesCliente ABMC = new OperacionesCliente();

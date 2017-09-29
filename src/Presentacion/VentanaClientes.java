@@ -127,10 +127,10 @@ public class VentanaClientes extends javax.swing.JFrame {
         jTextFieldNombre = new javax.swing.JTextField();
         jTextFieldApellido = new javax.swing.JTextField();
         jTextFieldDomicilio = new javax.swing.JTextField();
-        jPanelImagen = new javax.swing.JPanel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
+        jLabelImagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Clientes");
@@ -220,19 +220,6 @@ public class VentanaClientes extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        jPanelImagen.setBackground(new java.awt.Color(255, 204, 0));
-
-        javax.swing.GroupLayout jPanelImagenLayout = new javax.swing.GroupLayout(jPanelImagen);
-        jPanelImagen.setLayout(jPanelImagenLayout);
-        jPanelImagenLayout.setHorizontalGroup(
-            jPanelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanelImagenLayout.setVerticalGroup(
-            jPanelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 231, Short.MAX_VALUE)
-        );
-
         jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -269,13 +256,15 @@ public class VentanaClientes extends javax.swing.JFrame {
             }
         });
 
+        jLabelImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cliente.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -284,8 +273,8 @@ public class VentanaClientes extends javax.swing.JFrame {
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabelImagen)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -296,8 +285,8 @@ public class VentanaClientes extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jPanelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -416,11 +405,11 @@ public class VentanaClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelApellido;
     private javax.swing.JLabel jLabelClienteNro;
     private javax.swing.JLabel jLabelDomicilio;
+    private javax.swing.JLabel jLabelImagen;
     private javax.swing.JLabel jLabelNombre;
     private javax.swing.JLabel jLabelNumeroCliente;
     private javax.swing.JLabel jLabelTelefono;
     private javax.swing.JPanel jPanelDatos;
-    private javax.swing.JPanel jPanelImagen;
     private javax.swing.JTextField jTextFieldApellido;
     private javax.swing.JTextField jTextFieldDomicilio;
     private javax.swing.JTextField jTextFieldNombre;
