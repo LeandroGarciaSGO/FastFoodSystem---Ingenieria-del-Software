@@ -44,7 +44,6 @@ public class GestionarComida extends javax.swing.JFrame {
         modelo = new DefaultTableModel(datos, cabecera);
         jTableComida.setModel(modelo);
         cargarTablaComida();
-
     }
 
     /**
@@ -414,6 +413,7 @@ public class GestionarComida extends javax.swing.JFrame {
                 }
             }
         });
+
     }//GEN-LAST:event_jTextFieldDescripcionKeyTyped
 
     private void jTextFieldDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescripcionKeyReleased
@@ -444,7 +444,7 @@ public class GestionarComida extends javax.swing.JFrame {
     }
 
     public boolean validarCampoDescripcion() {
-        if (!jTextFieldDescripcion.getText().matches("[^A-Za-z]")) {
+        if (jTextFieldDescripcion.getText().matches("[^A-Za-z]+")) {
             JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         } else {

@@ -300,9 +300,7 @@ public class Comidas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-//        if (validarCampoDescripcion()&&validarCampoPrecio()) {
-//        if ((!validarCampoDescripcion()) && jTextFieldDescripComida.getText().length()<= 0) {
- //           if ((!validarCampoPrecio()) && jTextFieldPrecioComida.getText().isEmpty()) {
+        if (validarCampoDescripcion()&&validarCampoPrecio()){
                 Comida C = new Comida();
                 ABMComida ABMC = new ABMComida();
                 C.setIdComida(Integer.parseInt(jLabelCodigoComida.getText()));
@@ -337,8 +335,7 @@ public class Comidas extends javax.swing.JFrame {
                         Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-//            }
-//        }
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -371,23 +368,42 @@ public class Comidas extends javax.swing.JFrame {
         }
     }
 
-    public boolean validarCampoDescripcion() {
-        if (!jTextFieldDescripComida.getText().matches("[^A-Za-z]")) {
-            JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else {
-            return true;
-        }
+    public boolean validarCampoDescripcion() {   
+         if (jTextFieldDescripComida.getText().length()>0){
+             if (jTextFieldDescripComida.getText().matches("[a-zA-Z\\s]+")) {
+                 return true;
+             }else{
+                 JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                 return false;
+             }
+         }else{
+             JOptionPane.showMessageDialog(this, "ERROR: El campo \"descripcion\" no debe estar vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+             return false;
+         }
     }
 
     public boolean validarCampoPrecio() {
-        try {
+        if (jTextFieldPrecioComida.getText().length()>0){
+            try {
             Float.parseFloat(jTextFieldPrecioComida.getText());
             return true;
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "ERROR: El precio debe ser numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        
+        }else{
+            JOptionPane.showMessageDialog(this, "ERROR: El campo \"Precio\" no debe estar vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+//        try {
+//            Float.parseFloat(jTextFieldPrecioComida.getText());
+//            return true;
+//        } catch (NumberFormatException e) {
+//            JOptionPane.showMessageDialog(this, "ERROR: El precio debe ser numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+//            return false;
+//        } 
     }
 
 //    private boolean validarCamposComidas() {
