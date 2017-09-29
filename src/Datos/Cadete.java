@@ -159,6 +159,18 @@ public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
         return rsDatos;       
     }
 
+public ResultSet consultaCadeteEstado(int idCadete) throws ClassNotFoundException{
+    try {
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT idCadete, estado FROM cadete WHERE idCadete = '"+ idCadete+"' AND estado = true"; 
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;
+}
 public ResultSet consultaCadeteConId(int cod) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
@@ -199,6 +211,24 @@ public boolean modificar() throws ClassNotFoundException {
         }
         return true;
     }
+
+public void modificarEstadoCadete() throws ClassNotFoundException{
+    try {      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE cadete SET estado = ? WHERE idCadete = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setBoolean(1, false);
+            psPrepSencencias.setInt(2, idCadete);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
 
 
 public void agregarNuevoCadete() throws ClassNotFoundException{

@@ -7,6 +7,9 @@
 package Presentacion;
 
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -91,6 +94,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jButtonCancelarPedido.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonCancelarPedido.setMinimumSize(new java.awt.Dimension(210, 80));
         jButtonCancelarPedido.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarPedidoActionPerformed(evt);
+            }
+        });
 
         jButtonModificarPedido.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonModificarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-pedido.png"))); // NOI18N
@@ -98,6 +106,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jButtonModificarPedido.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonModificarPedido.setMinimumSize(new java.awt.Dimension(210, 80));
         jButtonModificarPedido.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonModificarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarPedidoActionPerformed(evt);
+            }
+        });
 
         jButtonNuevoCliente.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonNuevoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cliente.png"))); // NOI18N
@@ -203,14 +216,29 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemNuevoPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemNuevoPedido.setText("Nuevo Pedido");
+        jMenuItemNuevoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNuevoPedidoActionPerformed(evt);
+            }
+        });
         jMenuPedidos.add(jMenuItemNuevoPedido);
 
         jMenuItemModificarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemModificarPedido.setText("Modificar Pedido");
+        jMenuItemModificarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemModificarPedidoActionPerformed(evt);
+            }
+        });
         jMenuPedidos.add(jMenuItemModificarPedido);
 
         jMenuItemCancelarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemCancelarPedido.setText("Cancelar Pedido");
+        jMenuItemCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCancelarPedidoActionPerformed(evt);
+            }
+        });
         jMenuPedidos.add(jMenuItemCancelarPedido);
 
         jMenuBar1.add(jMenuPedidos);
@@ -390,6 +418,70 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         GestionarPedido GP = new GestionarPedido();
         GP.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoPedidoActionPerformed
+
+    private void jButtonModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarPedidoActionPerformed
+        // TODO add your handling code here:
+        ModificarPedido MP;
+        try {
+            MP = new ModificarPedido();
+            MP.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonModificarPedidoActionPerformed
+
+    private void jMenuItemNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoPedidoActionPerformed
+        // TODO add your handling code here:
+        DatosPedido DP;
+        try {
+            DP = new DatosPedido();
+            DP.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemNuevoPedidoActionPerformed
+
+    private void jMenuItemModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarPedidoActionPerformed
+        // TODO add your handling code here:
+        ModificarPedido MP;
+        try {
+            MP = new ModificarPedido();
+            MP.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemModificarPedidoActionPerformed
+
+    private void jMenuItemCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelarPedidoActionPerformed
+        // TODO add your handling code here:
+        ModificarPedido MP;
+        try {
+            MP = new ModificarPedido();
+            MP.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemCancelarPedidoActionPerformed
+
+    private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed
+        try {
+            // TODO add your handling code here:
+            ModificarPedido MP = new ModificarPedido();
+            MP.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonCancelarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
