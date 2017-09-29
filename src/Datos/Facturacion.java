@@ -152,15 +152,15 @@ public class Facturacion {
         
     }
 
-    public void insertarDetalle(ArrayList<DetallePedido> listaDetalles,int numF) throws SQLException, ClassNotFoundException {
-         for (int i = 0; i < listaDetalles.size(); i++) {
+    public void insertarDetalle() throws SQLException, ClassNotFoundException {
+         //for (int i = 0; i < listaDetalles.size(); i++) {
               Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
             psPrepSencencias = cn.prepareStatement("INSERT INTO detalleFactura (numFactura,numLinea,detalleLinea,cantidad,precioUnitario) VALUES (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
-            psPrepSencencias.setInt(1, numF);
-            psPrepSencencias.setInt(2, i+1);
+            psPrepSencencias.setInt(1, numFactura);
+            psPrepSencencias.setInt(2, datospedido.getDetalle().getNumLinea());
             psPrepSencencias.setString(3, datospedido.getDetalle().getDatoscomida().getDescripcion());
             psPrepSencencias.setInt(4,datospedido.getDetalle().getCantidad());
             psPrepSencencias.setFloat(5, datospedido.getDetalle().getDatoscomida().getPrecio());
@@ -169,6 +169,6 @@ public class Facturacion {
             psPrepSencencias.executeUpdate();
             //obtengo el id del registro recien insertado
             rsDatos = psPrepSencencias.getGeneratedKeys();
-         }
+         //}
     }
 }

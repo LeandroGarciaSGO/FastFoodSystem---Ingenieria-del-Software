@@ -80,7 +80,23 @@ public class OperacionesFacturacion {
            return z;
        }
        return null;
-   } 
+   }
+   
+   public void guardarDetalle(Facturacion factura, ArrayList<DetallePedido> listaDetalles) throws SQLException, ClassNotFoundException{
+       for (int i = 0; i < listaDetalles.size(); i++) {
+           Pedido p = new Pedido();
+           p = factura.getDatospedido();
+           p.setDetalle(listaDetalles.get(i));
+           factura.setDatospedido(p);
+           System.out.println(factura.getDatospedido().getDetalle().getCantidad());
+           System.out.println(factura.getDatospedido().getDetalle().getIdComida());
+           System.out.println(factura.getDatospedido().getDetalle().getNumLinea());
+           System.out.println(factura.getDatospedido().getDetalle().getIdPedido());
+           System.out.println(factura.getDatospedido().getDetalle().getDatoscomida().getDescripcion());
+           System.out.println(factura.getDatospedido().getDetalle().getDatoscomida().getPrecio());
+           factura.insertarDetalle();
+       }
+   }
    
 
     

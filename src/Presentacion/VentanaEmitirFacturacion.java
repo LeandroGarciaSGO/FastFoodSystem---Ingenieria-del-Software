@@ -786,14 +786,16 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
          Pedido p = new Pedido();
          p = Factura.getDatospedido();
          p.modificarEstado(4);
-         //Factura.insertarDetalle(listaDetalles,Factura.obtenerSiguienteId()-1);
+         OF.guardarDetalle(Factura,listaDetalles);
          JOptionPane.showMessageDialog(this, "La Factura se Genero Correctamente", "FastFoodSystem",JOptionPane.INFORMATION_MESSAGE);
          VentanaGenerarFactura VGF = new VentanaGenerarFactura();
          VGF.setVisible(true);
          this.dispose();
      } catch (ClassNotFoundException ex) {
          Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
-     }
+     }      catch (SQLException ex) {
+                Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
