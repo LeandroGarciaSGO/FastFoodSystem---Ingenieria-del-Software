@@ -66,6 +66,18 @@ public class Zona {
         }       
         return rsDatos;       
     }
+        
+        public ResultSet consultaZonaPorId(int id) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();         
+            String ConsultaSQL = "SELECT * FROM zona WHERE idZona = " + id;
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;       
+    }
     
     
 }

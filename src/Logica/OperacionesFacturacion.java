@@ -5,6 +5,7 @@ import Datos.Comida;
 import Datos.DetallePedido;
 import Datos.Facturacion;
 import Datos.Pedido;
+import Datos.Zona;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -68,7 +69,18 @@ public class OperacionesFacturacion {
     }
      
      
-    
+   public Zona obtenerZona(int idZona) throws ClassNotFoundException, SQLException{
+       Zona z = new Zona ();
+       ResultSet resultado = z.consultaZonaPorId(idZona);
+       if(resultado.first())
+       {
+           z.setIdZona(resultado.getInt("idZona"));
+           z.setDescripcion(resultado.getString("descripcion"));
+           z.setPrecio(resultado.getFloat("precio"));
+           return z;
+       }
+       return null;
+   } 
    
 
     

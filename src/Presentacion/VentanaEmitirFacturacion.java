@@ -5,8 +5,12 @@
  */
 package Presentacion;
 
+import Datos.Cadete;
 import Datos.DetallePedido;
 import Datos.Facturacion;
+import Datos.Pedido;
+import Datos.Zona;
+import Logica.AMBCadete;
 import Logica.OperacionesFacturacion;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,31 +22,84 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Leandro
  */
 public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Printable{
- ArrayList<DetallePedido> listaDetalles = new ArrayList<DetallePedido>();
+        private ArrayList<DetallePedido> listaDetalles = new ArrayList<DetallePedido>();
+        private Facturacion Factura;
+        private float importeFactura;
+        private float importeTotal;
+        private Zona z;
+        private OperacionesFacturacion OF;
     /**
      * Creates new form VentanaFacturacion
      */
     public VentanaEmitirFacturacion() {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
+        Factura = new Facturacion();
+        importeFactura = 0;
+        importeTotal = 0;
+        z = new Zona();
+        OF = new OperacionesFacturacion();
+    }
+
+    public Facturacion getFactura() {
+        return Factura;
+    }
+
+    public void setFactura(Facturacion Factura) {
+        this.Factura = Factura;
     }
     
     
-    public void cargarDatosFactura(Facturacion factura) throws ClassNotFoundException, SQLException {      
-        jLabelValorNroFactura.setText(String.valueOf(factura.obtenerSiguienteId()));
-        //jLabelValorFecha.setText(String.valueOf());
-        jLabelValorNombreCliente.setText(factura.getDatoscliente().getNombre() + " " + factura.getDatoscliente().getApellido());
-        jLabelValorDomicilio.setText(factura.getDatospedido().getLugarDeEnvio());
-        jLabelValorTelefono.setText(String.valueOf(factura.getDatoscliente().getTelefono()));
-        //jLabelValorZona.getText(OBTENER ZONA);
-        jLabelValorFecha.setText(factura.obtenerFechaActual());
-        llenarTablaConDetalleYcalcularTotal(factura);
+    
+    
+    public void cargarDatosFactura() throws ClassNotFoundException, SQLException {
+        // CARGO LOS DATOS EN LA FACTURA
+        int numF = Factura.obtenerSiguienteId();
+        jLabelValorNroFactura.setText(String.valueOf(numF));
+        jLabelValorFecha.setText(Factura.obtenerFechaActual());
+        // CARGO LOS DATOS DE CLIENTE
+        jLabelValorNombreCliente.setText(Factura.getDatoscliente().getNombre() + " " + Factura.getDatoscliente().getApellido());
+        jLabelValorDomicilio.setText(Factura.getDatospedido().getLugarDeEnvio());
+        jLabelValorTelefono.setText(String.valueOf(Factura.getDatoscliente().getTelefono()));
+        z = OF.obtenerZona(Factura.getDatospedido().getZona());
+        jLabelValorZona.setText(z.getDescripcion());
+        // CARGA LA TABLA CON LOS DETALLES
+        llenarTablaConDetalleYcalcularTotal(Factura);
+        // CALCULO LOS IMPORTES
+        importeFactura = obtenerTotalFactura();
+        importeTotal = importeFactura + z.getPrecio();
+        jLabelValorImporte.setText(String.valueOf(importeFactura));
+        jLabelValorTotalGeneral.setText(String.valueOf(importeTotal));
+        jLabelValorTotalEnvio.setText(String.valueOf(z.getPrecio()));
+        // CARGO LOS DATOS EN EL COMPROBANTE
+        jLabelValoClienteNombreComprobante.setText(Factura.getDatoscliente().getNombre() + " " + Factura.getDatoscliente().getApellido());
+        jLabelValorDomicilioClienteComprobante.setText(Factura.getDatospedido().getLugarDeEnvio());
+        jLabelValorNumFacturaComprobante.setText(String.valueOf(Factura.getNumFactura()));
+        jLabelValorZonaComprobante.setText(z.getDescripcion());
+        jLabelValorTotalEnvioComprobante.setText(String.valueOf(z.getPrecio()));
+        jLabelValorTotalFacturaComprobante.setText(String.valueOf(importeFactura));
+        jLabelValorTotalGeneralComprobante.setText(String.valueOf(importeTotal));
+        // CARGO DATOS CADETE
+        AMBCadete C = new AMBCadete();
+        Cadete Cad = new Cadete();
+        Cad = C.buscarCadeteConId(Factura.getDatospedido().getIdCadete());
+        jLabelValorIdCadete.setText(String.valueOf(Cad.getIdCadete()));
+        jLabelValorNombreCadete.setText(Cad.getNombre() + " " +Cad.getApellido());
+    }
+    
+    public float obtenerTotalFactura() {
+        float total = 0;
+        for (int i = 0; i < jTableDetalle.getRowCount(); i++) {
+            total =  total + Float.parseFloat((String) jTableDetalle.getValueAt(i, 4));
+        }
+        return total;
     }
     
     
@@ -63,10 +120,10 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                 tablaP.addRow(datos);
                 total = total + totlinea;
             }
-            jLabelValorImporte.setText(String.valueOf(total));
-        
-
+            jLabelValorImporte.setText(String.valueOf(total));     
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,8 +179,19 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         jLabelImporteFacturaComprobante = new javax.swing.JLabel();
         jLabelImporteTotalComprobante = new javax.swing.JLabel();
         jLabelPeso4 = new javax.swing.JLabel();
+        jLabelValorNumFacturaComprobante = new javax.swing.JLabel();
+        jLabelValorDomicilioClienteComprobante = new javax.swing.JLabel();
+        jLabelValoClienteNombreComprobante = new javax.swing.JLabel();
+        jLabelValorZonaComprobante = new javax.swing.JLabel();
+        jLabelValorTotalFacturaComprobante = new javax.swing.JLabel();
+        jLabelValorTotalEnvioComprobante = new javax.swing.JLabel();
+        jLabelValorTotalGeneralComprobante = new javax.swing.JLabel();
         jLabelValorFecha = new javax.swing.JLabel();
         jLabelValorNroFactura = new javax.swing.JLabel();
+        jLabelValorTotalGeneral = new javax.swing.JLabel();
+        jLabelValorTotalEnvio = new javax.swing.JLabel();
+        jLabelValorIdCadete = new javax.swing.JLabel();
+        jLabelValorNombreCadete = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
 
@@ -303,7 +371,7 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                     .addComponent(jLabelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelPeso1)
                     .addComponent(jLabelValorImporte))
-                .addContainerGap())
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jLabelImporteEnvioFactura.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
@@ -377,6 +445,20 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         jLabelPeso4.setFont(new java.awt.Font("Verdana", 1, 20)); // NOI18N
         jLabelPeso4.setText("$");
 
+        jLabelValorNumFacturaComprobante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorDomicilioClienteComprobante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValoClienteNombreComprobante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorZonaComprobante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorTotalFacturaComprobante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorTotalEnvioComprobante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorTotalGeneralComprobante.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanelDatosClienteComprobanteLayout = new javax.swing.GroupLayout(jPanelDatosClienteComprobante);
         jPanelDatosClienteComprobante.setLayout(jPanelDatosClienteComprobanteLayout);
         jPanelDatosClienteComprobanteLayout.setHorizontalGroup(
@@ -384,26 +466,45 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
             .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDomicilioComprobante)
-                    .addComponent(jLabelNombreYApellidoComprobante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelZonaComprobante)
-                    .addComponent(jLabelNumFacturaComprobante))
-                .addGap(151, 151, 151))
+                    .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
+                        .addComponent(jLabelDomicilioComprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelValorDomicilioClienteComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(10, 10, 10))
+                    .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
+                        .addComponent(jLabelNombreYApellidoComprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelValoClienteNombreComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
+                        .addComponent(jLabelZonaComprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelValorZonaComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
+                        .addComponent(jLabelNumFacturaComprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelValorNumFacturaComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37))
             .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
                         .addComponent(jLabelImporteEnvioComprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelValorTotalEnvioComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
                         .addComponent(jLabelImporteFacturaComprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelValorTotalFacturaComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelPeso4)
-                        .addGap(189, 189, 189))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelValorTotalGeneralComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97))))
         );
         jPanelDatosClienteComprobanteLayout.setVerticalGroup(
             jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,27 +512,48 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                 .addContainerGap()
                 .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
-                        .addComponent(jLabelNumFacturaComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelNumFacturaComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelValorNumFacturaComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelZonaComprobante))
+                        .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelZonaComprobante)
+                            .addComponent(jLabelValorZonaComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelDatosClienteComprobanteLayout.createSequentialGroup()
-                        .addComponent(jLabelNombreYApellidoComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelNombreYApellidoComprobante)
+                            .addComponent(jLabelValoClienteNombreComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelDomicilioComprobante)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelImporteEnvioComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelDomicilioComprobante)
+                            .addComponent(jLabelValorDomicilioClienteComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelPeso4))
-                    .addComponent(jLabelImporteFacturaComprobante))
+                    .addComponent(jLabelImporteEnvioComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelValorTotalEnvioComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelImporteFacturaComprobante)
+                    .addComponent(jLabelValorTotalFacturaComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelValorTotalGeneralComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelDatosClienteComprobanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelImporteTotalComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelPeso4))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jLabelValorFecha.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
         jLabelValorNroFactura.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorTotalGeneral.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorTotalEnvio.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorIdCadete.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+
+        jLabelValorNombreCadete.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanelContenedorFacturaLayout = new javax.swing.GroupLayout(jPanelContenedorFactura);
         jPanelContenedorFactura.setLayout(jPanelContenedorFacturaLayout);
@@ -473,7 +595,9 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                 .addComponent(jLabelTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelPeso3)
-                .addGap(235, 235, 235))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelValorTotalGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118))
             .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
                 .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
@@ -503,12 +627,21 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                     .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabelNroCadete)
-                        .addGap(168, 168, 168)
-                        .addComponent(jLabelNombreApeCadete))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelValorIdCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelNombreApeCadete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelValorNombreCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelDatosClienteComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenedorFacturaLayout.createSequentialGroup()
+                    .addContainerGap(432, Short.MAX_VALUE)
+                    .addComponent(jLabelValorTotalEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(222, 222, 222)))
         );
         jPanelContenedorFacturaLayout.setVerticalGroup(
             jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,20 +681,33 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                     .addComponent(jLabelPeso2)
                     .addComponent(jLabelImporteEnvioFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPeso3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelTituloComprobante)
-                .addGap(18, 18, 18)
-                .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNroCadete)
-                    .addComponent(jLabelNombreApeCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelDatosClienteComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
+                        .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelTotalFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelPeso3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelTituloComprobante)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelContenedorFacturaLayout.createSequentialGroup()
+                                .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabelNroCadete)
+                                        .addComponent(jLabelNombreApeCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabelValorNombreCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanelDatosClienteComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelValorIdCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelValorTotalGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
+            .addGroup(jPanelContenedorFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContenedorFacturaLayout.createSequentialGroup()
+                    .addContainerGap(651, Short.MAX_VALUE)
+                    .addComponent(jLabelValorTotalEnvio, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(283, 283, 283)))
         );
 
         jScrollPaneContenedor.setViewportView(jPanelContenedorFactura);
@@ -623,12 +769,31 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
-        try {
-            PrinterJob job = PrinterJob.getPrinterJob();
-            job.setPrintable(this);
-            job.printDialog();
-            job.print();
-        } catch (PrinterException ex) { }  
+        //try {
+            //PrinterJob job = PrinterJob.getPrinterJob();
+            //job.setPrintable(this);
+            //job.printDialog();
+            //job.print();
+        //} catch (PrinterException ex) { } 
+        
+     try {
+         Factura.setImporte(importeFactura);
+         Factura.setTarifaDeEnvio(z.getPrecio());
+         //DATOS PEDIDO YA ASIGNADO
+         //DATOS CLIENTE YA ASIGNADO
+         Factura.insertar();
+         //CARGAR DETALLE
+         Pedido p = new Pedido();
+         p = Factura.getDatospedido();
+         p.modificarEstado(4);
+         //Factura.insertarDetalle(listaDetalles,Factura.obtenerSiguienteId()-1);
+         JOptionPane.showMessageDialog(this, "La Factura se Genero Correctamente", "FastFoodSystem",JOptionPane.INFORMATION_MESSAGE);
+         VentanaGenerarFactura VGF = new VentanaGenerarFactura();
+         VGF.setVisible(true);
+         this.dispose();
+     } catch (ClassNotFoundException ex) {
+         Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+     }
 
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
@@ -719,13 +884,24 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
     private javax.swing.JLabel jLabelTituloFactura;
     private javax.swing.JLabel jLabelTotal;
     private javax.swing.JLabel jLabelTotalFactura;
+    private javax.swing.JLabel jLabelValoClienteNombreComprobante;
     private javax.swing.JLabel jLabelValorDomicilio;
+    private javax.swing.JLabel jLabelValorDomicilioClienteComprobante;
     private javax.swing.JLabel jLabelValorFecha;
+    private javax.swing.JLabel jLabelValorIdCadete;
     private javax.swing.JLabel jLabelValorImporte;
+    private javax.swing.JLabel jLabelValorNombreCadete;
     private javax.swing.JLabel jLabelValorNombreCliente;
     private javax.swing.JLabel jLabelValorNroFactura;
+    private javax.swing.JLabel jLabelValorNumFacturaComprobante;
     private javax.swing.JLabel jLabelValorTelefono;
+    private javax.swing.JLabel jLabelValorTotalEnvio;
+    private javax.swing.JLabel jLabelValorTotalEnvioComprobante;
+    private javax.swing.JLabel jLabelValorTotalFacturaComprobante;
+    private javax.swing.JLabel jLabelValorTotalGeneral;
+    private javax.swing.JLabel jLabelValorTotalGeneralComprobante;
     private javax.swing.JLabel jLabelValorZona;
+    private javax.swing.JLabel jLabelValorZonaComprobante;
     private javax.swing.JLabel jLabelZonaComprobante;
     private javax.swing.JLabel jLabelZonaFactura;
     private javax.swing.JPanel jPanelContenedorFactura;

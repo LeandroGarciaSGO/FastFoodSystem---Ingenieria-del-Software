@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Leandro
@@ -16,8 +18,11 @@ public class Facturacion {
     private ResultSet rsDatos;
     private PreparedStatement psPrepSencencias;
     
+    private int numFactura;
     private Pedido datospedido;
     private Cliente datoscliente;
+    private float importe;
+    private float tarifaDeEnvio;
     
     public Facturacion(){
         this.datoscliente = null;
@@ -63,6 +68,32 @@ public class Facturacion {
     public void setDatoscliente(Cliente datoscliente) {
         this.datoscliente = datoscliente;
     }
+
+    public int getNumFactura() {
+        return numFactura;
+    }
+
+    public void setNumFactura(int numFactura) {
+        this.numFactura = numFactura;
+    }
+
+    public float getImporte() {
+        return importe;
+    }
+
+    public void setImporte(float importe) {
+        this.importe = importe;
+    }
+
+    public float getTarifaDeEnvio() {
+        return tarifaDeEnvio;
+    }
+
+    public void setTarifaDeEnvio(float tarifaDeEnvio) {
+        this.tarifaDeEnvio = tarifaDeEnvio;
+    }
+    
+    
     
     public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {        
         Connection conex = Conexion.Cadena();
@@ -71,8 +102,10 @@ public class Facturacion {
         rsDatos = sentencia.executeQuery(ConsultaSQL);
         if (rsDatos.first()) {
             int id = rsDatos.getInt("ID") + 1;
+            numFactura = id;
             return id;
         } else {
+            numFactura = 1;
             return 1;
         }
     }
@@ -89,5 +122,53 @@ public class Facturacion {
             fecha = String.valueOf(fe);
         }
         return fecha;
+    }
+    
+    public void insertar() throws ClassNotFoundException{
+         try {
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("INSERT INTO factura (idPedido,importe,tarifaDeEnvio,fecha,nombreCliente,domicilioEnvio,idCadete,pagoAlCadete,estado) VALUES (?,?,?,CURDATE(),?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setInt(1, datospedido.getIdPedido());
+            psPrepSencencias.setFloat(2, importe);
+            psPrepSencencias.setFloat(3, tarifaDeEnvio);
+            psPrepSencencias.setString(4,datoscliente.getNombre() + datoscliente.getApellido());
+            psPrepSencencias.setString(5, datospedido.getLugarDeEnvio());
+            psPrepSencencias.setInt(6,datospedido.getIdCadete());
+            psPrepSencencias.setBoolean(7, false);
+            psPrepSencencias.setBoolean(8, true);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+            rsDatos = psPrepSencencias.getGeneratedKeys();
+           
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    public void insertarDetalle(ArrayList<DetallePedido> listaDetalles,int numF) throws SQLException, ClassNotFoundException {
+         for (int i = 0; i < listaDetalles.size(); i++) {
+              Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("INSERT INTO detalleFactura (numFactura,numLinea,detalleLinea,cantidad,precioUnitario) VALUES (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setInt(1, numF);
+            psPrepSencencias.setInt(2, i+1);
+            psPrepSencencias.setString(3, datospedido.getDetalle().getDatoscomida().getDescripcion());
+            psPrepSencencias.setInt(4,datospedido.getDetalle().getCantidad());
+            psPrepSencencias.setFloat(5, datospedido.getDetalle().getDatoscomida().getPrecio());
+         
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+            rsDatos = psPrepSencencias.getGeneratedKeys();
+         }
     }
 }

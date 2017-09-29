@@ -159,6 +159,19 @@ public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
         return rsDatos;       
     }
 
+public ResultSet consultaCadeteConId(int cod) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT * FROM cadete WHERE idCadete = " + cod; 
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;       
+    }
+
 
 
 //COpiado de leandro

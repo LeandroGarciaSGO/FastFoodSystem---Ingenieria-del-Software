@@ -236,4 +236,22 @@ public class Pedido {
             return 1;
         }
     }
+
+    public void modificarEstado(int est) throws ClassNotFoundException {
+        try {      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE pedido SET estado = ? WHERE idPedido = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setInt(1, est);
+            psPrepSencencias.setInt(2, idPedido);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

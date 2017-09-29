@@ -44,7 +44,32 @@ public class AMBCadete {
     }
     
     
-    
+       public Cadete buscarCadeteConId(int id) throws ClassNotFoundException, SQLException {
+        ResultSet datosCadete;
+        Cadete miCadete = new Cadete();
+        datosCadete = miCadete.consultaCadeteConId(id);
+        
+      
+        if (datosCadete.first()) {
+            miCadete.setIdCadete(datosCadete.getInt("idCadete"));
+            miCadete.setNombre(datosCadete.getString("nombre"));
+            miCadete.setApellido(datosCadete.getString("apellido"));
+            miCadete.setDomicilio(datosCadete.getString("domicilio"));
+            miCadete.setTelefono(datosCadete.getLong("telefono"));
+            miCadete.setTipoDocumento(datosCadete.getString("TipoDocumento"));
+            miCadete.setNumDocumento(datosCadete.getInt("numDocumento"));
+            miCadete.setEstado(datosCadete.getBoolean("estado"));
+            System.out.print(miCadete.getApellido());
+            if (miCadete.isEstado()) {
+                return miCadete;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        return null;
+    }
     
     
     public Cadete buscarCadete(int numDocumento) throws ClassNotFoundException, SQLException {
@@ -77,6 +102,9 @@ public class AMBCadete {
         }
         return null;
     }
+    
+    
+    
         public static int obtenerSiguienteId(){
     return 1;
 }
