@@ -31,6 +31,8 @@ public class Login extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.white);
         jPanel1.setBackground(Color.white);
         jLabel2.setBackground(Color.white);
+        jButtonCancelar.setBackground(Color.white);
+        jButtonIngresar.setBackground(Color.white);
     }
 
     /**
@@ -48,6 +50,7 @@ public class Login extends javax.swing.JFrame {
         jLabelClave = new javax.swing.JLabel();
         jButtonIngresar = new javax.swing.JButton();
         jPasswordFieldContraseña = new javax.swing.JPasswordField();
+        jButtonCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabelBienvenidos = new javax.swing.JLabel();
@@ -56,6 +59,7 @@ public class Login extends javax.swing.JFrame {
         setTitle("FastFoodSystem - Ingreso");
         setMaximumSize(new java.awt.Dimension(500, 480));
         setMinimumSize(new java.awt.Dimension(500, 480));
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(500, 480));
         setResizable(false);
 
@@ -97,13 +101,26 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar-sesion.png"))); // NOI18N
+        jButtonCancelar.setText("Salir");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonIngresar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCancelar))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabelClave)
                         .addGap(18, 18, 18)
@@ -112,11 +129,7 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabelUsuario)
                         .addGap(45, 45, 45)
                         .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(97, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonIngresar)
-                .addGap(152, 152, 152))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +143,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabelClave)
                     .addComponent(jPasswordFieldContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonIngresar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonIngresar)
+                    .addComponent(jButtonCancelar))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -261,6 +276,10 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jPasswordFieldContraseñaActionPerformed
 
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -297,6 +316,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonIngresar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelBienvenidos;

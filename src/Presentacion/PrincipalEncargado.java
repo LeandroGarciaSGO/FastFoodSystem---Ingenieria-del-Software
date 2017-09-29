@@ -45,8 +45,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jButtonModificarCliente = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabelUsuario = new javax.swing.JLabel();
-        jLabelUsuarioNombre = new javax.swing.JLabel();
+        jButtonCerrarSesion = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuClientes = new javax.swing.JMenu();
         jMenuItemNuevoCliente = new javax.swing.JMenuItem();
@@ -162,12 +161,17 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Principal-iloveimg-resized.png"))); // NOI18N
 
-        jLabelUsuario.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabelUsuario.setText("Usuario:");
-
-        jLabelUsuarioNombre.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabelUsuarioNombre.setText("...");
-        jLabelUsuarioNombre.setToolTipText("");
+        jButtonCerrarSesion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jButtonCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cerrar-sesion.png"))); // NOI18N
+        jButtonCerrarSesion.setText("Cerrar Sesion");
+        jButtonCerrarSesion.setMaximumSize(new java.awt.Dimension(210, 80));
+        jButtonCerrarSesion.setMinimumSize(new java.awt.Dimension(210, 80));
+        jButtonCerrarSesion.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarSesionActionPerformed(evt);
+            }
+        });
 
         jMenuClientes.setText("Clientes");
 
@@ -312,11 +316,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
                             .addComponent(jButtonGenerarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonModificarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabelUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -344,9 +345,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelUsuario)
-                            .addComponent(jLabelUsuarioNombre)
-                            .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -484,6 +484,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCancelarPedidoActionPerformed
 
+    private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
+        this.dispose();
+        Login L = new Login();
+        L.setVisible(true);
+    }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -521,6 +527,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelarPedido;
+    private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JButton jButtonGenerarFactura;
     private javax.swing.JButton jButtonModificarCliente;
     private javax.swing.JButton jButtonModificarPedido;
@@ -528,8 +535,6 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNuevoPedido;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelUsuario;
-    private javax.swing.JLabel jLabelUsuarioNombre;
     private javax.swing.JMenu jMenuAyuda;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadetes;
