@@ -9,10 +9,8 @@ package Presentacion;
  *
  * @author Mariano
  */
-import Datos.Cliente;
 import Datos.Pedido;
-import Logica.OperacionesCliente;
-import Logica.ABMPedido;
+import Logica.OperacionesPedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -28,8 +26,10 @@ public class ModificarPedido extends javax.swing.JFrame {
     private java.sql.Statement sentencia, sentencia2;
     private ResultSet rsDatos, rsDatos2;
     
-    public ModificarPedido() {
+    public ModificarPedido() throws ClassNotFoundException, SQLException {
         initComponents();
+        setLocationRelativeTo(null);
+        cargarTabla("","",0);
     }
 
     /**
@@ -66,18 +66,18 @@ public class ModificarPedido extends javax.swing.JFrame {
 
         jTextFieldCodigo.setMaximumSize(new java.awt.Dimension(150, 20));
         jTextFieldCodigo.setPreferredSize(new java.awt.Dimension(150, 20));
-        jTextFieldCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCodigoActionPerformed(evt);
+        jTextFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldCodigoKeyReleased(evt);
             }
         });
 
         jLabelTelefono.setText("Teléfono:");
 
         jTextFieldTelefono.setPreferredSize(new java.awt.Dimension(150, 20));
-        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTelefonoActionPerformed(evt);
+        jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldTelefonoKeyReleased(evt);
             }
         });
 
@@ -122,14 +122,22 @@ public class ModificarPedido extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButtonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-pedido_1.png"))); // NOI18N
         jButtonModificar.setText("Modificar");
+        jButtonModificar.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonModificar.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonModificar.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModificarActionPerformed(evt);
             }
         });
 
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-eliminar-pedido.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonEliminar.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonEliminar.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
@@ -166,6 +174,14 @@ public class ModificarPedido extends javax.swing.JFrame {
         }
 
         jButtonSalir.setText("Salir");
+        jButtonSalir.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonSalir.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonSalir.setPreferredSize(new java.awt.Dimension(180, 50));
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,16 +192,20 @@ public class ModificarPedido extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelBuscarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButtonSalir)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jButtonModificar)
-                        .addGap(85, 85, 85)
-                        .addComponent(jButtonEliminar))
+                        .addGap(66, 66, 66)
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,45 +214,18 @@ public class ModificarPedido extends javax.swing.JFrame {
                 .addComponent(jPanelBuscarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonModificar)
-                    .addComponent(jButtonEliminar))
+                    .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonSalir)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jTextFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodigoActionPerformed
-        
-    }//GEN-LAST:event_jTextFieldCodigoActionPerformed
-
-    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
-
-        OperacionesCliente ABMC = new OperacionesCliente();
-        Cliente C = new Cliente();
-        ABMPedido ABMP = new ABMPedido();
-        Pedido P = new Pedido();
-        String[] datos = new String[5];
-        DefaultTableModel dtm = (DefaultTableModel)jTableMostrarPedidos.getModel();
-        try {
-            P = ABMP.buscarPedido(Integer.parseInt(jTextFieldCodigo.getText()));
-            datos[0] = String.valueOf(P.getIdPedido());
-            datos[3] = String.valueOf(P.getFecha());
-            datos[4] = String.valueOf(P.getHora());
-            
-            C = ABMC.buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
-            datos[1] = String.valueOf(C.getTelefono());
-            datos[2] = C.getNombre();
-            dtm.addRow(datos);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DatosPedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
-
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel) jTableMostrarPedidos.getModel();
@@ -242,6 +235,8 @@ public class ModificarPedido extends javax.swing.JFrame {
             int cod = 0;
             long telefono = 0;
             if (fila >= 0) {
+                jButtonModificar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
                 int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
                 for (int i=0; i<filasselec.length;i++){
                     cod = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0)));
@@ -266,21 +261,52 @@ public class ModificarPedido extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTableMostrarPedidos.getModel();
         int fila = jTableMostrarPedidos.getSelectedRow();
         try {
-            P.eliminarPedido(Integer.parseInt(jTextFieldCodigo.getText()));
             if (fila >= 0) {
-            int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
-            for (int i=0; i<filasselec.length;i++){
-                modelo.removeRow(filasselec[i]-i);
+                int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
+                for (int i=0; i<filasselec.length;i++){
+                    P.eliminarPedido(Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0))));
+                    modelo.removeRow(filasselec[i]-i);
+                }
+                JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente", "Fast Food System", JOptionPane.OK_OPTION);
+            } else {
+                JOptionPane.showMessageDialog(null, "No Selecciono Ninguna Fila", "Fast Food System", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No Selecciono Ninguna Fila", "Fast Food System", JOptionPane.ERROR_MESSAGE);
-        }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente", "Fast Food System", JOptionPane.OK_OPTION);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jTextFieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyReleased
+        try {
+            // TODO add your handling code here:
+            cargarTabla(jTextFieldCodigo.getText(), jTextFieldTelefono.getText(), 1);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTextFieldCodigoKeyReleased
+
+    private void jTextFieldTelefonoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyReleased
+        try {
+            // TODO add your handling code here:
+            cargarTabla(jTextFieldCodigo.getText(), jTextFieldTelefono.getText(), 2);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTextFieldTelefonoKeyReleased
+
+    public void cargarTabla(String idPedido, String telefono, int p) throws ClassNotFoundException, SQLException{
+        OperacionesPedido ABMP = new OperacionesPedido();
+        ABMP.cargarTabla(jTableMostrarPedidos, idPedido, telefono, p);
+    }
     /**
      * @param args the command line arguments
      */
@@ -311,7 +337,13 @@ public class ModificarPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
                     new ModificarPedido().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ModificarPedido.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

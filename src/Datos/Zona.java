@@ -22,6 +22,7 @@ public class Zona {
     private ResultSet rsDatos;
     private PreparedStatement psPrepSencencias;
     
+    private int idZona;
     private String descripcion;
     private float precio;
 
@@ -30,6 +31,14 @@ public class Zona {
         this.precio = 0;
     }
 
+    public int getIdZona() {
+        return idZona;
+    }
+
+    public void setIdZona(int idZona) {
+        this.idZona = idZona;
+    }
+    
     public String getDescripcion() {
         return descripcion;
     }
@@ -50,6 +59,18 @@ public class Zona {
         try {
             Connection conex = Conexion.Cadena();         
             String ConsultaSQL = "SELECT * FROM zona";
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;       
+    }
+        
+        public ResultSet consultaZonaPorId(int id) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();         
+            String ConsultaSQL = "SELECT * FROM zona WHERE idZona = " + id;
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
         } catch (SQLException ex) {

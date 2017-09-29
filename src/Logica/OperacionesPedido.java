@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import Datos.Cliente;
 import Datos.DetallePedido;
 import Datos.Pedido;
 import Datos.Zona;
@@ -13,15 +14,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Mariano
  */
 
-public class ABMPedido {
+public class OperacionesPedido {
     public int nuevoPedido(Pedido P) throws ClassNotFoundException, SQLException{
         return P.insertarPedido();
-        //return x;
+    }
+    
+    public void modificarPedido(Pedido P) throws ClassNotFoundException{
+        P.modificarPedido();
     }
     
     public Pedido buscarPedido(int idPedido) throws ClassNotFoundException, SQLException{
@@ -82,10 +88,66 @@ public class ABMPedido {
         datosZona = z1.consultaZona();
         while(datosZona.next()){
             Zona z2 = new Zona();
+            z2.setIdZona(datosZona.getInt("idZona"));
             z2.setDescripcion(datosZona.getString("descripcion"));
             z2.setPrecio(datosZona.getFloat("precio"));
             listaZonas.add(z2);
         }
         return listaZonas;
+    }
+    
+    public void eliminarDetallePedido(int idPedido) throws ClassNotFoundException{
+        DetallePedido DP = new DetallePedido();
+        DP.eliminarDetallePedido(idPedido);  
+    }
+    
+    public void cargarTabla(JTable tabla, String idPedido, String telefono, int p) throws ClassNotFoundException, SQLException{
+        ResultSet datosTabla;
+        ResultSet PidCliente;
+        DefaultTableModel modelo;
+        Pedido P = new Pedido();
+        Cliente C = new Cliente();
+        OperacionesCliente ABMC = new OperacionesCliente();
+        String []titulo = {"Código","Teléfono del Cliente","Nombre Cliente","Fecha","Hora"};
+        modelo = new DefaultTableModel(null,titulo);
+        String []datos = new String[5];
+        datosTabla = P.consultaCargarTabla(idPedido);
+        switch (p) {
+            case 0:
+                while(datosTabla.next()){
+                    datos[0] = String.valueOf(datosTabla.getInt("idPedido"));
+                    datos[3] = String.valueOf(datosTabla.getDate("fecha"));
+                    datos[4] = String.valueOf(datosTabla.getTime("hora"));
+                    C = ABMC.buscarClienteConId(datosTabla.getInt("idCliente"));
+                    datos[1] = String.valueOf(C.getTelefono());
+                    datos[2] = C.getNombre();
+                    modelo.addRow(datos);
+                }       break;
+            case 1:
+                datosTabla = P.consultaCargarTabla(idPedido);
+                while(datosTabla.next()){
+                    datos[0] = String.valueOf(datosTabla.getInt("idPedido"));
+                    datos[3] = String.valueOf(datosTabla.getDate("fecha"));
+                    datos[4] = String.valueOf(datosTabla.getTime("hora"));
+                    C = ABMC.buscarClienteConId(datosTabla.getInt("idCliente"));
+                    datos[1] = String.valueOf(C.getTelefono());
+                    datos[2] = C.getNombre();
+                    modelo.addRow(datos);
+                }   break;
+            default:
+                datosTabla = C.obtenerClienteFiltrado(telefono);
+                while(datosTabla.next()){
+                    datos[1] = String.valueOf(datosTabla.getLong("telefono"));
+                    datos[2] = datosTabla.getString("nombre");                    
+                    PidCliente = P.consultaPedidoIdCliente(datosTabla.getInt("idCliente"));
+                    if(PidCliente.first()){
+                        datos[0] = String.valueOf(PidCliente.getInt("idPedido"));
+                        datos[3] = String.valueOf(PidCliente.getDate("fecha"));
+                        datos[4] = String.valueOf(PidCliente.getTime("hora"));
+                        modelo.addRow(datos);
+                    }
+                }   break;       
+        }
+        tabla.setModel(modelo);
     }
 }

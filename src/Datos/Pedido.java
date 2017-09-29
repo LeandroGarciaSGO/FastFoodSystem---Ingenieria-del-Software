@@ -30,7 +30,7 @@ public class Pedido {
     private Date fecha;
     private Time hora;
     private String lugarDeEnvio;
-    private String zona;
+    private int zona;
     private int idCadete;
     private DetallePedido detalle;
 
@@ -41,7 +41,7 @@ public class Pedido {
         this.fecha = null;
         this.hora = null;
         this.lugarDeEnvio = "";
-        this.zona = "";
+        this.zona = 0;
         this.idCadete = 0;
     }
 
@@ -93,13 +93,13 @@ public class Pedido {
         this.lugarDeEnvio = lugarDeEnvio;
     }
 
-    public String getZona() {
+    public int getZona() {
         return zona;
     }
 
-    public void setZona(String zona) {
+    public void setZona(int zona) {
         this.zona = zona;
-    }
+    }    
 
     public int getIdCadete() {
         return idCadete;
@@ -131,6 +131,26 @@ public class Pedido {
         return rsDatos;       
     }
     
+    public ResultSet consultaPedidoIdCliente(int idCliente) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();         
+            String ConsultaSQL = "SELECT idPedido, fecha, hora FROM pedido WHERE idCliente = '" + idCliente + "' AND estado = '" + 1 + "'";
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos; 
+    }
+    
+    public ResultSet consultaCargarTabla(String idPedido) throws ClassNotFoundException, SQLException{
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT idPedido, idCliente, fecha, hora FROM pedido WHERE idPedido LIKE '%"+idPedido+"%' AND estado = '" + 1 + "'";        
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+        return rsDatos;
+    }
+    
     public int insertarPedido() throws ClassNotFoundException{
         try{
             Connection conec = Conexion.Cadena();
@@ -140,7 +160,7 @@ public class Pedido {
             psPrepSencencias.setDate(3, fecha);
             psPrepSencencias.setTime(4, hora);
             psPrepSencencias.setString(5, lugarDeEnvio);
-            psPrepSencencias.setString(6, zona);
+            psPrepSencencias.setInt(6, zona);
             psPrepSencencias.setInt(7, idCadete);
             psPrepSencencias.executeUpdate();
             rsDatos = psPrepSencencias.getGeneratedKeys();
@@ -157,7 +177,7 @@ public class Pedido {
             Connection cn = Conexion.Cadena();
             psPrepSencencias = cn.prepareStatement("UPDATE pedido SET estado = ? WHERE idPedido = ?",PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
-            psPrepSencencias.setInt(1, 4);
+            psPrepSencencias.setInt(1, 0);
             psPrepSencencias.setInt(2, idPedido);
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();
@@ -168,6 +188,26 @@ public class Pedido {
         }
     }
     
+     public void modificarPedido() throws ClassNotFoundException {
+        try {      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE pedido SET lugarDeEnvio = ?, zona = ?, idCadete = ? WHERE idPedido = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setString(1, lugarDeEnvio);
+            psPrepSencencias.setInt(2, zona);
+            psPrepSencencias.setInt(3, idCadete);
+            psPrepSencencias.setInt(4, idPedido);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+
     public ResultSet obtenerPedidosListos() throws ClassNotFoundException, SQLException {
         Connection conex = Conexion.Cadena();
         String ConsultaSQL = "SELECT * FROM pedido WHERE estado = 3";
@@ -182,5 +222,36 @@ public class Pedido {
         sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         rsDatos = sentencia.executeQuery(ConsultaSQL);
         return rsDatos;
+    }
+    
+    public int obtenerSiguienteIdPedido() throws ClassNotFoundException, SQLException{
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT (MAX(idPedido) )AS 'ID' FROM pedido";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+        if (rsDatos.first()) {
+            int id = rsDatos.getInt("ID") + 1;
+            return id;
+        } else {
+            return 1;
+        }
+    }
+
+    public void modificarEstado(int est) throws ClassNotFoundException {
+        try {      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE pedido SET estado = ? WHERE idPedido = ?",PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            psPrepSencencias.setInt(1, est);
+            psPrepSencencias.setInt(2, idPedido);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -10,9 +10,12 @@ package Presentacion;
  * @author Mariano
  */
 
+import Datos.Cadete;
 import Datos.DetallePedido;
 import Datos.Pedido;
-import Logica.ABMPedido;
+import Logica.AMBCadete;
+import Logica.OperacionesPedido;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,16 +26,21 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     
     Pedido P;
     ArrayList<DetallePedido> DP;
-    int x;
+    ArrayList<DetallePedido> DPMod;
+    int b;
+    int cod;
 
     /**
      * Creates new form ConfirmarPedido
      */
-    public ConfirmarPedido() {
+    public ConfirmarPedido() throws ClassNotFoundException, SQLException {
         initComponents();
         setLocationRelativeTo(null);
-        x = 0;
+        b = 0;
+        cod = 0;
+        P = new Pedido();
         DP = new ArrayList<DetallePedido>();
+        DPMod = new ArrayList<DetallePedido>();
     }
 
     public Pedido getP() {
@@ -49,7 +57,32 @@ public class ConfirmarPedido extends javax.swing.JFrame {
 
     public void setDP(ArrayList<DetallePedido> DP) {
         this.DP = DP;
-    }    
+    }
+
+    public ArrayList<DetallePedido> getDPMod() {
+        return DPMod;
+    }
+
+    public void setDPMod(ArrayList<DetallePedido> DPMod) {
+        this.DPMod = DPMod;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,13 +102,13 @@ public class ConfirmarPedido extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Confirmar Pedido");
-        setMaximumSize(new java.awt.Dimension(400, 200));
-        setMinimumSize(new java.awt.Dimension(400, 200));
+        setMaximumSize(new java.awt.Dimension(500, 200));
+        setMinimumSize(new java.awt.Dimension(500, 200));
         setResizable(false);
 
         jLabelCadetes.setText("Cadetes:");
 
-        jComboBoxSeleccioneCadete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Cadete", "1", "2", "3" }));
+        jComboBoxSeleccioneCadete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Cadete", "Cadete 1", "Cadete 2", "Cadete 3" }));
 
         jLabelPedidoNum.setText("Pedido Número:");
 
@@ -84,7 +117,11 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         jLabelMostrarPedidoNum.setPreferredSize(new java.awt.Dimension(100, 14));
 
         jButtonVolver.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-volver-confirmar-pedido.png"))); // NOI18N
         jButtonVolver.setText("Volver");
+        jButtonVolver.setMaximumSize(new java.awt.Dimension(210, 57));
+        jButtonVolver.setMinimumSize(new java.awt.Dimension(210, 57));
+        jButtonVolver.setPreferredSize(new java.awt.Dimension(210, 57));
         jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonVolverActionPerformed(evt);
@@ -92,7 +129,11 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         });
 
         jButtonConfirmar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-confirmar-pedido.png"))); // NOI18N
         jButtonConfirmar.setText("Confirmar");
+        jButtonConfirmar.setMaximumSize(new java.awt.Dimension(210, 57));
+        jButtonConfirmar.setMinimumSize(new java.awt.Dimension(210, 57));
+        jButtonConfirmar.setPreferredSize(new java.awt.Dimension(210, 57));
         jButtonConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfirmarActionPerformed(evt);
@@ -104,22 +145,18 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelCadetes)
+                        .addComponent(jLabelPedidoNum)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelPedidoNum)
-                            .addComponent(jLabelCadetes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxSeleccioneCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelMostrarPedidoNum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74)
-                        .addComponent(jButtonConfirmar)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                    .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxSeleccioneCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMostrarPedidoNum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,14 +166,14 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                     .addComponent(jLabelCadetes)
                     .addComponent(jComboBoxSeleccioneCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelPedidoNum)
                     .addComponent(jLabelMostrarPedidoNum, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonConfirmar)
-                    .addComponent(jButtonVolver))
-                .addContainerGap(48, Short.MAX_VALUE))
+                    .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,23 +181,54 @@ public class ConfirmarPedido extends javax.swing.JFrame {
 
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         // TODO add your handling code here:
-        ABMPedido ABMP = new ABMPedido();
-        P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem())));
-        try {
-            x = ABMP.nuevoPedido(P);
-            if(x > 0){
-                for(int i = 0; i<DP.size(); i++){
-                    DP.get(i).setIdPedido(x);
+        OperacionesPedido ABMP = new OperacionesPedido();
+        AMBCadete ABMC = new AMBCadete();
+        Cadete C = new Cadete();
+        int numLinea = 0;
+        if(jComboBoxSeleccioneCadete.getSelectedIndex()>0){
+            try {
+            //Valida selección de un cadete
+            C = ABMC.consultaCadeteEstado(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
+            if(C!=null){
+                P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
+                C.modificarEstadoCadete();
+                if (b==0){
+                    int x = ABMP.nuevoPedido(P);
+                    if(x > 0){
+                        for(int i = 0; i<DP.size(); i++){
+                            numLinea = numLinea + 1;
+                            DP.get(i).setIdPedido(x);
+                            DP.get(i).setNumLinea(numLinea);
+                        }
+                        ABMP.nuevoDetallePedido(DP);
+                        JOptionPane.showMessageDialog(this, "El pedido se registro correctamente y su Número de Pedido es: "+ x, "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "El pedido no puede registrarse", "Fast Food System", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-                ABMP.nuevoDetallePedido(DP);
-                JOptionPane.showMessageDialog(this, "El pedido se registro correctamente y su Número de Pedido es: "+ x, "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
+                else if (JOptionPane.showConfirmDialog(null, "Desea modificar el pedido?","Fast Food System",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION){
+                    ABMP.modificarPedido(P);
+                    ABMP.eliminarDetallePedido(P.getIdPedido());
+                    for(int i = 0; i<DPMod.size(); i++){
+                        numLinea = numLinea + 1;
+                        DPMod.get(i).setIdPedido(P.getIdPedido());
+                        DPMod.get(i).setNumLinea(numLinea);
+                    }
+                    ABMP.nuevoDetallePedido(DPMod);
+                    JOptionPane.showMessageDialog(this, "El pedido se modifico correctamente y su Número de Pedido es: "+ P.getIdPedido(), "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             else{
-                JOptionPane.showMessageDialog(this, "El pedido no puede registrarse", "Fast Food System", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El cadete NO está disponible", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"Debe Seleccionar Un Cadete","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
@@ -169,6 +237,12 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonVolverActionPerformed
 
+    public void mostrarNumPedido(int p) throws ClassNotFoundException, SQLException{
+        if(p==0)
+            jLabelMostrarPedidoNum.setText(String.valueOf(P.obtenerSiguienteIdPedido()));
+        else
+            jLabelMostrarPedidoNum.setText(String.valueOf(cod));
+    }
     /**
      * @param args the command line arguments
      */
@@ -199,7 +273,13 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConfirmarPedido().setVisible(true);
+                try {
+                    new ConfirmarPedido().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

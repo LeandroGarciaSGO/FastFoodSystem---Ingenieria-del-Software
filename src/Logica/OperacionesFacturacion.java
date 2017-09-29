@@ -5,6 +5,7 @@ import Datos.Comida;
 import Datos.DetallePedido;
 import Datos.Facturacion;
 import Datos.Pedido;
+import Datos.Zona;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,8 +29,10 @@ public class OperacionesFacturacion {
             ped.setFecha(pedidoslistos.getDate("fecha"));
             ped.setHora(pedidoslistos.getTime("hora"));
             ped.setLugarDeEnvio(pedidoslistos.getString("lugarDeEnvio"));
-            ped.setZona(pedidoslistos.getString("zona"));
-            ped.setIdCadete(pedidoslistos.getInt("idCadete"));
+            ped.setZona(pedidoslistos.getInt("zona"));
+            ped.setIdCadete(pedidoslistos.getInt("idCadete"));         
+            System.out.print(pedidoslistos.getInt("idPedido"));
+            System.out.print(ped.getIdPedido());
             OperacionesCliente opCli = new OperacionesCliente();
             Cliente cli = opCli.buscarClienteConId(ped.getIdCliente());
             if (cli != null) {
@@ -66,7 +69,34 @@ public class OperacionesFacturacion {
     }
      
      
-    
+   public Zona obtenerZona(int idZona) throws ClassNotFoundException, SQLException{
+       Zona z = new Zona ();
+       ResultSet resultado = z.consultaZonaPorId(idZona);
+       if(resultado.first())
+       {
+           z.setIdZona(resultado.getInt("idZona"));
+           z.setDescripcion(resultado.getString("descripcion"));
+           z.setPrecio(resultado.getFloat("precio"));
+           return z;
+       }
+       return null;
+   }
+   
+   public void guardarDetalle(Facturacion factura, ArrayList<DetallePedido> listaDetalles) throws SQLException, ClassNotFoundException{
+       for (int i = 0; i < listaDetalles.size(); i++) {
+           Pedido p = new Pedido();
+           p = factura.getDatospedido();
+           p.setDetalle(listaDetalles.get(i));
+           factura.setDatospedido(p);
+           System.out.println(factura.getDatospedido().getDetalle().getCantidad());
+           System.out.println(factura.getDatospedido().getDetalle().getIdComida());
+           System.out.println(factura.getDatospedido().getDetalle().getNumLinea());
+           System.out.println(factura.getDatospedido().getDetalle().getIdPedido());
+           System.out.println(factura.getDatospedido().getDetalle().getDatoscomida().getDescripcion());
+           System.out.println(factura.getDatospedido().getDetalle().getDatoscomida().getPrecio());
+           factura.insertarDetalle();
+       }
+   }
    
 
     
