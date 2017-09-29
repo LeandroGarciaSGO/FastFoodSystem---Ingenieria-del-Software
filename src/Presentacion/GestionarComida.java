@@ -44,6 +44,8 @@ public class GestionarComida extends javax.swing.JFrame {
         modelo = new DefaultTableModel(datos, cabecera);
         jTableComida.setModel(modelo);
         cargarTablaComida();
+        jButtonCancelarSelecc.setBackground(java.awt.Color.red);
+        jButtonCancelarSelecc.setEnabled(false);
     }
 
     /**
@@ -68,6 +70,7 @@ public class GestionarComida extends javax.swing.JFrame {
             }
         };
         jButtonCancelar = new javax.swing.JButton();
+        jButtonCancelarSelecc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestionar Comida");
@@ -242,12 +245,25 @@ public class GestionarComida extends javax.swing.JFrame {
             }
         });
 
+        jButtonCancelarSelecc.setBackground(new java.awt.Color(255, 0, 0));
+        jButtonCancelarSelecc.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonCancelarSelecc.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelarSelecc.setText("Cancelar seleccion");
+        jButtonCancelarSelecc.setMaximumSize(new java.awt.Dimension(180, 140));
+        jButtonCancelarSelecc.setMinimumSize(new java.awt.Dimension(180, 140));
+        jButtonCancelarSelecc.setPreferredSize(new java.awt.Dimension(180, 140));
+        jButtonCancelarSelecc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarSeleccActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonNuevaComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,9 +271,13 @@ public class GestionarComida extends javax.swing.JFrame {
                         .addComponent(jButtonModificarComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonEliminarComida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelDescComida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelDescComida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButtonCancelarSelecc, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(235, 235, 235)
+                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -273,7 +293,9 @@ public class GestionarComida extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelarSelecc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -410,6 +432,7 @@ public class GestionarComida extends javax.swing.JFrame {
                     jButtonEliminarComida.setEnabled(true);
                     jButtonModificarComida.setEnabled(true);
                     jButtonNuevaComida.setEnabled(false);
+                    jButtonCancelarSelecc.setEnabled(true);
                 }
             }
         });
@@ -419,6 +442,14 @@ public class GestionarComida extends javax.swing.JFrame {
     private void jTextFieldDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDescripcionKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescripcionKeyReleased
+
+    private void jButtonCancelarSeleccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarSeleccActionPerformed
+        jTableComida.clearSelection();
+        jButtonEliminarComida.setEnabled(false);
+        jButtonModificarComida.setEnabled(false);
+        jButtonNuevaComida.setEnabled(true);
+        jButtonCancelarSelecc.setEnabled(false);
+    }//GEN-LAST:event_jButtonCancelarSeleccActionPerformed
 
     private void cargarTablaComida() {
         ResultSet Re;
@@ -489,6 +520,7 @@ public class GestionarComida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCancelarSelecc;
     private javax.swing.JButton jButtonEliminarComida;
     private javax.swing.JButton jButtonModificarComida;
     private javax.swing.JButton jButtonNuevaComida;

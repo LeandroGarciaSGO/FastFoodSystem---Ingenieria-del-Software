@@ -332,7 +332,6 @@ public class Comidas extends javax.swing.JFrame {
                             this.dispose();
                         }
                     } catch (ClassNotFoundException ex) {
-                        //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
                         Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -344,7 +343,6 @@ public class Comidas extends javax.swing.JFrame {
         try {
             C.eliminar(Integer.parseInt(jLabelCodigoComida.getText()));
         } catch (ClassNotFoundException ex) {
-            //Logger.getLogger(Clientes.class.getName()).log(Level.SEVERE, null, ex);
             Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "La comida se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
@@ -407,28 +405,7 @@ public class Comidas extends javax.swing.JFrame {
             return false;
         }
         
-//        try {
-//            Float.parseFloat(jTextFieldPrecioComida.getText());
-//            return true;
-//        } catch (NumberFormatException e) {
-//            JOptionPane.showMessageDialog(this, "ERROR: El precio debe ser numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        } 
     }
-
-//    private boolean validarCamposComidas() {
-//        if ((!validarCampoDescripcion()) && jTextFieldDescripComida.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(this, "ERROR: El campo \"Descripcion\" no debe ser vacio y debe contener solo palabras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            if ((!validarCampoPrecio()) && jTextFieldPrecioComida.getText().isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "ERROR: El campo \"Precio\" no debe ser vacio y debe ser numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            } else {
-//                return true;
-//            }
-//        } else {
-//            return true;
-//        }
-//        return false;
-//    }
 
     private void jComboBoxTipoComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoComidaActionPerformed
 

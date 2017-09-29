@@ -160,7 +160,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Principal.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Principal-iloveimg-resized.png"))); // NOI18N
 
         jLabelUsuario.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabelUsuario.setText("Usuario:");
