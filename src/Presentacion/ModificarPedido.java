@@ -9,9 +9,7 @@ package Presentacion;
  *
  * @author Mariano
  */
-import Datos.Cliente;
 import Datos.Pedido;
-import Logica.OperacionesCliente;
 import Logica.OperacionesPedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,6 +28,7 @@ public class ModificarPedido extends javax.swing.JFrame {
     
     public ModificarPedido() throws ClassNotFoundException, SQLException {
         initComponents();
+        setLocationRelativeTo(null);
         cargarTabla("","",0);
     }
 
@@ -67,11 +66,6 @@ public class ModificarPedido extends javax.swing.JFrame {
 
         jTextFieldCodigo.setMaximumSize(new java.awt.Dimension(150, 20));
         jTextFieldCodigo.setPreferredSize(new java.awt.Dimension(150, 20));
-        jTextFieldCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldCodigoActionPerformed(evt);
-            }
-        });
         jTextFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldCodigoKeyReleased(evt);
@@ -81,11 +75,6 @@ public class ModificarPedido extends javax.swing.JFrame {
         jLabelTelefono.setText("Teléfono:");
 
         jTextFieldTelefono.setPreferredSize(new java.awt.Dimension(150, 20));
-        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTelefonoActionPerformed(evt);
-            }
-        });
         jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldTelefonoKeyReleased(evt);
@@ -133,6 +122,7 @@ public class ModificarPedido extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButtonModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-pedido_1.png"))); // NOI18N
         jButtonModificar.setText("Modificar");
         jButtonModificar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonModificar.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -236,33 +226,6 @@ public class ModificarPedido extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jTextFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCodigoActionPerformed
-        
-    }//GEN-LAST:event_jTextFieldCodigoActionPerformed
-
-    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
-
-        //OperacionesCliente ABMC = new OperacionesCliente();
-        //Cliente C = new Cliente();
-        //OperacionesPedido ABMP = new OperacionesPedido();
-        //Pedido P = new Pedido();
-        //String[] datos = new String[5];
-        //DefaultTableModel dtm = (DefaultTableModel)jTableMostrarPedidos.getModel();
-        //try {
-        //    P = ABMP.buscarPedido(Integer.parseInt(jTextFieldCodigo.getText()));
-        //    datos[0] = String.valueOf(P.getIdPedido());
-        //    datos[3] = String.valueOf(P.getFecha());
-        //    datos[4] = String.valueOf(P.getHora());
-        //    
-        //    C = ABMC.buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
-        //    datos[1] = String.valueOf(C.getTelefono());
-        //    datos[2] = C.getNombre();
-        //    dtm.addRow(datos);
-        //} catch (ClassNotFoundException | SQLException ex) {
-        //    Logger.getLogger(DatosPedido.class.getName()).log(Level.SEVERE, null, ex);
-        //}
-    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
-
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
         DefaultTableModel modelo = (DefaultTableModel) jTableMostrarPedidos.getModel();
@@ -272,6 +235,8 @@ public class ModificarPedido extends javax.swing.JFrame {
             int cod = 0;
             long telefono = 0;
             if (fila >= 0) {
+                jButtonModificar.setEnabled(true);
+                jButtonEliminar.setEnabled(true);
                 int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
                 for (int i=0; i<filasselec.length;i++){
                     cod = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0)));
@@ -297,9 +262,9 @@ public class ModificarPedido extends javax.swing.JFrame {
         int fila = jTableMostrarPedidos.getSelectedRow();
         try {
             if (fila >= 0) {
-                P.eliminarPedido(Integer.parseInt(jTextFieldCodigo.getText()));
                 int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
                 for (int i=0; i<filasselec.length;i++){
+                    P.eliminarPedido(Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0))));
                     modelo.removeRow(filasselec[i]-i);
                 }
                 JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente", "Fast Food System", JOptionPane.OK_OPTION);

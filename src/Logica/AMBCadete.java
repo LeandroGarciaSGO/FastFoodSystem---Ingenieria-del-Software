@@ -90,5 +90,27 @@ public class AMBCadete {
         C.agregarNuevoCadete();
         return 0;
     }
-}  
+}
+ 
+ public Cadete consultaCadeteEstado(int idCadete) throws SQLException, ClassNotFoundException{
+     ResultSet datosCadete;
+     Cadete miCadete = new Cadete();
+     datosCadete = miCadete.consultaCadeteEstado(idCadete);
+     try {
+         boolean primercadete = datosCadete.first();
+     } catch (SQLException ex) {
+         Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     if (datosCadete.first()) {
+         miCadete.setIdCadete(datosCadete.getInt("idCadete"));
+         miCadete.setEstado(datosCadete.getBoolean("estado"));
+         if (miCadete.isEstado()) {
+             return miCadete;
+         }
+         else{
+             return null;
+         }
+     }
+     return null;
+ }
 }

@@ -10,9 +10,12 @@ package Presentacion;
  * @author Mariano
  */
 
+import Datos.Cadete;
 import Datos.DetallePedido;
 import Datos.Pedido;
+import Logica.AMBCadete;
 import Logica.OperacionesPedido;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -25,6 +28,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     ArrayList<DetallePedido> DP;
     ArrayList<DetallePedido> DPMod;
     int b;
+    int cod;
 
     /**
      * Creates new form ConfirmarPedido
@@ -33,10 +37,10 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         b = 0;
+        cod = 0;
         P = new Pedido();
         DP = new ArrayList<DetallePedido>();
         DPMod = new ArrayList<DetallePedido>();
-        jLabelMostrarPedidoNum.setText(String.valueOf(P.obtenerSiguienteIdPedido()));
     }
 
     public Pedido getP() {
@@ -70,6 +74,15 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     public void setB(int b) {
         this.b = b;
     }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,7 +108,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
 
         jLabelCadetes.setText("Cadetes:");
 
-        jComboBoxSeleccioneCadete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Cadete", "1", "2", "3" }));
+        jComboBoxSeleccioneCadete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Cadete", "Cadete 1", "Cadete 2", "Cadete 3" }));
 
         jLabelPedidoNum.setText("Pedido Número:");
 
@@ -104,6 +117,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         jLabelMostrarPedidoNum.setPreferredSize(new java.awt.Dimension(100, 14));
 
         jButtonVolver.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-volver-confirmar-pedido.png"))); // NOI18N
         jButtonVolver.setText("Volver");
         jButtonVolver.setMaximumSize(new java.awt.Dimension(210, 57));
         jButtonVolver.setMinimumSize(new java.awt.Dimension(210, 57));
@@ -168,14 +182,23 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         // TODO add your handling code here:
         OperacionesPedido ABMP = new OperacionesPedido();
-        if(jComboBoxSeleccioneCadete.getSelectedIndex()>0){//Valida selección de un cadete
-            P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem())));
+        AMBCadete ABMC = new AMBCadete();
+        Cadete C = new Cadete();
+        int numLinea = 0;
+        if(jComboBoxSeleccioneCadete.getSelectedIndex()>0){
             try {
+            //Valida selección de un cadete
+            C = ABMC.consultaCadeteEstado(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
+            if(C!=null){
+                P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
+                C.modificarEstadoCadete();
                 if (b==0){
                     int x = ABMP.nuevoPedido(P);
                     if(x > 0){
                         for(int i = 0; i<DP.size(); i++){
+                            numLinea = numLinea + 1;
                             DP.get(i).setIdPedido(x);
+                            DP.get(i).setNumLinea(numLinea);
                         }
                         ABMP.nuevoDetallePedido(DP);
                         JOptionPane.showMessageDialog(this, "El pedido se registro correctamente y su Número de Pedido es: "+ x, "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
@@ -188,16 +211,23 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                     ABMP.modificarPedido(P);
                     ABMP.eliminarDetallePedido(P.getIdPedido());
                     for(int i = 0; i<DPMod.size(); i++){
+                        numLinea = numLinea + 1;
                         DPMod.get(i).setIdPedido(P.getIdPedido());
+                        DPMod.get(i).setNumLinea(numLinea);
                     }
                     ABMP.nuevoDetallePedido(DPMod);
                     JOptionPane.showMessageDialog(this, "El pedido se modifico correctamente y su Número de Pedido es: "+ P.getIdPedido(), "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (ClassNotFoundException | SQLException ex) {
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "El cadete NO está disponible", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+            }
+            } catch (SQLException ex) {
+                Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        else{
+        }else{
             JOptionPane.showMessageDialog(this,"Debe Seleccionar Un Cadete","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
@@ -207,6 +237,12 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonVolverActionPerformed
 
+    public void mostrarNumPedido(int p) throws ClassNotFoundException, SQLException{
+        if(p==0)
+            jLabelMostrarPedidoNum.setText(String.valueOf(P.obtenerSiguienteIdPedido()));
+        else
+            jLabelMostrarPedidoNum.setText(String.valueOf(cod));
+    }
     /**
      * @param args the command line arguments
      */

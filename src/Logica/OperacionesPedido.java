@@ -24,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 public class OperacionesPedido {
     public int nuevoPedido(Pedido P) throws ClassNotFoundException, SQLException{
         return P.insertarPedido();
-        //return x;
     }
     
     public void modificarPedido(Pedido P) throws ClassNotFoundException{

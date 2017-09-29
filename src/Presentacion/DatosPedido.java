@@ -36,7 +36,7 @@ public class DatosPedido extends javax.swing.JFrame {
     private java.sql.Statement sentencia;
     private ResultSet rsDatos;
     private float total;
-    private int numLinea;
+    private int idP;
     private ArrayList<DetallePedido> listaDetallePedido;
     private ArrayList<DetallePedido> listaDPModificar;
     private ArrayList<Zona> listaZonas;
@@ -48,6 +48,7 @@ public class DatosPedido extends javax.swing.JFrame {
     public DatosPedido() throws ClassNotFoundException, SQLException {
         initComponents();
         total = 0;
+        idP = 0;
         listaDetallePedido = new ArrayList<DetallePedido>();
         listaDPModificar = new ArrayList<DetallePedido>();
         listaZonas = new ArrayList<Zona>();
@@ -187,7 +188,7 @@ public class DatosPedido extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabelMensajeExistenciaCliente.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelMensajeExistenciaCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelMensajeExistenciaCliente.setForeground(new java.awt.Color(255, 0, 0));
         jLabelMensajeExistenciaCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelMensajeExistenciaCliente.setMaximumSize(new java.awt.Dimension(175, 25));
@@ -538,7 +539,7 @@ public class DatosPedido extends javax.swing.JFrame {
                     jLabelMostrarPedidoNum.setText(String.valueOf(P.obtenerSiguienteIdPedido()));
                 }
                 else{
-                    jLabelMensajeExistenciaCliente.setText("Cliente Inexistente");
+                    jLabelMensajeExistenciaCliente.setText("\"Cliente Inexistente\"");
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -596,18 +597,7 @@ public class DatosPedido extends javax.swing.JFrame {
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "No Hay Disponible "+jComboBoxSeleccionarComida.getSelectedItem(),"FastFoodSystem",JOptionPane.INFORMATION_MESSAGE);
-                }
-                //if(Cl.isEstado()){//Cargar detalle de un pedido modificado
-                    //cargarDetallePedido(1,null);
-                //}
-                //else{//Cargar detalle de un pedido nuevo
-                    //DetallePedido DP = new DetallePedido();
-                    //cargarDetallePedido(0, C);
-                    //DP.setCantidad(Integer.parseInt(datos[2]));
-                    //DP.setIdComida(C.getIdComida());
-                    //DP.setNumLinea(numLinea + 1);
-                    //listaDetallePedido.add(DP);
-                
+                }                
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DatosPedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -616,25 +606,17 @@ public class DatosPedido extends javax.swing.JFrame {
 
     private void jButtonConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarPedidoActionPerformed
         // TODO add your handling code here:
-        //Pedido P = new Pedido();
-        //Cliente C = new Cliente();
         java.util.Date FP = new java.util.Date();
-        ConfirmarPedido CP;
         try {
-            CP = new ConfirmarPedido();
             if(validarCamposPedido(1)){//Para validar que el campo lugar de envio y zono no esten vacíos y tratar un nuevo pedido
+                ConfirmarPedido CP = new ConfirmarPedido();
                 if(Cl.isEstado()){//Para tratar un pedido que se desea modificar
                     P.setLugarDeEnvio(jTextFieldLugarDeEnvio.getText());
-                    //P.setZona(String.valueOf(jComboBoxZona.getSelectedItem()));
                     cargarDetallePedido(1);//carga un detalle de pedido a modificar
-                    //ConfirmarPedido CP = new ConfirmarPedido();
-                    CP.setB(1);//mando 1 porque es un nuevo pedido
-                    //CP.setP(P);
-                    //CP.setDP(listaDetallePedido);
-                    //CP.setVisible(true);
+                    CP.setB(1);//mando 1 porque es un pedido a modificar
                     CP.setDPMod(listaDPModificar);
                 }
-                else{
+                else{//Para tratar un pedido que es nuevo
                     C = buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
                     P.setIdCliente(C.getIdCliente());
                     P.setEstado(1);
@@ -643,13 +625,8 @@ public class DatosPedido extends javax.swing.JFrame {
                     java.sql.Time hora = new java.sql.Time(FP.getTime());
                     P.setHora(hora);
                     P.setLugarDeEnvio(jTextFieldLugarDeEnvio.getText());
-                    //P.setZona(String.valueOf(jComboBoxZona.getSelectedItem()));
                     cargarDetallePedido(0);//carga un detalle de pedido nuevo
-                    //ConfirmarPedido CP = new ConfirmarPedido();
-                    CP.setB(0);//mando 0 porque es la modificacion de un pedido
-                    //CP.setP(P);
-                    //CP.setDP(listaDetallePedido);
-                    //CP.setVisible(true);
+                    CP.setB(0);//mando 0 porque es un nuevo pedido
                 }
                 CP.setP(P);
                 CP.setDP(listaDetallePedido);
@@ -696,23 +673,21 @@ public class DatosPedido extends javax.swing.JFrame {
         return C;
     }
     
-    public void mostrarTablaModificar(int cod, long telefono) throws ClassNotFoundException, SQLException{
-        //Cliente C = new Cliente();
-        //Pedido P = new Pedido();
-        Comida Co = new Comida();
-        //DefaultTableModel modelo = (DefaultTableModel) jTableDetallesPedido.getModel();
+    public void mostrarTablaModificar(int codP, long telefono) throws ClassNotFoundException, SQLException{
+        Comida Co = new Comida();        
         String[] datos = new String[5];
         OperacionesPedido ABMP = new OperacionesPedido();
         ABMComida ABMCo = new ABMComida();
-        //ArrayList<DetallePedido> listaDP = new ArrayList<DetallePedido>();
-        P = ABMP.buscarPedido(cod);
+        jButtonNuevoCliente.setEnabled(false);
+        idP = codP;
+        P = ABMP.buscarPedido(codP);
         Cl = buscarCliente(telefono);
         listaDetallePedido = ABMP.buscarDetallePedido(P.getIdPedido());
         if(Cl!=null){
             jLabelMostrarTelefono.setText(String.valueOf(Cl.getTelefono()));
             jLabelMostrarApeNom.setText(Cl.getApellido() + " " + Cl.getNombre());
             jLabelMostrarDomicilio.setText(Cl.getDomicilio());
-            jLabelMostrarPedidoNum.setText(String.valueOf(cod));
+            jLabelMostrarPedidoNum.setText(String.valueOf(codP));
             jTextFieldLugarDeEnvio.setText(P.getLugarDeEnvio());
             for(int i = 0; i<listaDetallePedido.size(); i++){
                 Co = ABMCo.buscarComidaId(listaDetallePedido.get(i).getIdComida());
@@ -736,63 +711,43 @@ public class DatosPedido extends javax.swing.JFrame {
         }
     }
     
-    public void cargarDetallePedido(int p){
+    public void cargarDetallePedido(int p) throws ClassNotFoundException, SQLException{
         for(int i = 0; i<modelo.getRowCount(); i++){
                 DetallePedido DP = new DetallePedido();
                 DP.setCantidad(Integer.parseInt(String.valueOf(modelo.getValueAt(i, 2))));
                 DP.setIdComida(Integer.parseInt(String.valueOf(modelo.getValueAt(i, 0))));
+                //DP.setNumLinea(DP.obtenerSiguienteNumLineaDetallePedido());
                 if(p==0)
                     listaDetallePedido.add(DP);
                 else
                     listaDPModificar.add(DP);
             }
-        //if(p==0){//Cargar detalle de un pedido nuevo
-            //DetallePedido DP = new DetallePedido();
-            //DP.setCantidad(Integer.parseInt(jTextFieldCantidad.getText()));
-            //DP.setIdComida(C.getIdComida());
-            //DP.setNumLinea(numLinea + 1);
-            //listaDetallePedido.add(DP);
-        //}
-        //else{//Cargar detalle de un pedido modificado
-            //for(int i = 0; i<modelo.getRowCount(); i++){
-                //DetallePedido DP = new DetallePedido();
-                //DP.setCantidad(Integer.parseInt(String.valueOf(modelo.getValueAt(i, 2))));
-                //DP.setIdComida(Integer.parseInt(String.valueOf(modelo.getValueAt(i, 0))));
-                //listaDPModificar.add(DP);
-                
-            //}
-        //}
     }
     
     public boolean validarCamposPedido(int v){
         //Valida el telefono del cliente a buscar
-        if(v==0){
-            if(jTextFieldTelefono.getText().length()<=0){
-                JOptionPane.showMessageDialog(this,"-. ERROR: El Teléfono No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        //Valida el lugar de envío y la zona
-        else if(v==1){
-            if(jTextFieldLugarDeEnvio.getText().length()<=0){
-                JOptionPane.showMessageDialog(this,"-. ERROR: El Lugar De Envío No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            if(jComboBoxZona.getSelectedIndex()==0){
-                JOptionPane.showMessageDialog(this,"-. ERROR: Debe Seleccionar Una Zona","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        //Valida la selección de una comida y la cantidad
-        else{
-            if(jComboBoxSeleccionarComida.getSelectedIndex()==0){
-                JOptionPane.showMessageDialog(this,"-. ERROR: Debe Seleccionar Una Comida","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-            if(jTextFieldCantidad.getText().length()<=0){
-                JOptionPane.showMessageDialog(this,"-. ERROR: La Cantidad No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+        switch (v) {
+            case 0:
+                if(jTextFieldTelefono.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"-. ERROR: El Teléfono No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }   break;
+            case 1:
+                if(jTextFieldLugarDeEnvio.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"-. ERROR: El Lugar De Envío No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }   if(jComboBoxZona.getSelectedIndex()==0){
+                    JOptionPane.showMessageDialog(this,"-. ERROR: Debe Seleccionar Una Zona","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }   break;
+            default:
+                if(jComboBoxSeleccionarComida.getSelectedIndex()==0){
+                    JOptionPane.showMessageDialog(this,"-. ERROR: Debe Seleccionar Una Comida","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }   if(jTextFieldCantidad.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"-. ERROR: La Cantidad No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }   break;
         }
         return true;
     }
