@@ -49,18 +49,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuClientes = new javax.swing.JMenu();
         jMenuItemNuevoCliente = new javax.swing.JMenuItem();
-        jMenuItemModificarCliente = new javax.swing.JMenuItem();
-        jMenuItemBorrarCliente = new javax.swing.JMenuItem();
         jMenuComidas = new javax.swing.JMenu();
         jMenuGestionarComida = new javax.swing.JMenuItem();
         jMenuPedidos = new javax.swing.JMenu();
         jMenuItemNuevoPedido = new javax.swing.JMenuItem();
-        jMenuItemModificarPedido = new javax.swing.JMenuItem();
-        jMenuItemCancelarPedido = new javax.swing.JMenuItem();
         jMenuCadetes = new javax.swing.JMenu();
         jMenuItemNuevoCadete = new javax.swing.JMenuItem();
-        jMenuItemModificarCadete = new javax.swing.JMenuItem();
-        jMenuItemBorrarCadete = new javax.swing.JMenuItem();
         jMenuFacturacion = new javax.swing.JMenu();
         jMenuItemGenerarFactura = new javax.swing.JMenuItem();
         jMenuItemAnularFactura = new javax.swing.JMenuItem();
@@ -176,7 +170,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jMenuClientes.setText("Clientes");
 
         jMenuItemNuevoCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemNuevoCliente.setText("Nuevo Cliente");
+        jMenuItemNuevoCliente.setText("Gestionar Clientes");
         jMenuItemNuevoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemNuevoClienteActionPerformed(evt);
@@ -184,28 +178,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
         jMenuClientes.add(jMenuItemNuevoCliente);
 
-        jMenuItemModificarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemModificarCliente.setText("Modificar Cliente");
-        jMenuItemModificarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemModificarClienteActionPerformed(evt);
-            }
-        });
-        jMenuClientes.add(jMenuItemModificarCliente);
-
-        jMenuItemBorrarCliente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemBorrarCliente.setText("Borrar Cliente");
-        jMenuItemBorrarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemBorrarClienteActionPerformed(evt);
-            }
-        });
-        jMenuClientes.add(jMenuItemBorrarCliente);
-
         jMenuBar1.add(jMenuClientes);
 
         jMenuComidas.setText("Comidas");
 
+        jMenuGestionarComida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_MASK));
         jMenuGestionarComida.setText("Gestionar Comida");
         jMenuGestionarComida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,8 +195,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuPedidos.setText("Pedidos");
 
-        jMenuItemNuevoPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemNuevoPedido.setText("Nuevo Pedido");
+        jMenuItemNuevoPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNuevoPedido.setText("Gestionar Pedidos");
         jMenuItemNuevoPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemNuevoPedidoActionPerformed(evt);
@@ -227,30 +204,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
         jMenuPedidos.add(jMenuItemNuevoPedido);
 
-        jMenuItemModificarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemModificarPedido.setText("Modificar Pedido");
-        jMenuItemModificarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemModificarPedidoActionPerformed(evt);
-            }
-        });
-        jMenuPedidos.add(jMenuItemModificarPedido);
-
-        jMenuItemCancelarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemCancelarPedido.setText("Cancelar Pedido");
-        jMenuItemCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCancelarPedidoActionPerformed(evt);
-            }
-        });
-        jMenuPedidos.add(jMenuItemCancelarPedido);
-
         jMenuBar1.add(jMenuPedidos);
 
         jMenuCadetes.setText("Cadetes");
 
-        jMenuItemNuevoCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemNuevoCadete.setText("Nuevo Cadete");
+        jMenuItemNuevoCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNuevoCadete.setText("Gestionar Cadetes");
         jMenuItemNuevoCadete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemNuevoCadeteActionPerformed(evt);
@@ -258,19 +217,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
         jMenuCadetes.add(jMenuItemNuevoCadete);
 
-        jMenuItemModificarCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemModificarCadete.setText("Modificar Cadete");
-        jMenuCadetes.add(jMenuItemModificarCadete);
-
-        jMenuItemBorrarCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemBorrarCadete.setText("Borrar Cadete");
-        jMenuCadetes.add(jMenuItemBorrarCadete);
-
         jMenuBar1.add(jMenuCadetes);
 
         jMenuFacturacion.setText("Facturacion");
 
-        jMenuItemGenerarFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemGenerarFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGenerarFactura.setText("Generar Factura");
         jMenuItemGenerarFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +230,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
         jMenuFacturacion.add(jMenuItemGenerarFactura);
 
-        jMenuItemAnularFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemAnularFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAnularFactura.setText("Anular Factura");
         jMenuFacturacion.add(jMenuItemAnularFactura);
 
@@ -287,11 +238,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuAyuda.setText("Ayuda");
 
-        jMenuItemInformacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemInformacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemInformacion.setText("Informacion");
         jMenuAyuda.add(jMenuItemInformacion);
 
-        jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemManual.setText("Manual de Usuario");
         jMenuAyuda.add(jMenuItemManual);
 
@@ -305,18 +256,16 @@ public class PrincipalEncargado extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonNuevoPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCancelarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonModificarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonNuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonCancelarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonModificarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonGenerarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonModificarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonGenerarFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonNuevoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonModificarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -383,31 +332,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
 
-    private void jMenuItemNuevoCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCadeteActionPerformed
-        // TODO add your handling code here:
-        GestionarCadete DC = new GestionarCadete();
-        DC.setVisible(true);
-        
-        
-    }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
-
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
         // TODO add your handling code here:
         VentanaGenerarFactura VGF = new VentanaGenerarFactura();
         VGF.setVisible(true);
     }//GEN-LAST:event_jButtonGenerarFacturaActionPerformed
-
-    private void jMenuItemModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarClienteActionPerformed
-        // TODO add your handling code here:
-        VentanaBuscarCliente BC = new VentanaBuscarCliente();
-        BC.setVisible(true);
-    }//GEN-LAST:event_jMenuItemModificarClienteActionPerformed
-
-    private void jMenuItemBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarClienteActionPerformed
-        // TODO add your handling code here:
-        VentanaBuscarCliente BC = new VentanaBuscarCliente();
-        BC.setVisible(true);
-    }//GEN-LAST:event_jMenuItemBorrarClienteActionPerformed
 
     private void jButtonModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarClienteActionPerformed
         // TODO add your handling code here:
@@ -446,32 +375,6 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemNuevoPedidoActionPerformed
 
-    private void jMenuItemModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarPedidoActionPerformed
-        // TODO add your handling code here:
-        ModificarPedido MP;
-        try {
-            MP = new ModificarPedido();
-            MP.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenuItemModificarPedidoActionPerformed
-
-    private void jMenuItemCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCancelarPedidoActionPerformed
-        // TODO add your handling code here:
-        ModificarPedido MP;
-        try {
-            MP = new ModificarPedido();
-            MP.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenuItemCancelarPedidoActionPerformed
-
     private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed
         try {
             // TODO add your handling code here:
@@ -489,6 +392,13 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         Login L = new Login();
         L.setVisible(true);
     }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
+
+    private void jMenuItemNuevoCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCadeteActionPerformed
+        // TODO add your handling code here:
+        GestionarCadete DC = new GestionarCadete();
+        DC.setVisible(true);
+
+    }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -543,15 +453,9 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFacturacion;
     private javax.swing.JMenuItem jMenuGestionarComida;
     private javax.swing.JMenuItem jMenuItemAnularFactura;
-    private javax.swing.JMenuItem jMenuItemBorrarCadete;
-    private javax.swing.JMenuItem jMenuItemBorrarCliente;
-    private javax.swing.JMenuItem jMenuItemCancelarPedido;
     private javax.swing.JMenuItem jMenuItemGenerarFactura;
     private javax.swing.JMenuItem jMenuItemInformacion;
     private javax.swing.JMenuItem jMenuItemManual;
-    private javax.swing.JMenuItem jMenuItemModificarCadete;
-    private javax.swing.JMenuItem jMenuItemModificarCliente;
-    private javax.swing.JMenuItem jMenuItemModificarPedido;
     private javax.swing.JMenuItem jMenuItemNuevoCadete;
     private javax.swing.JMenuItem jMenuItemNuevoCliente;
     private javax.swing.JMenuItem jMenuItemNuevoPedido;
