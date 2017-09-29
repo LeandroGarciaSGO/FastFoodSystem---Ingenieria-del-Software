@@ -191,7 +191,6 @@ public class ConfirmarPedido extends javax.swing.JFrame {
             C = ABMC.consultaCadeteEstado(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
             if(C!=null){
                 P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
-                C.modificarEstadoCadete();
                 if (b==0){
                     int x = ABMP.nuevoPedido(P);
                     if(x > 0){
