@@ -46,6 +46,18 @@ public class GestionarComida extends javax.swing.JFrame {
         cargarTablaComida();
         jButtonCancelarSelecc.setBackground(java.awt.Color.red);
         jButtonCancelarSelecc.setEnabled(false);
+        jTableComida.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int fila = jTableComida.rowAtPoint(e.getPoint());
+                int columna = jTableComida.columnAtPoint(e.getPoint());
+                if ((fila > -1) && (columna > -1)) {
+                    jButtonEliminarComida.setEnabled(true);
+                    jButtonModificarComida.setEnabled(true);
+                    jButtonNuevaComida.setEnabled(false);
+                    jButtonCancelarSelecc.setEnabled(true);
+                }
+            }
+        });
     }
 
     /**
@@ -472,6 +484,7 @@ public class GestionarComida extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
         }
+                
     }
 
     public boolean validarCampoDescripcion() {
