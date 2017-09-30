@@ -82,6 +82,11 @@ public class ModificarPedido extends javax.swing.JFrame {
         jLabelTelefono.setText("Teléfono:");
 
         jTextFieldTelefono.setPreferredSize(new java.awt.Dimension(150, 20));
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
+            }
+        });
         jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextFieldTelefonoKeyReleased(evt);
@@ -335,6 +340,10 @@ public class ModificarPedido extends javax.swing.JFrame {
         jButtonEliminar.setEnabled(false);
         jButtonCancelarSeleccion.setEnabled(false);
     }//GEN-LAST:event_jButtonCancelarSeleccionActionPerformed
+
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
 
     public void cargarTabla(String idPedido, String telefono, int p) throws ClassNotFoundException, SQLException{
         OperacionesPedido ABMP = new OperacionesPedido();

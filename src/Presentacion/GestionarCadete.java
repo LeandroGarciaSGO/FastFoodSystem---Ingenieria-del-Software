@@ -56,6 +56,7 @@ public class GestionarCadete extends javax.swing.JFrame {
         try {
             initComponents();
             cargarTablaCadetes();
+           // validarCampos();
             jButtonNuevoCadete.setEnabled(false);
 
         } catch (ClassNotFoundException ex) {
@@ -279,8 +280,19 @@ public class GestionarCadete extends javax.swing.JFrame {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private int validarCampos() {
+       
+          if (jTextFieldNumeroDocumento.getText().length() <= 0) {
+                JOptionPane.showMessageDialog(this, " ERROR: El Documento no debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                ;
+            }else{
+          
+          }
+        return 0;
 
-
+        }
+    
     private void jTextFieldNumeroDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumeroDocumentoActionPerformed
         // TODO add your handling code here:
         
@@ -292,6 +304,8 @@ public class GestionarCadete extends javax.swing.JFrame {
 
         jTableCadetes.setModel(modelo);
         try {
+            validarCampos();
+            cargarTablaCadetes();
             CA = CD.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
             if (CA != null) {
                 jButtonNuevoCadete.setEnabled(false);
@@ -314,9 +328,7 @@ public class GestionarCadete extends javax.swing.JFrame {
 
             }
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTextFieldNumeroDocumentoActionPerformed

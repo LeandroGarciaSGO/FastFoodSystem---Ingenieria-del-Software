@@ -183,9 +183,27 @@ public ResultSet consultaCadeteConId(int cod) throws ClassNotFoundException{
         }       
         return rsDatos;       
     }
+public ResultSet cargar() throws ClassNotFoundException{
+    try{
+        Connection conex = Conexion.Cadena();
+                                String ConsultaSQL = "UPDATE cadete SET nombre = '"+getNombre()+"' ,"
+                                        + " apellido = '"+getApellido()+"' , "
+                                        + "domicilio =  '"+getDomicilio()+"' ,"
+                                        + " telefono =  '"+getTelefono()+"' , "
+                                        + "tipoDocumento ='"+getTipoDocumento()+"' , "
+                                        + "numDocumento =  '"+getNumDocumento()+"' "
+                                        + " WHERE idCadete = '"+getIdCadete()+"' ";
+                                
+                                sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                                sentencia.executeUpdate(ConsultaSQL);
 
+}catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
 
+}
+        return rsDatos;
 
+}
 public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {
 
         Connection conex = Conexion.Cadena();
