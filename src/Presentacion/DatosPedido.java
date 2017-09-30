@@ -96,11 +96,11 @@ public class DatosPedido extends javax.swing.JFrame {
         jLabelMostrarTelefono = new javax.swing.JLabel();
         jLabelMostrarDomicilio = new javax.swing.JLabel();
         jTextFieldLugarDeEnvio = new javax.swing.JTextField();
-        jComboBoxZona = new javax.swing.JComboBox<>();
+        jComboBoxZona = new javax.swing.JComboBox<String>();
         jLabelMostrarImporte = new javax.swing.JLabel();
         jPanelDatosPedido = new javax.swing.JPanel();
         jLabelComida = new javax.swing.JLabel();
-        jComboBoxSeleccionarComida = new javax.swing.JComboBox<>();
+        jComboBoxSeleccionarComida = new javax.swing.JComboBox<String>();
         jLabelCantidad = new javax.swing.JLabel();
         jTextFieldCantidad = new javax.swing.JTextField();
         jButtonAgregar = new javax.swing.JButton();
@@ -151,6 +151,11 @@ public class DatosPedido extends javax.swing.JFrame {
 
         jTextFieldTelefono.setMaximumSize(new java.awt.Dimension(120, 20));
         jTextFieldTelefono.setMinimumSize(new java.awt.Dimension(120, 20));
+        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTelefonoActionPerformed(evt);
+            }
+        });
 
         jButtonBuscar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-buscar.png"))); // NOI18N
@@ -235,7 +240,7 @@ public class DatosPedido extends javax.swing.JFrame {
         jTextFieldLugarDeEnvio.setMinimumSize(new java.awt.Dimension(150, 20));
         jTextFieldLugarDeEnvio.setPreferredSize(new java.awt.Dimension(150, 20));
 
-        jComboBoxZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la Zona" }));
+        jComboBoxZona.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione la Zona" }));
         jComboBoxZona.setMaximumSize(new java.awt.Dimension(150, 20));
         jComboBoxZona.setMinimumSize(new java.awt.Dimension(150, 20));
         jComboBoxZona.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -325,7 +330,7 @@ public class DatosPedido extends javax.swing.JFrame {
 
         jLabelComida.setText("Comida:");
 
-        jComboBoxSeleccionarComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la Comida", "Pizza Especial", "Pizza Cuatro Quesos", "Lomito Completo", "Empanada", "Papas Fritas" }));
+        jComboBoxSeleccionarComida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione la Comida", "Pizza Especial", "Pizza Cuatro Quesos", "Lomito Completo", "Empanada", "Papas Fritas" }));
         jComboBoxSeleccionarComida.setMaximumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setMinimumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -684,6 +689,10 @@ public class DatosPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La Cantidad Deben Ser Números","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldCantidadKeyTyped
+
+    private void jTextFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoActionPerformed
 
     public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException{
         OperacionesCliente ABMC = new OperacionesCliente();
