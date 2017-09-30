@@ -19,29 +19,29 @@ import java.util.logging.Logger;
  */
 public class AMBCadete {
     
-    public boolean modificarCadete(Cadete C) throws ClassNotFoundException, SQLException {
-        ResultSet NC;
-        NC = C.consultaCadete(C.getNumDocumento());
-        if(NC.first()){
-            if(NC.getBoolean("estado"))
-            {
-               C.modificar();
-                    return true;
-               
-            }
-            //else
-            //{
-              //  C.modificar();
-               // return true;
-            //}
-        }
-        else
-        {
-            //C.insertar();
-            return false;
-        }
-        return false;
-    }
+//    public boolean modificarCadete(Cadete C) throws ClassNotFoundException, SQLException {
+//        ResultSet NC;
+//        NC = C.consultaCadete(C.getNumDocumento());
+//        if(NC.first()){
+//            if(NC.getBoolean("estado"))
+//            {
+//               C.modificar();
+//                    return true;
+//               
+//            }
+//            //else
+//            //{
+//              //  C.modificar();
+//               // return true;
+//            //}
+//        }
+//        else
+//        {
+//            //C.insertar();
+//            return false;
+//        }
+//        return false;
+//    }
     
     
        public Cadete buscarCadeteConId(int id) throws ClassNotFoundException, SQLException {
@@ -77,11 +77,9 @@ public class AMBCadete {
         Cadete miCadete = new Cadete();
         datosCadete = miCadete.consultaCadete(numDocumento);
         
-        try {
-            boolean primercadete = datosCadete.first();
-        } catch (SQLException ex) {
-            Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+
+        //MUESTRA LOS DATOS DEL CADETE SELECCIONADO
         if (datosCadete.first()) {
             miCadete.setIdCadete(datosCadete.getInt("idCadete"));
             miCadete.setNombre(datosCadete.getString("nombre"));
@@ -119,6 +117,42 @@ public class AMBCadete {
         return 0;
     }
 }
+ 
+ public int esNueva (Cadete C) throws ClassNotFoundException, SQLException {
+        ResultSet NC;
+        NC = C.consultaCadete(C.getNumDocumento());
+
+        if (NC.first()) {
+            if (NC.getBoolean("estado")) {
+                return 1;
+            } else {
+                //C.agregarNuevoCadete();
+                return 0;
+            }
+        } else {
+           // C.agregarNuevoCadete();
+            return 0;
+        }
+    }
+ 
+ 
+ 
+ public int nuevaCadet(Cadete C) throws ClassNotFoundException, SQLException {
+        ResultSet NC;
+        NC = C.consultaCadete(C.getNumDocumento());
+
+        if (NC.first()) {
+            if (NC.getBoolean("estado")) {
+                return 1;
+            } else {
+                C.agregarNuevoCadete();
+                return 0;
+            }
+        } else {
+            C.agregarNuevoCadete();
+            return 0;
+        }
+    }
  
  public Cadete consultaCadeteEstado(int idCadete) throws SQLException, ClassNotFoundException{
      ResultSet datosCadete;

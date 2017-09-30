@@ -94,7 +94,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelCadetes = new javax.swing.JLabel();
-        jComboBoxSeleccioneCadete = new javax.swing.JComboBox<>();
+        jComboBoxSeleccioneCadete = new javax.swing.JComboBox<String>();
         jLabelPedidoNum = new javax.swing.JLabel();
         jLabelMostrarPedidoNum = new javax.swing.JLabel();
         jButtonVolver = new javax.swing.JButton();
@@ -108,7 +108,12 @@ public class ConfirmarPedido extends javax.swing.JFrame {
 
         jLabelCadetes.setText("Cadetes:");
 
-        jComboBoxSeleccioneCadete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Cadete", "Cadete 1", "Cadete 2", "Cadete 3" }));
+        jComboBoxSeleccioneCadete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Cadete", "Cadete 1", "Cadete 2", "Cadete 3" }));
+        jComboBoxSeleccioneCadete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSeleccioneCadeteActionPerformed(evt);
+            }
+        });
 
         jLabelPedidoNum.setText("Pedido Número:");
 
@@ -235,6 +240,10 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonVolverActionPerformed
+
+    private void jComboBoxSeleccioneCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSeleccioneCadeteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxSeleccioneCadeteActionPerformed
 
     public void mostrarNumPedido(int p) throws ClassNotFoundException, SQLException{
         if(p==0)

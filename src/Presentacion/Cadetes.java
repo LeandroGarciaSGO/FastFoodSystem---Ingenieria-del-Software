@@ -8,14 +8,21 @@ package Presentacion;
 import Datos.Cadete;
 import Logica.AMBCadete;
 import Datos.Cliente;
-import Logica.OperacionesCliente;
+import Datos.Conexion;
+import Datos.Usuario;
+//import Logica.ABMCliente;
 import Logica.ABMComida;
+import java.sql.Connection;
+import java.sql.ResultSet;
 //import Datos.Comida;
 //import Logica.ABMComida;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+//import javax.swing.table.DefaultTableModel;
+//import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -23,18 +30,19 @@ import javax.swing.JOptionPane;
  */
 public class Cadetes extends javax.swing.JFrame {
 
-    
     private Cadete datosCadete;
     private int condatos_vacio;
+    private Statement sentencia;
+    private ResultSet rsDatos;
+    public int docant;
     /**
      * Creates new form DatosCadetes
      */
     public Cadetes() {
         initComponents();
-    
+
     }
-    
-    
+
     public Cadete getDatosCadete() {
         return datosCadete;
     }
@@ -50,26 +58,69 @@ public class Cadetes extends javax.swing.JFrame {
     public void setCondatos_vacio(int condatos_vacio) {
         this.condatos_vacio = condatos_vacio;
     }
-    
-     void LlenarCampos() {
-         if(condatos_vacio == 1){
-            jLabel8.setText(String.valueOf(datosCadete.getIdCadete()));
+
+    void LlenarCampos() throws SQLException {
+        if (condatos_vacio == 1) {
+            jLabelCodigoCadete.setText(String.valueOf(datosCadete.getIdCadete()));
             jTextFieldNombre.setText(datosCadete.getNombre());
             jTextFieldApellido.setText(datosCadete.getApellido());
             jTextFieldDocumento.setText(String.valueOf(datosCadete.getNumDocumento()));
             jComboBoxTipoDoc.setSelectedItem(String.valueOf(datosCadete.getTipoDocumento()));
             jTextFieldDomicilio.setText(datosCadete.getDomicilio());
             jTextFieldTelefono.setText(String.valueOf(datosCadete.getTelefono()));
-            
-        }else{
-            jLabel1.setText(String.valueOf(AMBCadete.obtenerSiguienteId()));
+            docant= Integer.parseInt(String.valueOf(datosCadete.getNumDocumento()));
+//            docanterior.setText(String.valueOf(datosCadete.getNumDocumento()));
+//            docanterior.setVisible(false);
+//            
+
+        } else {
+            Cadete C = new Cadete();
+            try {
+                jLabelCodigoCadete.setText(String.valueOf(C.obtenerSiguienteId()));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //jLabelCodigoCadete.setText(String.valueOf(AMBCadete.obtenerSiguienteId()));
+            //jLabelCodigoCadete.setText(String.valueOf(AMBCadete.obtenerSiguienteId()));
         }
     }
-      
-   
-     
+
     
     
+    
+    private boolean validarCampos() {
+        try {
+            Long.parseLong(jTextFieldTelefono.getText());
+            if (jTextFieldNombre.getText().length() <= 0) {
+                JOptionPane.showMessageDialog(this, " ERROR: El Nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if (jTextFieldApellido.getText().length() <= 0) {
+                JOptionPane.showMessageDialog(this, " ERROR: El Apellido No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            if (Integer.parseInt(jTextFieldDocumento.getText()) <= 0) {
+                JOptionPane.showMessageDialog(this, " ERROR: El Documento No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            //VER ESTO NO FUNCIONA
+            if ((jComboBoxTipoDoc.getSelectedIndex()) == 0) {
+                JOptionPane.showMessageDialog(this, " ERROR: Debe seleccionar una opcion de tipo documento", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            if (jTextFieldDomicilio.getText().length() <= 0) {
+                JOptionPane.showMessageDialog(this, " ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono No debe ser vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,13 +144,13 @@ public class Cadetes extends javax.swing.JFrame {
         jTextFieldDomicilio = new javax.swing.JTextField();
         jTextFieldTelefono = new javax.swing.JTextField();
         jComboBoxTipoDoc = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
+        jLabelCodigoCadete = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jLabelError = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(640, 380));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cadete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 14))); // NOI18N
@@ -127,16 +178,37 @@ public class Cadetes extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel7.setText("Telefono:");
 
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyTyped(evt);
+            }
+        });
+
+        jTextFieldApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldApellidoKeyTyped(evt);
+            }
+        });
+
         jTextFieldDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDocumentoActionPerformed(evt);
             }
         });
+        jTextFieldDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldDocumentoKeyTyped(evt);
+            }
+        });
+
+        jTextFieldTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldTelefonoKeyTyped(evt);
+            }
+        });
 
         jComboBoxTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione el Tipo de Documento...", "DNI", "PASAPORTE" }));
         jComboBoxTipoDoc.setToolTipText("");
-
-        jLabel8.setText("999999999999");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -165,7 +237,7 @@ public class Cadetes extends javax.swing.JFrame {
                             .addComponent(jTextFieldNombre)
                             .addComponent(jTextFieldApellido)
                             .addComponent(jTextFieldDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabelCodigoCadete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -174,7 +246,7 @@ public class Cadetes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelCodigoCadete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -216,14 +288,24 @@ public class Cadetes extends javax.swing.JFrame {
             .addGap(0, 294, Short.MAX_VALUE)
         );
 
+        jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonCancelar.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonCancelar.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
 
+        jButtonGuardar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-guardar.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
+        jButtonGuardar.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonGuardar.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonGuardar.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGuardarActionPerformed(evt);
@@ -237,18 +319,18 @@ public class Cadetes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonCancelar)
+                                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(123, 123, 123)
-                                .addComponent(jButtonGuardar)))))
+                                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -260,11 +342,11 @@ public class Cadetes extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
+                        .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGuardar)
-                    .addComponent(jButtonCancelar))
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21))
         );
 
@@ -275,79 +357,162 @@ public class Cadetes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDocumentoActionPerformed
 
+
+    
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
 
-        Cadete C = new Cadete();
-        
-        C.setNombre(jTextFieldNombre.getText());
-        C.setApellido(jTextFieldApellido.getText());
-        C.setNumDocumento(Integer.parseInt(jTextFieldDocumento.getText()));
-        C.setTipoDocumento(String.valueOf(jComboBoxTipoDoc.getSelectedItem()));
-        C.setDomicilio(jTextFieldDomicilio.getText());
-        C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
-        AMBCadete ABMC= new AMBCadete();          
-        if(condatos_vacio != 1){
-            try {
-                C.agregarNuevoCadete();
-                //if(ABMC.nuevoCliente(C))
-                //{
-                    //JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                //}else{
-                    JOptionPane.showMessageDialog(this, "El Cadete se Registro Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                //}
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
-           // } catch (SQLException ex) {
-             //   Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else{
-            try {
-                C.setIdCadete(datosCadete.getIdCadete());
-                if(!ABMC.modificarCadete(C)){
-                    JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    JOptionPane.showMessageDialog(this, "El Cadete se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-//Cadete C = new Cadete();
-//        AMBCadete AMBC = new AMBCadete();
-//        C.setNombre(jTextFieldNombre.getText());
-//        C.setApellido(jTextFieldApellido.getText());
-//        C.setNumDocumento(Integer.parseInt(jTextFieldDocumento.getText()));
-//        C.setTipoDocumento(String.valueOf(jComboBoxTipoDoc.getSelectedItem()));
-//        C.setDomicilio(jTextFieldDomicilio.getText());
-//        C.setTelefono(Integer.parseInt(jTextFieldTelefono.getText()));
-//        C.setEstado(true);
-//         
-//        try {
-//             if (AMBC.nuevoCadete(C) == 1){
-//                  jLabelError.setText("El cadete ya existe!");
-//             }else{
-//         this.dispose();
-//         JOptionPane.showMessageDialog(this, "El cadete se cargo correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-//            }
-//         } catch (ClassNotFoundException ex) {
-//             Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
-//         } catch (SQLException ex) {
-//             Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
-//         
-//    } 
-//        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+//int docant;
+//docant =(Integer.parseInt(docanterior.getText()));
 
+
+//docanterior.setEditable(false);
+//JOptionPane.showMessageDialog(null,docant);
+        if (validarCampos()) {
+  
+            Cadete C = new Cadete();
+            //C.setIdCadete(Integer.parseInt(jLabelCodigoCadete.getText()));
+            C.setNombre(jTextFieldNombre.getText());
+            C.setApellido(jTextFieldApellido.getText());
+            C.setNumDocumento(Integer.parseInt(jTextFieldDocumento.getText()));
+            C.setTipoDocumento(String.valueOf(jComboBoxTipoDoc.getSelectedItem()));
+            C.setDomicilio(jTextFieldDomicilio.getText());
+            C.setTelefono(Long.parseLong(jTextFieldTelefono.getText()));
+            AMBCadete ABMC = new AMBCadete();
+            if (condatos_vacio != 1) {
+                try {
+                    try {
+                        if (ABMC.nuevaCadet(C) == 1) {
+                            JOptionPane.showMessageDialog(this, "-. ERROR: El cadete ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "El cadete se registro correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                           GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            volverGestionarCadete.setVisible(true);
+                            setVisible(false);
+                        }
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                   
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+           
+                }
+            } else {
+//               
+                try { 
+                   
+                   int docac;
+                   docac= (Integer.parseInt(jTextFieldDocumento.getText()));
+                   
+                    try {
+                        if (ABMC.esNueva(C) != 1){
+                            C.setIdCadete(datosCadete.getIdCadete());
+                            
+                            try {
+                                Connection conex = Conexion.Cadena();
+                                String ConsultaSQL = "UPDATE cadete SET nombre = '"+C.getNombre()+"' ,"
+                                        + " apellido = '"+C.getApellido()+"' , "
+                                        + "domicilio =  '"+C.getDomicilio()+"' ,"
+                                        + " telefono =  '"+C.getTelefono()+"' , "
+                                        + "tipoDocumento ='"+C.getTipoDocumento()+"' , "
+                                        + "numDocumento =  '"+C.getNumDocumento()+"' "
+                                        + " WHERE idCadete = '"+C.getIdCadete()+"' ";
+                                
+                                sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                                sentencia.executeUpdate(ConsultaSQL);
+                                
+                                JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                                
+                        GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            volverGestionarCadete.setVisible(true);
+                            setVisible(false);
+                                
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                        }else{
+                            
+                            if(docac== docant){
+                                C.setIdCadete(datosCadete.getIdCadete());
+                                
+                                try {
+                                    Connection conex = Conexion.Cadena();
+                                    String ConsultaSQL = "UPDATE cadete SET nombre = '"+C.getNombre()+"' ,"
+                                            + " apellido = '"+C.getApellido()+"' , "
+                                            + "domicilio =  '"+C.getDomicilio()+"' ,"
+                                            + " telefono =  '"+C.getTelefono()+"' , "
+                                            + "tipoDocumento ='"+C.getTipoDocumento()+"' , "
+                                            + "numDocumento =  '"+C.getNumDocumento()+"' "
+                                            + " WHERE idCadete = '"+C.getIdCadete()+"' ";
+                                    
+                                    sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                                    sentencia.executeUpdate(ConsultaSQL);
+                                    
+                                    JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem" ,JOptionPane.INFORMATION_MESSAGE);
+                                    GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            volverGestionarCadete.setVisible(true);
+                            setVisible(false);
+                
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                
+                            }else {
+                                JOptionPane.showMessageDialog(this, "-. ERROR: El cadete ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                                GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            volverGestionarCadete.setVisible(true);
+                            setVisible(false);
+                            }}
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
+        
+}  
+
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+    
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
-         this.dispose();
+        //GestionarCadete G = new GestionarCadete();
+        GestionarCadete volverGestionarCadete= new GestionarCadete();
+        volverGestionarCadete.setVisible(true);
+        setVisible(false);
+       //this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
+        // TODO add your handling code here:
+        
+       char c =evt.getKeyChar();
+       if((c < 'a'|| c> 'z'  )&& (c < 'A'|| c> 'Z' ) )
+           evt.consume();
+      
+       // evt.consume();
+    }//GEN-LAST:event_jTextFieldNombreKeyTyped
+
+    private void jTextFieldDocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldDocumentoKeyTyped
+        char c =evt.getKeyChar();
+        if(c < '0'|| c> '9') evt.consume();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDocumentoKeyTyped
+
+    private void jTextFieldTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelefonoKeyTyped
+         char c =evt.getKeyChar();
+        if(c < '0'|| c> '9') evt.consume();
+// TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldTelefonoKeyTyped
+
+    private void jTextFieldApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoKeyTyped
+        // TODO add your handling code here:
+        char c =evt.getKeyChar();
+       if((c < 'a'|| c> 'z'  )&& (c < 'A'|| c> 'Z' ) ) evt.consume();
+    }//GEN-LAST:event_jTextFieldApellidoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -378,6 +543,10 @@ public class Cadetes extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -398,7 +567,7 @@ public class Cadetes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelCodigoCadete;
     private javax.swing.JLabel jLabelError;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

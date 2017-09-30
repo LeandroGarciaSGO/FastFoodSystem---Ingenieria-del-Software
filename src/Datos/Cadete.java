@@ -149,7 +149,7 @@ public ResultSet consultaCadete2(int dni,int cod) throws ClassNotFoundException{
 public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM cadete WHERE numDocumento = " + dni ; 
+            String ConsultaSQL = "SELECT * FROM cadete WHERE numDocumento = '" + dni + "' and estado = 1"; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
             
@@ -186,31 +186,41 @@ public ResultSet consultaCadeteConId(int cod) throws ClassNotFoundException{
 
 
 
-//COpiado de leandro
-public boolean modificar() throws ClassNotFoundException {
-        try {      
+public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {
+
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT (MAX(idCadete) )AS 'ID' FROM cadete";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+
+        if (rsDatos.first()) {
+            int id = rsDatos.getInt("ID") + 1;
+            return id;
+        } else {
+            return 1;
+        }
+    }
+
+ public int eliminardni(int dni) throws SQLException {
+try {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("UPDATE cadete SET nombre = ? , apellido = ? , domicilio = ? , telefono = ?, tipoDocumento = ?, numDocumento = ?, estado = ? WHERE idCadete = ?",PreparedStatement.RETURN_GENERATED_KEYS);
-            // cargo parametros
-            psPrepSencencias.setString(1, nombre);
-            psPrepSencencias.setString(2, apellido);
-            psPrepSencencias.setString(3, domicilio);
-            psPrepSencencias.setLong(4, telefono);
-            psPrepSencencias.setString(5,tipoDocumento);
-            psPrepSencencias.setInt(6,numDocumento);
-            psPrepSencencias.setBoolean(7, true);
-            psPrepSencencias.setInt(8, idCadete);
+            psPrepSencencias = cn.prepareStatement("UPDATE Cadete SET estado=? where numDocumento=?");
+            
+            psPrepSencencias.setBoolean(1, estado);
+            psPrepSencencias.setString(2, Integer.toString(dni));
+
             //ejecuto sentencia
-            psPrepSencencias.executeUpdate();
+            dni = psPrepSencencias.executeUpdate();
             //obtengo el id del registro recien insertado
-           
-        } catch (SQLException ex) {
+            // rsDatos.first();
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Cadete.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
-    }
+        return dni;
+}
+
 
 public void agregarNuevoCadete() throws ClassNotFoundException{
     try {
