@@ -142,7 +142,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
 
         jButtonSalir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cerrar-seccion.png"))); // NOI18N
+        jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar-sesion.png"))); // NOI18N
         jButtonSalir.setText("Salir del Programa");
         jButtonSalir.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonSalir.setMinimumSize(new java.awt.Dimension(210, 80));

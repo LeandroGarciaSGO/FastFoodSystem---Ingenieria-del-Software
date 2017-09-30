@@ -366,7 +366,7 @@
           <Font name="SansSerif" size="12" style="1"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Imagenes/Iconos_Botones/icono-cerrar-seccion.png"/>
+          <Image iconType="3" name="/Imagenes/Iconos_Botones/icono-cancelar-sesion.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Salir del Programa"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
