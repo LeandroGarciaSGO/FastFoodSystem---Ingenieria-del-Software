@@ -179,6 +179,7 @@ public class VentanaBuscarCliente extends javax.swing.JFrame {
                     VC.setDatosCliente(C);
                     VC.setCondatos_vacio(1); // .- Parametro 1 por que lleva datos - Parametro 0 si no llega datos
                     VC.LlenarCampos();
+                    VC.setTelefono(jTextFieldTelefono.getText());
                     VC.setVisible(true);
                     this.dispose();
                 } else {

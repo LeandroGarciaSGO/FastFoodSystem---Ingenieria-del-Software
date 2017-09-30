@@ -316,7 +316,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
         //JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cerrar sesion?", "ATENCION", JOptionPane.WARNING_MESSAGE);
-        JOptionPane.showMessageDialog(this, "La sesion se cerrara", "ATENCION", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Se Cerrara el Programa", "FastFoodSystem - ATENCION", JOptionPane.WARNING_MESSAGE);
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
@@ -364,15 +364,9 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoPedidoActionPerformed
         // TODO add your handling code here:
-        DatosPedido DP;
-        try {
-            DP = new DatosPedido();
-            DP.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        GestionarPedido GP;
+        GP = new GestionarPedido();
+        GP.setVisible(true);      
     }//GEN-LAST:event_jMenuItemNuevoPedidoActionPerformed
 
     private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed

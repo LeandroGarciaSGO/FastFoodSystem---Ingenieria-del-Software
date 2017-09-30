@@ -17,13 +17,18 @@ import java.util.logging.Logger;
  */
 public class OperacionesCliente {
 
-    public boolean modificarCliente(Cliente C) throws ClassNotFoundException, SQLException {
+    public boolean modificarCliente(Cliente C, long tel) throws ClassNotFoundException, SQLException {
         ResultSet NC;
-        NC = C.obtenerCliente(C.getTelefono());
+        NC = C.obtenerCliente(tel);
         if(NC.first()){
             if(NC.getBoolean("estado"))
             {
-                return false;
+                if(NC.getInt("idCliente") == C.getIdCliente()){
+                    C.modificar();
+                    return true;
+                }else{
+                    return false;
+                }
             }
             else
             {
@@ -31,11 +36,12 @@ public class OperacionesCliente {
                 return true;
             }
         }
-        else
-        {
-            C.insertar();
-            return false;
-        }
+//        else
+//        {
+//            C.insertar();
+//            return false;
+//        }
+    return false;
     }
     
     public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException {

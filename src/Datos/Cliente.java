@@ -89,7 +89,7 @@ public class Cliente {
 public ResultSet obtenerCliente(long telef) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM cliente WHERE telefono = '" + telef + "' and estado = true"; 
+            String ConsultaSQL = "SELECT * FROM cliente WHERE telefono = " + telef + " and estado = true"; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);            
         } catch (SQLException ex) {
