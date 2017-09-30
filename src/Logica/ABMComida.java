@@ -17,16 +17,21 @@ import java.util.logging.Logger;
  */
 public class ABMComida {
 
-    public int nuevaComida(Comida C) throws ClassNotFoundException, SQLException {
+    public int modificarComida(Comida C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
         NC = C.consultaComida(C.getDescripcion());
 
         if (NC.first()) {
             if (NC.getBoolean("estado")) {
-                return 1;
+                if (C.getDescripcion().equalsIgnoreCase(NC.getString("descripcion"))) {
+                   return 0;
+               } else {
+                   C.modificar();
+                   return 1;
+               }
             } else {
-                C.agregarNuevaComida();
-                return 0;
+                C.modificar();
+                return 1;
             }
         } else {
             C.agregarNuevaComida();
@@ -59,12 +64,12 @@ public class ABMComida {
         }
         return null;
     }
-    
-    public Comida buscarComidaId(int idComida) throws ClassNotFoundException, SQLException{
+
+    public Comida buscarComidaId(int idComida) throws ClassNotFoundException, SQLException {
         ResultSet datosComida;
         Comida miComida = new Comida();
         datosComida = miComida.consultaComidaId(idComida);
-        
+
         try {
             boolean primeraComida = datosComida.first();
         } catch (SQLException ex) {
@@ -81,9 +86,8 @@ public class ABMComida {
         }
         return null;
     }
-    
+
 //    public static int obtenerSiguienteId(){
 //    return 1;
 //}
-    
 }
