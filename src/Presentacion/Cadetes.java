@@ -409,55 +409,22 @@ public class Cadetes extends javax.swing.JFrame {
                         if (ABMC.esNueva(C) != 1){
                             C.setIdCadete(datosCadete.getIdCadete());
                             
-                            try {
-                                Connection conex = Conexion.Cadena();
-                                String ConsultaSQL = "UPDATE cadete SET nombre = '"+C.getNombre()+"' ,"
-                                        + " apellido = '"+C.getApellido()+"' , "
-                                        + "domicilio =  '"+C.getDomicilio()+"' ,"
-                                        + " telefono =  '"+C.getTelefono()+"' , "
-                                        + "tipoDocumento ='"+C.getTipoDocumento()+"' , "
-                                        + "numDocumento =  '"+C.getNumDocumento()+"' "
-                                        + " WHERE idCadete = '"+C.getIdCadete()+"' ";
-                                
-                                sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                                sentencia.executeUpdate(ConsultaSQL);
-                                
-                                JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                                
-                        GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            C.cargar();
+                            JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                            GestionarCadete volverGestionarCadete= new GestionarCadete();
                             volverGestionarCadete.setVisible(true);
                             setVisible(false);
-                                
-                            } catch (SQLException ex) {
-                                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-                            }
                             
                         }else{
                             
                             if(docac== docant){
                                 C.setIdCadete(datosCadete.getIdCadete());
                                 
-                                try {
-                                    Connection conex = Conexion.Cadena();
-                                    String ConsultaSQL = "UPDATE cadete SET nombre = '"+C.getNombre()+"' ,"
-                                            + " apellido = '"+C.getApellido()+"' , "
-                                            + "domicilio =  '"+C.getDomicilio()+"' ,"
-                                            + " telefono =  '"+C.getTelefono()+"' , "
-                                            + "tipoDocumento ='"+C.getTipoDocumento()+"' , "
-                                            + "numDocumento =  '"+C.getNumDocumento()+"' "
-                                            + " WHERE idCadete = '"+C.getIdCadete()+"' ";
-                                    
-                                    sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                                    sentencia.executeUpdate(ConsultaSQL);
-                                    
-                                    JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem" ,JOptionPane.INFORMATION_MESSAGE);
-                                    GestionarCadete volverGestionarCadete= new GestionarCadete();
-                            volverGestionarCadete.setVisible(true);
-                            setVisible(false);
-                
-                                } catch (SQLException ex) {
-                                    Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                                C.cargar();
+                                JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem" ,JOptionPane.INFORMATION_MESSAGE);
+                                GestionarCadete volverGestionarCadete= new GestionarCadete();
+                                volverGestionarCadete.setVisible(true);
+                                setVisible(false);
                                 
                             }else {
                                 JOptionPane.showMessageDialog(this, "-. ERROR: El cadete ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
