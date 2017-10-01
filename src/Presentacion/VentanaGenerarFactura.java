@@ -195,7 +195,7 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
             VEF.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "-. ERROR: Debe Seleccionar un Pedido para Facturar", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERROR: Debe Seleccionar un Pedido para Facturar", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonGenerarFacturaActionPerformed
 

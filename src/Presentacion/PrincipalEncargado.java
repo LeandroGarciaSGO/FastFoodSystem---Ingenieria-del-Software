@@ -315,9 +315,10 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
-        //JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea cerrar sesion?", "ATENCION", JOptionPane.WARNING_MESSAGE);
-        JOptionPane.showMessageDialog(this, "Se Cerrara el Programa", "FastFoodSystem - ATENCION", JOptionPane.WARNING_MESSAGE);
-        System.exit(0);
+        int resp = JOptionPane.showConfirmDialog(this, "¿Esta Seguro que Desea Salir del Programa?", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
+        if(JOptionPane.OK_OPTION == resp){
+            System.exit(0);
+        }        
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jMenuItemGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGenerarFacturaActionPerformed
@@ -382,9 +383,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarPedidoActionPerformed
 
     private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
-        this.dispose();
-        Login L = new Login();
-        L.setVisible(true);
+        int resp = JOptionPane.showConfirmDialog(this, "¿Esta Seguro que Desea Cerrar Sesion?", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
+        if(JOptionPane.OK_OPTION == resp){
+             this.dispose();
+            Login L = new Login();
+            L.setVisible(true);
+        }
     }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
 
     private void jMenuItemNuevoCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCadeteActionPerformed

@@ -655,6 +655,12 @@ public class DatosPedido extends javax.swing.JFrame {
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
         // TODO add your handling code here:
         VentanaClientes VC = new VentanaClientes();
+        VC.setTelefono(jTextFieldTelefono.getText());
+        try {
+            VC.LlenarCampos();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatosPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
         VC.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 

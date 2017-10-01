@@ -87,21 +87,21 @@ public class VentanaClientes extends javax.swing.JFrame {
         try{
             Long.parseLong(jTextFieldTelefono.getText());
             if(jTextFieldNombre.getText().length() <= 0){
-                JOptionPane.showMessageDialog(this, "-. ERROR: El Nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: El Nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             if(jTextFieldApellido.getText().length() <= 0){
-                JOptionPane.showMessageDialog(this, "-. ERROR: El Apellido No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: El Apellido No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             if(jTextFieldDomicilio.getText().length() <= 0){
-                JOptionPane.showMessageDialog(this, "-. ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             return true;
         }
         catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
@@ -326,7 +326,7 @@ public class VentanaClientes extends javax.swing.JFrame {
             } else {
                 try {
                     if (!ABMC.modificarCliente(C)) {
-                        JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         this.dispose();

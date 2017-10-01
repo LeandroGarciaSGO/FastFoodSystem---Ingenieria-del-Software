@@ -160,7 +160,7 @@ public class VentanaBuscarCliente extends javax.swing.JFrame {
             return true;
         }
         catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERROR: El Telefono Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
