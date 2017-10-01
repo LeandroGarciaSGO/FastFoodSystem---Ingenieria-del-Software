@@ -17,9 +17,9 @@ import java.util.logging.Logger;
  */
 public class OperacionesCliente {
 
-    public boolean modificarCliente(Cliente C, long tel) throws ClassNotFoundException, SQLException {
+    public boolean modificarCliente(Cliente C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
-        NC = C.obtenerCliente(tel);
+        NC = C.obtenerCliente(C.getTelefono());
         if(NC.first()){
             if(NC.getBoolean("estado"))
             {

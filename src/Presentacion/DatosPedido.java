@@ -96,11 +96,11 @@ public class DatosPedido extends javax.swing.JFrame {
         jLabelMostrarTelefono = new javax.swing.JLabel();
         jLabelMostrarDomicilio = new javax.swing.JLabel();
         jTextFieldLugarDeEnvio = new javax.swing.JTextField();
-        jComboBoxZona = new javax.swing.JComboBox<String>();
+        jComboBoxZona = new javax.swing.JComboBox<>();
         jLabelMostrarImporte = new javax.swing.JLabel();
         jPanelDatosPedido = new javax.swing.JPanel();
         jLabelComida = new javax.swing.JLabel();
-        jComboBoxSeleccionarComida = new javax.swing.JComboBox<String>();
+        jComboBoxSeleccionarComida = new javax.swing.JComboBox<>();
         jLabelCantidad = new javax.swing.JLabel();
         jTextFieldCantidad = new javax.swing.JTextField();
         jButtonAgregar = new javax.swing.JButton();
@@ -240,7 +240,7 @@ public class DatosPedido extends javax.swing.JFrame {
         jTextFieldLugarDeEnvio.setMinimumSize(new java.awt.Dimension(150, 20));
         jTextFieldLugarDeEnvio.setPreferredSize(new java.awt.Dimension(150, 20));
 
-        jComboBoxZona.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione la Zona" }));
+        jComboBoxZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la Zona" }));
         jComboBoxZona.setMaximumSize(new java.awt.Dimension(150, 20));
         jComboBoxZona.setMinimumSize(new java.awt.Dimension(150, 20));
         jComboBoxZona.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -330,7 +330,7 @@ public class DatosPedido extends javax.swing.JFrame {
 
         jLabelComida.setText("Comida:");
 
-        jComboBoxSeleccionarComida.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione la Comida", "Pizza Especial", "Pizza Cuatro Quesos", "Lomito Completo", "Empanada", "Papas Fritas" }));
+        jComboBoxSeleccionarComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la Comida", "Pizza Especial", "Pizza Cuatro Quesos", "Lomito Completo", "Empanada", "Papas Fritas" }));
         jComboBoxSeleccionarComida.setMaximumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setMinimumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -540,7 +540,7 @@ public class DatosPedido extends javax.swing.JFrame {
         //Cliente C = new Cliente();
         try {
             if(validarCamposPedido(0)){//Para validar que el campo del teléfono no este vacío
-                C = buscarCliente(Integer.parseInt(jTextFieldTelefono.getText()));
+                C = buscarCliente(Long.parseLong(jTextFieldTelefono.getText()));
                 if(C!=null){
                     jLabelMostrarTelefono.setText(String.valueOf(C.getTelefono()));
                     jLabelMostrarApeNom.setText(C.getApellido() + " " + C.getNombre());

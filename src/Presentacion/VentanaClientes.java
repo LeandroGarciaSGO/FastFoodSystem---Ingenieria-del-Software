@@ -325,7 +325,7 @@ public class VentanaClientes extends javax.swing.JFrame {
                 }
             } else {
                 try {
-                    if (!ABMC.modificarCliente(C,Long.parseLong(this.telefono))) {
+                    if (!ABMC.modificarCliente(C)) {
                         JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
