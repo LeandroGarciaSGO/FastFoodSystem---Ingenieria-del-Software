@@ -112,7 +112,7 @@ public class Comida {
         }
         return rsDatos;
     }
-        
+
     public ResultSet consultarTodasLasComidas() throws ClassNotFoundException {
         try {
             Connection conex = Conexion.Cadena();
@@ -125,9 +125,8 @@ public class Comida {
         }
         return rsDatos;
     }
-    
-    
-        public ResultSet consultaTipoComida() throws ClassNotFoundException {
+
+    public ResultSet consultaTipoComida() throws ClassNotFoundException {
         try {
             Connection conex = Conexion.Cadena();
             String ConsultaSQL = "SELECT descripcion FROM tipoComida";
@@ -140,20 +139,20 @@ public class Comida {
         return rsDatos;
     }
 
-public ResultSet consultaComidaId(int idComida) throws ClassNotFoundException{
+    public ResultSet consultaComidaId(int idComida) throws ClassNotFoundException {
         try {
-            Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT descripcion,precio FROM comida WHERE idComida = '" + idComida + "'"; 
+            Connection conex = Conexion.Cadena();
+            String ConsultaSQL = "SELECT descripcion,precio FROM comida WHERE idComida = '" + idComida + "'";
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-        return rsDatos;       
+        }
+        return rsDatos;
     }
 
-public int obtenerSiguienteId() throws ClassNotFoundException, SQLException{
+    public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {
         Connection conex = Conexion.Cadena();
         String ConsultaSQL = "SELECT (MAX(idComida) )AS 'ID' FROM comida";
         sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);

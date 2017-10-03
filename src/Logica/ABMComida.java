@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import sun.management.Agent;
 
 /**
  *
@@ -17,27 +18,32 @@ import java.util.logging.Logger;
  */
 public class ABMComida {
 
-    public int modificarComida(Comida C) throws ClassNotFoundException, SQLException {
+    // public int modificarComida(Comida C) throws ClassNotFoundException, SQLException {
+    public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
         NC = C.consultaComida(C.getDescripcion());
 
         if (NC.first()) {
             if (NC.getBoolean("estado")) {
-                if (C.getDescripcion().equalsIgnoreCase(NC.getString("descripcion"))) {
-                   return 0;
-               } else {
-                   C.modificar();
-                   return 1;
-               }
+                if (C.getIdComida() == NC.getInt("idComida")) {
+                    C.modificar();
+                    System.out.println("\nEXISTE + ACTIVO + ID\n");
+                    return true;
+                } else {
+                    System.out.println("\nEXISTE + ACTIVO\n");
+                    return false;
+                }
             } else {
                 C.modificar();
-                return 1;
+                System.out.println("\nEXISTE\n");
+                return true;
             }
-        } else {
-            C.agregarNuevaComida();
-            return 0;
         }
+        System.out.println("\nNADA\n");
+        C.agregarNuevaComida();
+        return true;
     }
+//    }
 
     public Comida buscarComida(String desc) throws ClassNotFoundException, SQLException {
         ResultSet datosComida;

@@ -328,7 +328,7 @@ public class GestionarComida extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonNuevaComidaActionPerformed
 
     private void jButtonEliminarComidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarComidaActionPerformed
-        //DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
+//        DefaultTableModel modelo = (DefaultTableModel) jTableComida.getModel();
 //        int cod = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 0);
 //        String desc = String.valueOf(modelo.getValueAt(jTableComida.getSelectedRow(), 1));
 //        float precio = (float) modelo.getValueAt(jTableComida.getSelectedRow(), 2);
@@ -341,7 +341,7 @@ public class GestionarComida extends javax.swing.JFrame {
         int tipo = Integer.parseInt((String) jTableComida.getValueAt(fila, 3));
         System.out.print(cod + desc + precio + tipo);
 //        int tipo = (int) modelo.getValueAt(jTableComida.getSelectedRow(), 3);
-        //ABMComida BC = new ABMComida();
+//        ABMComida BC = new ABMComida();
         Comidas VC = new Comidas();
         Comida C = new Comida(cod, desc, precio, tipo);
         VC.setDatosComida(C);
@@ -484,15 +484,20 @@ public class GestionarComida extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+
     }
 
     public boolean validarCampoDescripcion() {
-        if (jTextFieldDescripcion.getText().matches("[^A-Za-z]+")) {
-            JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-            return false;
+        if (jTextFieldDescripcion.getText().length() > 0) {
+            if (jTextFieldDescripcion.getText().matches("[A-Za-z\\s]+")) {
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
         } else {
-            return true;
+            JOptionPane.showMessageDialog(this, "ERROR: El campo \"Descripcion\" no debe estar vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 

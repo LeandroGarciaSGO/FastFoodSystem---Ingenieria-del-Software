@@ -26,6 +26,7 @@ public class Comidas extends javax.swing.JFrame {
     private int condatos_vacio;
     private String descripcion;
     ResultSet R;
+    // private String descAnt;
 
     public Comidas() {
         initComponents();
@@ -69,11 +70,15 @@ public class Comidas extends javax.swing.JFrame {
             case 2:
                 jButtonEliminar.setEnabled(true);
                 jButtonGuardar.setEnabled(false);
+                jTextFieldDescripComida.setEditable(false);
+                jTextFieldPrecioComida.setEditable(false);
+                jComboBoxTipoComida.setEnabled(false);
                 break;
             //modificar comida
             case 3:
                 jButtonEliminar.setEnabled(false);
                 jButtonGuardar.setEnabled(true);
+                // jTextFieldDescripComida.setEditable(false);
                 break;
         }
 
@@ -84,6 +89,7 @@ public class Comidas extends javax.swing.JFrame {
             //jComboBoxTipoComida.setSelectedItem(String.valueOf(datosComida.getTipo()));
             //jComboBoxTipoComida.setSelectedIndex(datosComida.getTipo() - 1);
             jComboBoxTipoComida.setSelectedIndex(datosComida.getTipo());
+//            descAnt = String.valueOf(datosComida.getDescripcion());
         } else {
             Comida C = new Comida();
             try {
@@ -116,15 +122,14 @@ public class Comidas extends javax.swing.JFrame {
         jTextFieldPrecioComida = new javax.swing.JTextField();
         jComboBoxTipoComida = new javax.swing.JComboBox();
         jLabelError = new javax.swing.JLabel();
-        jPanelImagen = new javax.swing.JPanel();
         jButtonCancelar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Comidas");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(640, 380));
         setMinimumSize(new java.awt.Dimension(640, 380));
 
         jPanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la Comida", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
@@ -192,7 +197,7 @@ public class Comidas extends javax.swing.JFrame {
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCodComida)
                     .addComponent(jLabelCodigoComida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDescComida)
                     .addComponent(jTextFieldDescripComida, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -210,19 +215,6 @@ public class Comidas extends javax.swing.JFrame {
         );
 
         jComboBoxTipoComida.getAccessibleContext().setAccessibleDescription("");
-
-        jPanelImagen.setBackground(new java.awt.Color(204, 153, 255));
-
-        javax.swing.GroupLayout jPanelImagenLayout = new javax.swing.GroupLayout(jPanelImagen);
-        jPanelImagen.setLayout(jPanelImagenLayout);
-        jPanelImagenLayout.setHorizontalGroup(
-            jPanelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 184, Short.MAX_VALUE)
-        );
-        jPanelImagenLayout.setVerticalGroup(
-            jPanelImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 262, Short.MAX_VALUE)
-        );
 
         jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
@@ -260,38 +252,45 @@ public class Comidas extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventana-cliente.jpg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(0, 6, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -304,21 +303,23 @@ public class Comidas extends javax.swing.JFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         if ((validarCampoDescripcion() && validarCampoPrecio()) && validarTipo()) {
             Comida C = new Comida();
-            ABMComida ABMC = new ABMComida();
             C.setIdComida(Integer.parseInt(jLabelCodigoComida.getText()));
             C.setDescripcion(jTextFieldDescripComida.getText());
             C.setPrecio(Float.parseFloat(jTextFieldPrecioComida.getText()));
             //C.setTipo(Integer.parseInt(String.valueOf(jComboBoxTipoComida.getSelectedIndex() + 1)));
             C.setTipo(Integer.parseInt(String.valueOf(jComboBoxTipoComida.getSelectedIndex())));
-            C.setEstado(true);
-
+            ABMComida ABMC = new ABMComida();
             if (condatos_vacio != 1) {
                 try {
-                    if (ABMC.modificarComida(C) == 1) {
-                        JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                    } else {
+                    if (ABMC.modificarComida(C)) {  
                         JOptionPane.showMessageDialog(this, "La comida se cargo correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                     //   JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        GestionarComida volverGestionarComida = new GestionarComida();
+                        volverGestionarComida.setVisible(true);
                         this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                      //  JOptionPane.showMessageDialog(this, "La comida se cargo correctamente 1", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
@@ -328,10 +329,12 @@ public class Comidas extends javax.swing.JFrame {
                 }
             } else {
                 try {
-                    if (ABMC.modificarComida(C) == 0) {
+                    if (!ABMC.modificarComida(C)) {
                         JOptionPane.showMessageDialog(this, "ERROR: La descripcion pertenece a otra comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "La comida se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        GestionarComida volverGestionarComida = new GestionarComida();
+                        volverGestionarComida.setVisible(true);
                         this.dispose();
                     }
                 } catch (ClassNotFoundException ex) {
@@ -367,11 +370,13 @@ public class Comidas extends javax.swing.JFrame {
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Comidas.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Comidas.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -464,6 +469,7 @@ public class Comidas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JComboBox jComboBoxTipoComida;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCodComida;
     private javax.swing.JLabel jLabelCodigoComida;
     private javax.swing.JLabel jLabelDescComida;
@@ -471,7 +477,6 @@ public class Comidas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPrecioComida;
     private javax.swing.JLabel jLabelTipoComida;
     private javax.swing.JPanel jPanelDatos;
-    private javax.swing.JPanel jPanelImagen;
     private javax.swing.JTextField jTextFieldDescripComida;
     private javax.swing.JTextField jTextFieldPrecioComida;
     // End of variables declaration//GEN-END:variables
