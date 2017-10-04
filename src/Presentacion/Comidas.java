@@ -128,7 +128,7 @@ public class Comidas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Comidas");
+        setTitle("FastFoodSystem - Comidas");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(640, 380));
 
@@ -297,6 +297,8 @@ public class Comidas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        GestionarComida volverGestionarComida = new GestionarComida();
+        volverGestionarComida.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -311,15 +313,15 @@ public class Comidas extends javax.swing.JFrame {
             ABMComida ABMC = new ABMComida();
             if (condatos_vacio != 1) {
                 try {
-                    if (ABMC.modificarComida(C)) {  
-                        JOptionPane.showMessageDialog(this, "La comida se cargo correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                     //   JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    if (ABMC.modificarComida(C)) {
+                        JOptionPane.showMessageDialog(this, "La Comida Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        //   JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                         GestionarComida volverGestionarComida = new GestionarComida();
                         volverGestionarComida.setVisible(true);
                         this.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                      //  JOptionPane.showMessageDialog(this, "La comida se cargo correctamente 1", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "ERROR: La Comida Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        //  JOptionPane.showMessageDialog(this, "La comida se cargo correctamente 1", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
@@ -330,9 +332,9 @@ public class Comidas extends javax.swing.JFrame {
             } else {
                 try {
                     if (!ABMC.modificarComida(C)) {
-                        JOptionPane.showMessageDialog(this, "ERROR: La descripcion pertenece a otra comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Pertenece A Otra Comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, "La comida se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La Comida Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         GestionarComida volverGestionarComida = new GestionarComida();
                         volverGestionarComida.setVisible(true);
                         this.dispose();
@@ -352,10 +354,11 @@ public class Comidas extends javax.swing.JFrame {
             C.eliminar(Integer.parseInt(jLabelCodigoComida.getText()));
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Comidas.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, "La comida se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "La Comida Se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+        GestionarComida volverGestionarComida = new GestionarComida();
+        volverGestionarComida.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
@@ -370,13 +373,11 @@ public class Comidas extends javax.swing.JFrame {
 
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Comidas.class
-                        .getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Comidas.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -384,7 +385,7 @@ public class Comidas extends javax.swing.JFrame {
         if (jComboBoxTipoComida.getSelectedIndex() != 0) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(this, "ERROR: Debe seleccionar un tipo de comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERROR: Debe Seleccionar Un Tipo De Comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -394,11 +395,11 @@ public class Comidas extends javax.swing.JFrame {
             if (jTextFieldDescripComida.getText().matches("[a-zA-Z\\s]+")) {
                 return true;
             } else {
-                JOptionPane.showMessageDialog(this, "ERROR: La descripcion debe contener solo letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } else {
-            JOptionPane.showMessageDialog(this, "ERROR: El campo \"descripcion\" no debe estar vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Descripcion\" No Debe Estar Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
@@ -409,12 +410,12 @@ public class Comidas extends javax.swing.JFrame {
                 Float.parseFloat(jTextFieldPrecioComida.getText());
                 return true;
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "ERROR: El precio debe ser numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: El Precio Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "ERROR: El campo \"Precio\" no debe estar vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Precio\" No Debe Estar Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
