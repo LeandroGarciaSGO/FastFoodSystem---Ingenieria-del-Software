@@ -315,7 +315,7 @@ public class GestionarCadete extends javax.swing.JFrame {
 //                  Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
 //              }
             }else{ 
-          
+          return 1;
           }
         return 0;
 
@@ -332,7 +332,7 @@ public class GestionarCadete extends javax.swing.JFrame {
 
         jTableCadetes.setModel(modelo);
         try {
-            validarCampos();
+            if(validarCampos()==1){
             //cargarTablaCadetes();
             CA = CD.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
             if (CA != null) {
@@ -355,7 +355,7 @@ public class GestionarCadete extends javax.swing.JFrame {
                 jButtonNuevoCadete.setEnabled(true);
                 JOptionPane.showMessageDialog(this, " ERROR: Cadete Inexistente, Presione Nuevo para Agregarlo", "Fast Food System", JOptionPane.ERROR_MESSAGE);
 
-            }
+            }}
 
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
