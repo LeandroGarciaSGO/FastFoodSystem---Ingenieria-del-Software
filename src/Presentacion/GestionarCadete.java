@@ -294,7 +294,7 @@ public class GestionarCadete extends javax.swing.JFrame {
           if (jTextFieldNumeroDocumento.getText().length() <= 0) {
                 JOptionPane.showMessageDialog(this, " ERROR: El Documento no debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 ;
-            }else{
+            }else{ 
           
           }
         return 0;
@@ -313,7 +313,7 @@ public class GestionarCadete extends javax.swing.JFrame {
         jTableCadetes.setModel(modelo);
         try {
             validarCampos();
-            cargarTablaCadetes();
+            //cargarTablaCadetes();
             CA = CD.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
             if (CA != null) {
                 jButtonNuevoCadete.setEnabled(false);
