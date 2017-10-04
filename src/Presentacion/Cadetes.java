@@ -91,7 +91,7 @@ public class Cadetes extends javax.swing.JFrame {
     
     private boolean validarCampos() {
         try {
-            Long.parseLong(jTextFieldTelefono.getText());
+            //Long.parseLong(jTextFieldTelefono.getText());
             if (jTextFieldNombre.getText().length() <= 0) {
                 JOptionPane.showMessageDialog(this, " ERROR: El Nombre No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
@@ -114,9 +114,13 @@ public class Cadetes extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, " ERROR: El Domicilio No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
+            if (jTextFieldTelefono.getText().length() <= 0) {
+                JOptionPane.showMessageDialog(this, " ERROR: El Telefono No Debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
             return true;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "-. ERROR: El Telefono No debe ser vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "-. ERROR: El Documento No debe ser vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 

@@ -43,7 +43,7 @@ public class GestionarCadete extends javax.swing.JFrame {
     private Statement sentencia;
     private ResultSet rsDatos;
     private DefaultTableModel modelo;
-    private TableRowSorter trsFiltro;
+    //private TableRowSorter trsFiltro;
     //AGREGO
     private PreparedStatement psPrepSencencias;
 
@@ -58,7 +58,7 @@ public class GestionarCadete extends javax.swing.JFrame {
             cargarTablaCadetes();
             setLocationRelativeTo(null);
            // validarCampos();
-            jButtonNuevoCadete.setEnabled(false);
+           // jButtonNuevoCadete.setEnabled(false);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,6 +86,7 @@ public class GestionarCadete extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCadetes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Gestionar Cadete");
@@ -223,23 +224,36 @@ public class GestionarCadete extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/actualizar-l.png"))); // NOI18N
+        jButton2.setText("Actualizar");
+        jButton2.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButton2.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButton2.setPreferredSize(new java.awt.Dimension(180, 50));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel2Mensaje, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButtonNuevoCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel2Mensaje, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonNuevoCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -255,8 +269,10 @@ public class GestionarCadete extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("FastFoodSystem- Gestionar Cadete");
@@ -292,8 +308,12 @@ public class GestionarCadete extends javax.swing.JFrame {
     private int validarCampos() {
        
           if (jTextFieldNumeroDocumento.getText().length() <= 0) {
-                JOptionPane.showMessageDialog(this, " ERROR: El Documento no debe Ser Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                ;
+                JOptionPane.showMessageDialog(this, " ERROR: El Documento no debe Ser Vacio, presione actualizar", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+//              try {
+//                  //cargarTablaCadetes();
+//              } catch (ClassNotFoundException ex) {
+//                  Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+//              }
             }else{ 
           
           }
@@ -326,13 +346,14 @@ public class GestionarCadete extends javax.swing.JFrame {
                 modelo.addRow(fila);
                 jButtonEliminar.setEnabled(true);
                 jButtonModificar.setEnabled(true);
+                //cargarTablaCadetes();
 
             } else {
                
                 jButtonEliminar.setEnabled(false);
                 jButtonModificar.setEnabled(false);
                 jButtonNuevoCadete.setEnabled(true);
-                JOptionPane.showMessageDialog(this, " ERROR: Cadete Inexistente", "Fast Food System", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, " ERROR: Cadete Inexistente, Presione Nuevo para Agregarlo", "Fast Food System", JOptionPane.ERROR_MESSAGE);
 
             }
 
@@ -439,6 +460,17 @@ public class GestionarCadete extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTextFieldNumeroDocumentoKeyTyped
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            cargarTablaCadetes();
+            jButtonNuevoCadete.setEnabled(true);
+            jButtonEliminar.setEnabled(true);
+            jButtonModificar.setEnabled(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -481,6 +513,7 @@ public class GestionarCadete extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonNuevoCadete;
