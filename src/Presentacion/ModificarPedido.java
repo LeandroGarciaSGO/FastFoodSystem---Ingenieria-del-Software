@@ -181,13 +181,13 @@ public class ModificarPedido extends javax.swing.JFrame {
         if (jTableMostrarPedidos.getColumnModel().getColumnCount() > 0) {
             jTableMostrarPedidos.getColumnModel().getColumn(0).setResizable(false);
             jTableMostrarPedidos.getColumnModel().getColumn(1).setResizable(false);
-            jTableMostrarPedidos.getColumnModel().getColumn(1).setPreferredWidth(90);
             jTableMostrarPedidos.getColumnModel().getColumn(2).setResizable(false);
             jTableMostrarPedidos.getColumnModel().getColumn(3).setResizable(false);
             jTableMostrarPedidos.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jButtonSalir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
         jButtonSalir.setText("Salir");
         jButtonSalir.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonSalir.setMinimumSize(new java.awt.Dimension(180, 50));

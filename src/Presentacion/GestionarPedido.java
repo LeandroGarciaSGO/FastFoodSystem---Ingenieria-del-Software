@@ -67,11 +67,11 @@ public class GestionarPedido extends javax.swing.JFrame {
         });
 
         jButtonSalir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cancelar.png"))); // NOI18N
         jButtonSalir.setText("Salir");
-        jButtonSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonSalir.setMaximumSize(new java.awt.Dimension(70, 25));
-        jButtonSalir.setMinimumSize(new java.awt.Dimension(70, 25));
-        jButtonSalir.setPreferredSize(new java.awt.Dimension(70, 25));
+        jButtonSalir.setMaximumSize(new java.awt.Dimension(180, 50));
+        jButtonSalir.setMinimumSize(new java.awt.Dimension(180, 50));
+        jButtonSalir.setPreferredSize(new java.awt.Dimension(180, 50));
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalirActionPerformed(evt);
@@ -90,8 +90,8 @@ public class GestionarPedido extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(214, 214, 214))
+                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(159, 159, 159))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,9 +100,9 @@ public class GestionarPedido extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonModificarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonNuevoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(30, 30, 30)
+                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         pack();

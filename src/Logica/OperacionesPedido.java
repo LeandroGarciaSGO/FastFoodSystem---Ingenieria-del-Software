@@ -42,9 +42,11 @@ public class OperacionesPedido {
         }
         if (datosPedido.first()) {
             P.setIdPedido(datosPedido.getInt("idPedido"));
+            P.setEstado(datosPedido.getInt("estado"));
             P.setFecha(datosPedido.getDate("fecha"));
             P.setHora(datosPedido.getTime("hora"));
-            P.setEstado(datosPedido.getInt("estado"));
+            P.setLugarDeEnvio(datosPedido.getString("lugarDeEnvio"));
+            P.setZona(datosPedido.getInt("zona"));
             if (P.getEstado() == 1) {
                 return P;
             }
@@ -120,7 +122,7 @@ public class OperacionesPedido {
                     datos[4] = String.valueOf(datosTabla.getTime("hora"));
                     C = ABMC.buscarClienteConId(datosTabla.getInt("idCliente"));
                     datos[1] = String.valueOf(C.getTelefono());
-                    datos[2] = C.getNombre();
+                    datos[2] = C.getNombre() + " " + C.getApellido();
                     modelo.addRow(datos);
                 }       break;
             case 1:
@@ -131,14 +133,14 @@ public class OperacionesPedido {
                     datos[4] = String.valueOf(datosTabla.getTime("hora"));
                     C = ABMC.buscarClienteConId(datosTabla.getInt("idCliente"));
                     datos[1] = String.valueOf(C.getTelefono());
-                    datos[2] = C.getNombre();
+                    datos[2] = C.getNombre() + " " +C.getApellido();
                     modelo.addRow(datos);
                 }   break;
             default:
                 datosTabla = C.obtenerClienteFiltrado(telefono);
                 while(datosTabla.next()){
                     datos[1] = String.valueOf(datosTabla.getLong("telefono"));
-                    datos[2] = datosTabla.getString("nombre");                    
+                    datos[2] = datosTabla.getString("nombre") + " " + datosTabla.getString("apellido");
                     PidCliente = P.consultaPedidoIdCliente(datosTabla.getInt("idCliente"));
                     if(PidCliente.first()){
                         datos[0] = String.valueOf(PidCliente.getInt("idPedido"));

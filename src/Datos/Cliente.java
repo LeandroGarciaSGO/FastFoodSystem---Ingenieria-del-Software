@@ -100,7 +100,7 @@ public ResultSet obtenerCliente(long telef) throws ClassNotFoundException{
 
 public ResultSet obtenerClienteFiltrado(String telefono) throws ClassNotFoundException, SQLException{
         Connection conex = Conexion.Cadena();
-        String ConsultaSQL = "SELECT idCliente, nombre, telefono FROM cliente WHERE telefono LIKE '%"+telefono+"%' AND estado = true";        
+        String ConsultaSQL = "SELECT idCliente, nombre, apellido, telefono FROM cliente WHERE telefono LIKE '%"+telefono+"%' AND estado = true";        
         sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         rsDatos = sentencia.executeQuery(ConsultaSQL);
         return rsDatos;

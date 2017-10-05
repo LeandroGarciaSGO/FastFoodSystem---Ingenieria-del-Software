@@ -58,10 +58,14 @@ public class DatosPedido extends javax.swing.JFrame {
         C = new Cliente();
         setLocationRelativeTo(null);
         Date d = new Date();
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String fecha = formatoFecha.format(d);
+        String hora = formatoHora.format(d);
         jLabelMostrarFecha.setText(fecha);
-        cargarJComboBox();
+        jLabelMostrarHora.setText(hora);
+        cargarJComboBoxZona();
+        cargarJComboBoxComidaDisponible();
     }
 
     /**
@@ -151,11 +155,6 @@ public class DatosPedido extends javax.swing.JFrame {
 
         jTextFieldTelefono.setMaximumSize(new java.awt.Dimension(120, 20));
         jTextFieldTelefono.setMinimumSize(new java.awt.Dimension(120, 20));
-        jTextFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldTelefonoActionPerformed(evt);
-            }
-        });
 
         jButtonBuscar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-buscar.png"))); // NOI18N
@@ -330,7 +329,7 @@ public class DatosPedido extends javax.swing.JFrame {
 
         jLabelComida.setText("Comida:");
 
-        jComboBoxSeleccionarComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la Comida", "Pizza Especial", "Pizza Cuatro Quesos", "Lomito Completo", "Empanada", "Papas Fritas" }));
+        jComboBoxSeleccionarComida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione la Comida" }));
         jComboBoxSeleccionarComida.setMaximumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setMinimumSize(new java.awt.Dimension(150, 20));
         jComboBoxSeleccionarComida.setPreferredSize(new java.awt.Dimension(150, 20));
@@ -497,16 +496,16 @@ public class DatosPedido extends javax.swing.JFrame {
                         .addComponent(jLabelFecha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelMostrarFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabelHora)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelMostrarHora, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelMostrarHora, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanelDatosPedido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)))
-                .addContainerGap())
+                        .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,6 +619,7 @@ public class DatosPedido extends javax.swing.JFrame {
         try {
             if(validarCamposPedido(1)){//Para validar que el campo lugar de envio y zono no esten vacíos y tratar un nuevo pedido
                 ConfirmarPedido CP = new ConfirmarPedido();
+                listaDetallePedido.clear();
                 if(Cl.isEstado()){//Para tratar un pedido que se desea modificar
                     P.setLugarDeEnvio(jTextFieldLugarDeEnvio.getText());
                     cargarDetallePedido(1);//carga un detalle de pedido a modificar
@@ -641,6 +641,7 @@ public class DatosPedido extends javax.swing.JFrame {
                     CP.setB(0);//mando 0 porque es un nuevo pedido
                     CP.mostrarNumPedido(0);
                 }
+                this.dispose();
                 CP.setP(P);
                 CP.setDP(listaDetallePedido);
                 CP.setVisible(true);
@@ -723,6 +724,7 @@ public class DatosPedido extends javax.swing.JFrame {
             jLabelMostrarDomicilio.setText(Cl.getDomicilio());
             jLabelMostrarPedidoNum.setText(String.valueOf(codP));
             jTextFieldLugarDeEnvio.setText(P.getLugarDeEnvio());
+            cargarJComboBoxZona();
             for(int i = 0; i<listaDetallePedido.size(); i++){
                 Co = ABMCo.buscarComidaId(listaDetallePedido.get(i).getIdComida());
                 datos[0] = String.valueOf(listaDetallePedido.get(i).getIdComida());
@@ -737,11 +739,27 @@ public class DatosPedido extends javax.swing.JFrame {
         }  
     }
     
-    public void cargarJComboBox() throws ClassNotFoundException, SQLException{
+    public void cargarJComboBoxZona() throws ClassNotFoundException, SQLException{
         OperacionesPedido ABMP = new OperacionesPedido();
         listaZonas = ABMP.buscarZona();
         for(int i = 0; i<listaZonas.size(); i++){
             jComboBoxZona.addItem(listaZonas.get(i).getDescripcion());
+        }
+      if(Cl.isEstado()){
+          int i = 0;
+          while(P.getZona()!= listaZonas.get(i).getIdZona())
+              i++;
+          jComboBoxZona.setSelectedItem(listaZonas.get(i).getDescripcion());
+          jLabelMostrarImporte.setText(String.valueOf(listaZonas.get(i).getPrecio()));
+      }
+    }
+    
+    public void cargarJComboBoxComidaDisponible() throws ClassNotFoundException, SQLException{
+        ABMComida ABMC = new ABMComida();
+        ArrayList<Comida> listaComida = new ArrayList<Comida>();
+        listaComida = ABMC.recuperarComidas();
+        for(int i = 0; i<listaComida.size(); i++){
+            jComboBoxSeleccionarComida.addItem(listaComida.get(i).getDescripcion());
         }
     }
     
@@ -750,7 +768,6 @@ public class DatosPedido extends javax.swing.JFrame {
                 DetallePedido DP = new DetallePedido();
                 DP.setCantidad(Integer.parseInt(String.valueOf(modelo.getValueAt(i, 2))));
                 DP.setIdComida(Integer.parseInt(String.valueOf(modelo.getValueAt(i, 0))));
-                //DP.setNumLinea(DP.obtenerSiguienteNumLineaDetallePedido());
                 if(p==0)
                     listaDetallePedido.add(DP);
                 else

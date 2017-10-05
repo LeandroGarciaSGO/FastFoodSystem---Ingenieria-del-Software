@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.ArrayList;
 
 
 /**
@@ -91,6 +92,19 @@ public class ABMComida {
             return miComida;
         }
         return null;
+    }
+    
+    public ArrayList<Comida> recuperarComidas()throws ClassNotFoundException, SQLException{
+        ResultSet datosComida;
+        Comida miComida = new Comida();
+        ArrayList<Comida> listaComidas = new ArrayList<Comida>();
+        datosComida = miComida.consultarTodasLasComidas();
+        while (datosComida.next()) {
+            Comida miComidaLista = new Comida();
+            miComidaLista.setDescripcion(datosComida.getString("descripcion"));
+            listaComidas.add(miComidaLista);
+        }
+        return listaComidas;
     }
 
 //    public static int obtenerSiguienteId(){

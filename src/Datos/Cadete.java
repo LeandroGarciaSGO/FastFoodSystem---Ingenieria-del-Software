@@ -161,16 +161,28 @@ public ResultSet consultaCadete(int dni) throws ClassNotFoundException{
 
 public ResultSet consultaEstado(int idCadete) throws ClassNotFoundException{
     try {
-            Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT idCadete, estado FROM cadete WHERE idCadete = '"+ idCadete+"' AND estado = true"; 
-            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-        return rsDatos;
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT idCadete, estado FROM cadete WHERE idCadete = '"+ idCadete+"' AND estado = true";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+    } catch (SQLException ex) {
+        Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return rsDatos;
 }
+
+public ResultSet obtenerCadete() throws ClassNotFoundException{
+    try {
+        Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT idCadete, nombre FROM cadete WHERE estado = true";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+    } catch (SQLException ex) {
+        Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return rsDatos;
+}
+
 public ResultSet consultaCadeteConId(int cod) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            

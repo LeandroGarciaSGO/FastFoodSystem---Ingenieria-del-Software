@@ -10,6 +10,7 @@ import Datos.Cadete;
 import Datos.Cliente;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,6 +100,20 @@ public class AMBCadete {
             }
         }
         return null;
+    }
+    
+    public ArrayList<Cadete> listaCadetes() throws ClassNotFoundException, SQLException{
+        ResultSet datosCadete;
+        Cadete miCadete = new Cadete();
+        ArrayList<Cadete> listaCadete = new ArrayList<Cadete>();
+        datosCadete = miCadete.obtenerCadete();
+        while(datosCadete.next()){
+            Cadete miCadeteLista = new Cadete();
+            miCadeteLista.setIdCadete(datosCadete.getInt("idCadete"));
+            miCadeteLista.setNombre(datosCadete.getString("nombre"));
+            listaCadete.add(miCadeteLista);
+        }
+        return listaCadete;
     }
     
     

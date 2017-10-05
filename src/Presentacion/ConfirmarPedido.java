@@ -15,7 +15,6 @@ import Datos.DetallePedido;
 import Datos.Pedido;
 import Logica.AMBCadete;
 import Logica.OperacionesPedido;
-import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -41,6 +40,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         P = new Pedido();
         DP = new ArrayList<DetallePedido>();
         DPMod = new ArrayList<DetallePedido>();
+        cargarJComboBoxCadeteDisponible();
     }
 
     public Pedido getP() {
@@ -94,44 +94,26 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabelCadetes = new javax.swing.JLabel();
-        jComboBoxSeleccioneCadete = new javax.swing.JComboBox<String>();
+        jComboBoxSeleccionarCadete = new javax.swing.JComboBox<>();
         jLabelPedidoNum = new javax.swing.JLabel();
         jLabelMostrarPedidoNum = new javax.swing.JLabel();
-        jButtonVolver = new javax.swing.JButton();
         jButtonConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Confirmar Pedido");
-        setMaximumSize(new java.awt.Dimension(500, 200));
-        setMinimumSize(new java.awt.Dimension(500, 200));
+        setMaximumSize(new java.awt.Dimension(331, 200));
+        setMinimumSize(new java.awt.Dimension(331, 200));
         setResizable(false);
 
         jLabelCadetes.setText("Cadetes:");
 
-        jComboBoxSeleccioneCadete.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un Cadete", "Cadete 1", "Cadete 2", "Cadete 3" }));
-        jComboBoxSeleccioneCadete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxSeleccioneCadeteActionPerformed(evt);
-            }
-        });
+        jComboBoxSeleccionarCadete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un Cadete" }));
 
         jLabelPedidoNum.setText("Pedido Número:");
 
         jLabelMostrarPedidoNum.setMaximumSize(new java.awt.Dimension(100, 14));
         jLabelMostrarPedidoNum.setMinimumSize(new java.awt.Dimension(100, 14));
         jLabelMostrarPedidoNum.setPreferredSize(new java.awt.Dimension(100, 14));
-
-        jButtonVolver.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonVolver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-volver-confirmar-pedido.png"))); // NOI18N
-        jButtonVolver.setText("Volver");
-        jButtonVolver.setMaximumSize(new java.awt.Dimension(210, 57));
-        jButtonVolver.setMinimumSize(new java.awt.Dimension(210, 57));
-        jButtonVolver.setPreferredSize(new java.awt.Dimension(210, 57));
-        jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVolverActionPerformed(evt);
-            }
-        });
 
         jButtonConfirmar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jButtonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-confirmar-pedido.png"))); // NOI18N
@@ -150,18 +132,18 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelCadetes)
-                        .addComponent(jLabelPedidoNum)))
-                .addGap(18, 18, 18)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxSeleccioneCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMostrarPedidoNum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelPedidoNum)
+                            .addComponent(jLabelCadetes))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxSeleccionarCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelMostrarPedidoNum, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,16 +151,14 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCadetes)
-                    .addComponent(jComboBoxSeleccioneCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxSeleccionarCadete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelPedidoNum)
                     .addComponent(jLabelMostrarPedidoNum, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jButtonConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,12 +170,12 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         AMBCadete ABMC = new AMBCadete();
         Cadete C = new Cadete();
         int numLinea = 0;
-        if(jComboBoxSeleccioneCadete.getSelectedIndex()>0){
+        if(jComboBoxSeleccionarCadete.getSelectedIndex()>0){
             try {
             //Valida selección de un cadete
-            C = ABMC.consultaCadeteEstado(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
+            C = ABMC.consultaCadeteEstado(Integer.parseInt(String.valueOf(jComboBoxSeleccionarCadete.getSelectedItem()).substring(0,1)));
             if(C!=null){
-                P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccioneCadete.getSelectedItem()).substring(7)));
+                P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccionarCadete.getSelectedItem()).substring(0,1)));
                 if (b==0){
                     int x = ABMP.nuevoPedido(P);
                     if(x > 0){
@@ -211,7 +191,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "El pedido no puede registrarse", "Fast Food System", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-                else if (JOptionPane.showConfirmDialog(null, "Desea modificar el pedido?","Fast Food System",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION){
+                else if (JOptionPane.showConfirmDialog(null, "¿Desea modificar el pedido?","Fast Food System",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION){
                     ABMP.modificarPedido(P);
                     ABMP.eliminarDetallePedido(P.getIdPedido());
                     for(int i = 0; i<DPMod.size(); i++){
@@ -222,6 +202,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                     ABMP.nuevoDetallePedido(DPMod);
                     JOptionPane.showMessageDialog(this, "El pedido se modifico correctamente y su Número de Pedido es: "+ P.getIdPedido(), "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
                 }
+                this.dispose();
             }
             else{
                 JOptionPane.showMessageDialog(this, "El cadete NO está disponible", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
@@ -236,21 +217,22 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonConfirmarActionPerformed
 
-    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jButtonVolverActionPerformed
-
-    private void jComboBoxSeleccioneCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSeleccioneCadeteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxSeleccioneCadeteActionPerformed
-
     public void mostrarNumPedido(int p) throws ClassNotFoundException, SQLException{
         if(p==0)
             jLabelMostrarPedidoNum.setText(String.valueOf(P.obtenerSiguienteIdPedido()));
         else
             jLabelMostrarPedidoNum.setText(String.valueOf(cod));
     }
+    
+    public void cargarJComboBoxCadeteDisponible() throws ClassNotFoundException, SQLException{
+        AMBCadete ABMC = new AMBCadete();
+        ArrayList<Cadete> listaCadete = new ArrayList<Cadete>();
+        listaCadete = ABMC.listaCadetes();
+        for(int i = 0; i<listaCadete.size(); i++){
+            jComboBoxSeleccionarCadete.addItem(String.valueOf(listaCadete.get(i).getIdCadete()) + " - " +listaCadete.get(i).getNombre());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -294,8 +276,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConfirmar;
-    private javax.swing.JButton jButtonVolver;
-    private javax.swing.JComboBox<String> jComboBoxSeleccioneCadete;
+    private javax.swing.JComboBox<String> jComboBoxSeleccionarCadete;
     private javax.swing.JLabel jLabelCadetes;
     private javax.swing.JLabel jLabelMostrarPedidoNum;
     private javax.swing.JLabel jLabelPedidoNum;
