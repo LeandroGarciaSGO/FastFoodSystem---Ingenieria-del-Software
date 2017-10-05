@@ -22,6 +22,7 @@ public class OperacionesFacturacion {
         ArrayList<Facturacion> listafacturas = new ArrayList<Facturacion>();
         pedidoslistos = ped.obtenerPedidosListos();
         while (pedidoslistos.next()) {
+            factura = new Facturacion();
             ped = new Pedido();
             ped.setIdPedido(pedidoslistos.getInt("idPedido"));
             ped.setIdCliente(pedidoslistos.getInt("idCliente"));
@@ -34,13 +35,15 @@ public class OperacionesFacturacion {
             System.out.print(pedidoslistos.getInt("idPedido"));
             System.out.print(ped.getIdPedido());
             OperacionesCliente opCli = new OperacionesCliente();
-            Cliente cli = opCli.buscarClienteConId(ped.getIdCliente());
+            Cliente cli =  new Cliente(); 
+            cli = opCli.buscarClienteConId(ped.getIdCliente());
             if (cli != null) {
                 factura.setDatospedido(ped);
                 factura.setDatoscliente(cli);
-                listafacturas.add(factura);
+                //listafacturas.add(factura);
                 //return listafacturas;
             }
+            listafacturas.add(factura);
         }
         return listafacturas;
     }

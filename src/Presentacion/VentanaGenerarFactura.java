@@ -181,11 +181,11 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
         // TODO add your handling code here:
      if (jTablePedidosListos.getSelectedRows().length > 0) {
-            int indice = jTablePedidosListos.getRowCount();
+            int indice = jTablePedidosListos.getSelectedRow();
             System.out.print(indice);
             VentanaEmitirFacturacion VEF = new VentanaEmitirFacturacion();
          try {
-             VEF.setFactura(listaPedListos.get(indice-1));
+             VEF.setFactura(listaPedListos.get(indice));
              VEF.cargarDatosFactura();
          } catch (ClassNotFoundException ex) {
              Logger.getLogger(VentanaGenerarFactura.class.getName()).log(Level.SEVERE, null, ex);

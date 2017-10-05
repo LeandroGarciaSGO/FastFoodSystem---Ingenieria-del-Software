@@ -861,6 +861,8 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
+        VentanaGenerarFactura VGF = new VentanaGenerarFactura();
+        VGF.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
