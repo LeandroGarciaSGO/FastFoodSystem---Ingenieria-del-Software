@@ -36,12 +36,12 @@ public class OperacionesCliente {
                 return true;
             }
         }
-//        else
-//        {
-//            C.insertar();
-//            return false;
-//        }
-    return false;
+        else
+        {
+            C.modificar();
+            return true;
+        }
+    //return false;
     }
     
     public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException {
