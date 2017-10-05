@@ -22,7 +22,8 @@ public class ABMComida {
     // public int modificarComida(Comida C) throws ClassNotFoundException, SQLException {
     public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
-        NC = C.consultaComida(C.getDescripcion());
+        //NC = C.consultaComida(C.getDescripcion());
+        NC = C.consultaComidaId2(C.getIdComida());
 
         if (NC.first()) {
             if (NC.getBoolean("estado")) {
