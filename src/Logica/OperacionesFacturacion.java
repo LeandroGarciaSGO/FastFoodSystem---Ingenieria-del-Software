@@ -39,10 +39,10 @@ public class OperacionesFacturacion {
                 factura.setDatospedido(ped);
                 factura.setDatoscliente(cli);
                 listafacturas.add(factura);
-                return listafacturas;
+                //return listafacturas;
             }
         }
-        return null;
+        return listafacturas;
     }
 
      public ArrayList<DetallePedido> obtenerDetallesDePedidos(Facturacion fac) throws SQLException, ClassNotFoundException{

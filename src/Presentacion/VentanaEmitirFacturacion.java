@@ -823,33 +823,39 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         // TODO add your handling code here:
-        //try {
-            //PrinterJob job = PrinterJob.getPrinterJob();
-            //job.setPrintable(this);
-            //job.printDialog();
-            //job.print();
-        //} catch (PrinterException ex) { } 
-        
-     try {
-         Factura.setImporte(importeFactura);
-         Factura.setTarifaDeEnvio(z.getPrecio());
-         //DATOS PEDIDO YA ASIGNADO
-         //DATOS CLIENTE YA ASIGNADO
-         Factura.insertar();
-         //CARGAR DETALLE
-         Pedido p = new Pedido();
-         p = Factura.getDatospedido();
-         p.modificarEstado(4);
-         OF.guardarDetalle(Factura,listaDetalles);
-         JOptionPane.showMessageDialog(this, "La Factura se Genero Correctamente", "FastFoodSystem",JOptionPane.INFORMATION_MESSAGE);
-         VentanaGenerarFactura VGF = new VentanaGenerarFactura();
-         VGF.setVisible(true);
-         this.dispose();
-     } catch (ClassNotFoundException ex) {
-         Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
-     }      catch (SQLException ex) {
-                Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setPrintable(this);
+            job.printDialog();
+            job.print();
+
+            Factura.setImporte(importeFactura);
+            Factura.setTarifaDeEnvio(z.getPrecio());
+            //DATOS PEDIDO YA ASIGNADO
+            //DATOS CLIENTE YA ASIGNADO
+
+            int resp = JOptionPane.showConfirmDialog(this, "¿La Factura se Imprimio Correctamente?\n    Seleccione:\n        Si - Para Continuar\n        No - Para Cancelar", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
+            if (JOptionPane.OK_OPTION == resp) {
+                Factura.insertar();
+                //CARGAR DETALLE
+                Pedido p = new Pedido();
+                p = Factura.getDatospedido();
+                p.modificarEstado(4);
+                OF.guardarDetalle(Factura, listaDetalles);
+                JOptionPane.showMessageDialog(this, "La Factura se Imprimio y se Guardo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                VentanaGenerarFactura VGF = new VentanaGenerarFactura();
+                VGF.setVisible(true);
+                this.dispose();
             }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PrinterException ex) {
+            Logger.getLogger(VentanaEmitirFacturacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //catch (PrinterException ex) {
+        //} 
 
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
