@@ -912,7 +912,7 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         //g2d.scale(0.50,0.50); //Reducción de la impresión al 50%
         g2d.translate(  pageFormat.getImageableX()+10, 
                         pageFormat.getImageableY()+10);
-        g2d.scale(0.80,0.80); //Reducción de la impresión al 50%
+        g2d.scale(0.75,0.75); //Reducción de la impresión al 50%
         jPanelContenedorFactura.printAll(graphics);
         return PAGE_EXISTS;                
     }
