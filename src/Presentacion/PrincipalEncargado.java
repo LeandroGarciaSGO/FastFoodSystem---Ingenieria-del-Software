@@ -240,6 +240,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemInformacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemInformacion.setText("Informacion");
+        jMenuItemInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInformacionActionPerformed(evt);
+            }
+        });
         jMenuAyuda.add(jMenuItemInformacion);
 
         jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
@@ -397,6 +402,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         DC.setVisible(true);
 
     }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed
+
+    private void jMenuItemInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInformacionActionPerformed
+        // TODO add your handling code here:
+        Info f = new Info();
+        f.setVisible(true);
+    }//GEN-LAST:event_jMenuItemInformacionActionPerformed
 
     /**
      * @param args the command line arguments
