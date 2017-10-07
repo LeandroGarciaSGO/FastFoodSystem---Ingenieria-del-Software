@@ -7,6 +7,9 @@
 package Presentacion;
 
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -249,6 +252,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemManual.setText("Manual de Usuario");
+        jMenuItemManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemManualActionPerformed(evt);
+            }
+        });
         jMenuAyuda.add(jMenuItemManual);
 
         jMenuBar1.add(jMenuAyuda);
@@ -409,6 +417,28 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         f.setVisible(true);
     }//GEN-LAST:event_jMenuItemInformacionActionPerformed
 
+    private void jMenuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManualActionPerformed
+        // TODO add your handling code here:
+        //System.out.println(new File ("").getAbsolutePath ());
+        //abrirManual(new File ("").getAbsolutePath () + "\\src\\Manuales\\ManualUsuario.pdf");
+        abrirManual("C:\\Program Files (x86)\\FastFoodSystem\\ManualUsuario.pdf");
+    }//GEN-LAST:event_jMenuItemManualActionPerformed
+
+    public void abrirManual(String archivo){
+
+     try {
+
+            File objetofile = new File (archivo);
+            Desktop.getDesktop().open(objetofile);
+
+     }catch (IOException ex) {
+
+            System.out.println(ex);
+
+     }
+
+} 
+    
     /**
      * @param args the command line arguments
      */
