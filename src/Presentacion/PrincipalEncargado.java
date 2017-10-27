@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -420,8 +421,13 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jMenuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManualActionPerformed
         // TODO add your handling code here:
         //System.out.println(new File ("").getAbsolutePath ());
-        //abrirManual(new File ("").getAbsolutePath () + "\\src\\Manuales\\ManualUsuario.pdf");
-        abrirManual("C:\\Program Files (x86)\\FastFoodSystem\\ManualUsuario.pdf");
+        
+        //abrirManual("Presentacion/ManualUsuario.pdf");
+        //abrirManual("C:\\Program Files (x86)\\FastFoodSystem\\ManualUsuario.pdf");
+        
+        ClassLoader cl=getClass().getClassLoader(); 
+URL resourcePath=cl.getResource("Manuales/ManualUsuario.pdf"); 
+        abrirManual(resourcePath.getPath());
     }//GEN-LAST:event_jMenuItemManualActionPerformed
 
     public void abrirManual(String archivo){
