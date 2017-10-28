@@ -126,10 +126,10 @@ public class Usuario {
     
  
    
-   public ResultSet buscarUsuario(String nomb,String pass) throws ClassNotFoundException{
+   public ResultSet buscarUsuario(String nomb) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT usuario.*, MD5('"+pass+"') as pass FROM usuario WHERE nombreUsuario = '" + nomb + "'"; 
+            String ConsultaSQL = "SELECT * FROM usuario WHERE nombreUsuario = '" + nomb + "'"; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
         } catch (SQLException ex) {
@@ -138,20 +138,36 @@ public class Usuario {
         return rsDatos;       
     } 
    
+//   public ResultSet buscarUsuario2(String nomb,String pass) throws ClassNotFoundException{
+//        try {
+//            Connection conex = Conexion.Cadena();            
+//            String ConsultaSQL = "SELECT usuario.*, MD5('"+pass+"') as pass FROM usuario WHERE nombreUsuario = '" + nomb + "'"; 
+//            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//            rsDatos = sentencia.executeQuery(ConsultaSQL);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+//        }       
+//        return rsDatos;       
+//    }
    
-   public String buscarUsuarioMD5(String cont) throws ClassNotFoundException, SQLException{
+   
+   public String encriptarClave(String cont) throws ClassNotFoundException, SQLException{
        String ConsultaSQL; 
        try {
             Connection conex = Conexion.Cadena();            
-            ConsultaSQL = "SELECT md5('" + cont + "') as 'conty'"; 
+            ConsultaSQL = "SELECT MD5('" + cont + "') as 'clave'"; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
         } catch (SQLException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }       
-       System.out.print(rsDatos.getString("conty"));
-        return rsDatos.getString("conty");       
-    } 
+        }
+        if (rsDatos.first()) {
+            //System.out.print(rsDatos.getString(1));
+            return rsDatos.getString("clave");
+        } else {
+            return cont;
+        }
+    }
     
 
   

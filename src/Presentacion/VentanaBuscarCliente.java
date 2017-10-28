@@ -6,6 +6,7 @@
 package Presentacion;
 
 import Datos.Cliente;
+import Datos.Usuario;
 import Logica.OperacionesCliente;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class VentanaBuscarCliente extends javax.swing.JFrame {
 
+    Usuario usuarioSistema;
     /**
      * Creates new form BuscarCliente
      */
@@ -25,7 +27,18 @@ public class VentanaBuscarCliente extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
         jButtonRegistrar.setEnabled(false);
+        usuarioSistema = new Usuario();
     }
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,6 +193,7 @@ public class VentanaBuscarCliente extends javax.swing.JFrame {
                     VC.setCondatos_vacio(1); // .- Parametro 1 por que lleva datos - Parametro 0 si no llega datos
                     VC.LlenarCampos();
                     VC.setTelefono(jTextFieldTelefono.getText());
+                    VC.setUsuarioSistema(usuarioSistema);
                     VC.setVisible(true);
                     this.dispose();
                 } else {
@@ -210,6 +224,7 @@ public class VentanaBuscarCliente extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+        C.setUsuarioSistema(usuarioSistema);
         C.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonRegistrarActionPerformed

@@ -55,7 +55,7 @@ public class ABMComida {
         try {
             boolean primeraComida = datosComida.first();
         } catch (SQLException ex) {
-            Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OperacionesLogueo.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (datosComida.first()) {
             miComida.setIdComida(datosComida.getInt("idComida"));
@@ -81,7 +81,7 @@ public class ABMComida {
         try {
             boolean primeraComida = datosComida.first();
         } catch (SQLException ex) {
-            Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OperacionesLogueo.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (datosComida.first()) {
             //miComida.setIdComida(datosComida.getInt("idComida"));

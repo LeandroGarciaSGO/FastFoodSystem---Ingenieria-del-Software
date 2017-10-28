@@ -176,7 +176,7 @@ public class AMBCadete {
      try {
          boolean primercadete = datosCadete.first();
      } catch (SQLException ex) {
-         Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+         Logger.getLogger(OperacionesLogueo.class.getName()).log(Level.SEVERE, null, ex);
      }
      if (datosCadete.first()) {
          miCadete.setIdCadete(datosCadete.getInt("idCadete"));

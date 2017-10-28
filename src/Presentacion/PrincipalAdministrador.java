@@ -160,7 +160,7 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
 
     private void jMenuItemInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInformacionActionPerformed
         // TODO add your handling code here:
-        Info f = new Info();
+        VentanaInformacion f = new VentanaInformacion();
         f.setVisible(true);
     }//GEN-LAST:event_jMenuItemInformacionActionPerformed
 

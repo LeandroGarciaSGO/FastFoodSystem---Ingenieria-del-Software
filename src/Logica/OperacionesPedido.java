@@ -38,7 +38,7 @@ public class OperacionesPedido {
         try {
             boolean primerpedido = datosPedido.first();
         } catch (SQLException ex) {
-            Logger.getLogger(Logeo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OperacionesLogueo.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (datosPedido.first()) {
             P.setIdPedido(datosPedido.getInt("idPedido"));

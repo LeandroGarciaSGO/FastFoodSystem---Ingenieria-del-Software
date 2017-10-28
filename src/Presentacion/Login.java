@@ -9,7 +9,9 @@
 
 package Presentacion;
 
-import Logica.Logeo;
+import Datos.Usuario;
+import Logica.OperacionesLogueo;
+import Logica.OperacionesTransacciones;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -205,24 +207,32 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
-        Logeo L = new Logeo();
+        OperacionesLogueo L = new OperacionesLogueo();
         try {        
-            int respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
-            if(respuesta != 0){
+            Usuario respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
+            if(respuesta != null){
+                if(respuesta.getTipoUsuario() != 0){
                 JOptionPane.showMessageDialog(this, "BIENVENIDO A FASTFOODSYSTEM", "Ingreso Exitoso", JOptionPane.INFORMATION_MESSAGE);
-                if(respuesta == 1){
+                if(respuesta.getTipoUsuario() == 1){
                     PrincipalAdministrador PA = new PrincipalAdministrador();
+                    //AGREGAR UN SET
                     PA.setVisible(true); 
                 }else{
-                    if(respuesta == 2)
+                    if(respuesta.getTipoUsuario() == 2)
                     {
                         PrincipalEncargado PE = new PrincipalEncargado();
+                        PE.setUsuarioSistema(respuesta);
                         PE.setVisible(true); 
                     }else{
                         PrincipalCocina PC = new PrincipalCocina();
+                        //AGREGAR SET
                         PC.setVisible(true); 
                     }
-                }                    
+                }
+                OperacionesTransacciones OT = new OperacionesTransacciones();
+                int accion = 1;
+                int entidad = 0;
+                OT.registrarTransaccion(accion,entidad,0,respuesta);
                 this.dispose();                               
             }
             else
@@ -230,13 +240,17 @@ public class Login extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this, "Nombre de Usuario Y/O Contraseña Incorrecta", "-. ERROR!!!", JOptionPane.ERROR_MESSAGE);
 
             }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Nombre de Usuario Y/O Contraseña Incorrecta", "-. ERROR!!!", JOptionPane.ERROR_MESSAGE);
+            }
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
@@ -244,31 +258,45 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 
     private void jPasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaActionPerformed
-        Logeo L = new Logeo();
+        OperacionesLogueo L = new OperacionesLogueo();
         try {        
-            int respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
-            if(respuesta != 0){
+            Usuario respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
+            if(respuesta != null){
+                if(respuesta.getTipoUsuario() != 0){
                 JOptionPane.showMessageDialog(this, "BIENVENIDO A FASTFOODSYSTEM", "Ingreso Exitoso", JOptionPane.INFORMATION_MESSAGE);
-                if(respuesta == 1){
+                if(respuesta.getTipoUsuario() == 1){
                     PrincipalAdministrador PA = new PrincipalAdministrador();
+                    //AGREGAR UN SET
                     PA.setVisible(true); 
                 }else{
-                    if(respuesta == 2)
+                    if(respuesta.getTipoUsuario() == 2)
                     {
                         PrincipalEncargado PE = new PrincipalEncargado();
+                        PE.setUsuarioSistema(respuesta);
                         PE.setVisible(true); 
                     }else{
                         PrincipalCocina PC = new PrincipalCocina();
+                        //AGREGAR SET
                         PC.setVisible(true); 
                     }
-                }                    
+                }
+                OperacionesTransacciones OT = new OperacionesTransacciones();
+                int accion = 1;
+                int entidad = 0;
+                OT.registrarTransaccion(accion,entidad,0,respuesta);
                 this.dispose();                               
             }
             else
             {
-                 JOptionPane.showMessageDialog(this, "Nombre de Usuario Y/O Contraseña Incorrecta", "-. ERROR!!!", JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this, "ERROR: Nombre de Usuario Y/O Contraseña Incorrecta", "FastFoodSysyem", JOptionPane.ERROR_MESSAGE);
 
             }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "ERROR: Nombre de Usuario Y/O Contraseña Incorrecta", "FastFoodSysyem", JOptionPane.ERROR_MESSAGE);
+            }
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

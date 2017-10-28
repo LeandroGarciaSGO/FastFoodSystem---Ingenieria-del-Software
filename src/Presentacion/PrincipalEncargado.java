@@ -5,6 +5,7 @@
  */
 package Presentacion;
 
+import Datos.Usuario;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
@@ -20,6 +21,8 @@ import javax.swing.JOptionPane;
  * @author Leandro
  */
 public class PrincipalEncargado extends javax.swing.JFrame {
+    
+    Usuario usuarioSistema;
 
     /**
      * Creates new form PrincipalEncargado
@@ -27,8 +30,17 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     public PrincipalEncargado() {
         initComponents();
         setLocationRelativeTo(null);
-
+        usuarioSistema = new Usuario();
     }
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -317,6 +329,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jButtonNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoClienteActionPerformed
         // TODO add your handling code here:
         VentanaBuscarCliente BC = new VentanaBuscarCliente();
+        BC.setUsuarioSistema(usuarioSistema);
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
@@ -342,6 +355,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jMenuItemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoClienteActionPerformed
         // TODO add your handling code here:
         VentanaBuscarCliente BC = new VentanaBuscarCliente();
+        BC.setUsuarioSistema(usuarioSistema);
         BC.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoClienteActionPerformed
 
@@ -354,6 +368,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jButtonModificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarClienteActionPerformed
         // TODO add your handling code here:
         VentanaBuscarCliente BC = new VentanaBuscarCliente();
+        BC.setUsuarioSistema(usuarioSistema);
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonModificarClienteActionPerformed
     private void jButtonNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPedidoActionPerformed
@@ -412,7 +427,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInformacionActionPerformed
         // TODO add your handling code here:
-        Info f = new Info();
+        VentanaInformacion f = new VentanaInformacion();
         f.setVisible(true);
     }//GEN-LAST:event_jMenuItemInformacionActionPerformed
 

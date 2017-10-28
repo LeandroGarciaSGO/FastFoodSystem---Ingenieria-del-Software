@@ -9,12 +9,12 @@ package Presentacion;
  *
  * @author Leandro
  */
-public class Info extends javax.swing.JFrame {
+public class VentanaInformacion extends javax.swing.JFrame {
 
     /**
      * Creates new form Info
      */
-    public Info() {
+    public VentanaInformacion() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -41,9 +41,7 @@ public class Info extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Informacion");
-        setMaximumSize(new java.awt.Dimension(500, 350));
         setMinimumSize(new java.awt.Dimension(500, 350));
-        setPreferredSize(new java.awt.Dimension(500, 350));
         setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/info.png"))); // NOI18N
@@ -63,7 +61,7 @@ public class Info extends javax.swing.JFrame {
 
         jLabel8.setText("Gonzalez, Eugenia Alejandra");
 
-        jLabel9.setText("Toledo, Maria Lujan");
+        jLabel9.setText("Toledo, Lujan");
 
         jLabel10.setText("Juarez, Pablo Emmanuel");
 
@@ -143,20 +141,21 @@ public class Info extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaInformacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaInformacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaInformacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Info.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaInformacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Info().setVisible(true);
+                new VentanaInformacion().setVisible(true);
             }
         });
     }

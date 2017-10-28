@@ -6,7 +6,9 @@
 package Presentacion;
 
 import Datos.Cliente;
+import Datos.Usuario;
 import Logica.OperacionesCliente;
+import Logica.OperacionesTransacciones;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,11 +26,20 @@ public class VentanaClientes extends javax.swing.JFrame {
     private Cliente datosCliente;
     private int condatos_vacio;
     private String telefono;
+    Usuario usuarioSistema;
     
     public VentanaClientes() {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
-       
+       usuarioSistema = new Usuario();
+    }
+    
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
     }
     
     
@@ -300,6 +311,9 @@ public class VentanaClientes extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
+        OperacionesTransacciones OT = new OperacionesTransacciones();
+        int accion = 0;
+        int entidad = 1;
         if (validarCampos()) {
             Cliente C = new Cliente();
             C.setIdCliente(Integer.parseInt(jLabelNumeroCliente.getText()));
@@ -311,6 +325,9 @@ public class VentanaClientes extends javax.swing.JFrame {
             if (condatos_vacio != 1) {
                 try {
                     C.insertar();
+                    accion = 2;
+                    
+                    OT.registrarTransaccion(accion,entidad,0,usuarioSistema);
                     //if(ABMC.nuevoCliente(C))
                     //{
                     //JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
@@ -325,10 +342,12 @@ public class VentanaClientes extends javax.swing.JFrame {
                 }
             } else {
                 try {
-                    if (!ABMC.modificarCliente(C)) {
+                    if (!ABMC.modificarCliente(C)) {                        
                         JOptionPane.showMessageDialog(this, "ERROR: El Telefono Es De Otro Cliente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "El Cliente se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        accion = 3;
+                        OT.registrarTransaccion(accion,entidad,Integer.parseInt(jLabelNumeroCliente.getText()),usuarioSistema);
                         this.dispose();
                     }
                 } catch (ClassNotFoundException ex) {
@@ -346,10 +365,16 @@ public class VentanaClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:              
+        // TODO add your handling code here: 
+        OperacionesTransacciones OT = new OperacionesTransacciones();
+        int accion = 4;
+        int entidad = 1;
         Cliente C = new Cliente();
         try {
             C.eliminar(Integer.parseInt(jLabelNumeroCliente.getText()));
+            
+            
+            OT.registrarTransaccion(accion,entidad,Integer.parseInt(jLabelNumeroCliente.getText()),usuarioSistema);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(VentanaClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
