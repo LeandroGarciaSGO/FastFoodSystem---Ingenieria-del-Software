@@ -19,6 +19,27 @@ import java.util.ArrayList;
  */
 public class ABMComida {
 
+//     public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLException{
+//         ResultSet NC;
+//        NC = C.consultaComida(C.getDescripcion());
+//        
+//        if (NC.first() && (C.getIdComida()== NC.getInt("idComida"))) {
+//            if (NC.getBoolean("estado")) {
+//                C.modificar();
+//                return true;
+//                
+//            }
+//        }
+//        else{
+//            
+//            System.out.println("\nNADA\n");
+//            C.agregarNuevaComida();
+//            return true;
+//        }
+//        return false;
+//         
+//     }
+   
     // public int modificarComida(Comida C) throws ClassNotFoundException, SQLException {
     public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
@@ -45,7 +66,8 @@ public class ABMComida {
         C.agregarNuevaComida();
         return true;
     }
-//    }
+//    }   
+    
 
     public Comida buscarComida(String desc) throws ClassNotFoundException, SQLException {
         ResultSet datosComida;
