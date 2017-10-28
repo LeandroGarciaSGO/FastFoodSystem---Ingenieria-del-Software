@@ -126,16 +126,31 @@ public class Usuario {
     
  
    
-   public ResultSet buscarUsuario(String nomb) throws ClassNotFoundException{
+   public ResultSet buscarUsuario(String nomb,String pass) throws ClassNotFoundException{
         try {
             Connection conex = Conexion.Cadena();            
-            String ConsultaSQL = "SELECT * FROM usuario WHERE nombreUsuario = '" + nomb + "'"; 
+            String ConsultaSQL = "SELECT usuario.*, MD5('"+pass+"') as pass FROM usuario WHERE nombreUsuario = '" + nomb + "'"; 
             sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
             rsDatos = sentencia.executeQuery(ConsultaSQL);
         } catch (SQLException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }       
         return rsDatos;       
+    } 
+   
+   
+   public String buscarUsuarioMD5(String cont) throws ClassNotFoundException, SQLException{
+       String ConsultaSQL; 
+       try {
+            Connection conex = Conexion.Cadena();            
+            ConsultaSQL = "SELECT md5('" + cont + "') as 'conty'"; 
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+       System.out.print(rsDatos.getString("conty"));
+        return rsDatos.getString("conty");       
     } 
     
 

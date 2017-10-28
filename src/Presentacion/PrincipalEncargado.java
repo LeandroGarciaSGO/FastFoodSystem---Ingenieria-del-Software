@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Presentacion;
 
 import java.awt.Color;
@@ -28,8 +27,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     public PrincipalEncargado() {
         initComponents();
         setLocationRelativeTo(null);
-        
-        
+
     }
 
     /**
@@ -322,17 +320,17 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         BC.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoClienteActionPerformed
 
-    private void jMenuGestionarComidaActionPerformed(java.awt.event.ActionEvent evt){
+    private void jMenuGestionarComidaActionPerformed(java.awt.event.ActionEvent evt) {
         GestionarComida GC = new GestionarComida();
         GC.setVisible(true);
     }
-    
+
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
         int resp = JOptionPane.showConfirmDialog(this, "¿Esta Seguro que Desea Salir del Programa?", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
-        if(JOptionPane.OK_OPTION == resp){
+        if (JOptionPane.OK_OPTION == resp) {
             System.exit(0);
-        }        
+        }
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jMenuItemGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGenerarFacturaActionPerformed
@@ -381,7 +379,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         // TODO add your handling code here:
         GestionarPedido GP;
         GP = new GestionarPedido();
-        GP.setVisible(true);      
+        GP.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoPedidoActionPerformed
 
     private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed
@@ -398,8 +396,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
         int resp = JOptionPane.showConfirmDialog(this, "¿Esta Seguro que Desea Cerrar Sesion?", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
-        if(JOptionPane.OK_OPTION == resp){
-             this.dispose();
+        if (JOptionPane.OK_OPTION == resp) {
+            this.dispose();
             Login L = new Login();
             L.setVisible(true);
         }
@@ -419,32 +417,31 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemInformacionActionPerformed
 
     private void jMenuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManualActionPerformed
-        // TODO add your handling code here:
-        //System.out.println(new File ("").getAbsolutePath ());
+         //ANDA PERO NO EMPAQUETADO
+        File f = new File("Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
+        System.out.println("RUTA" + f.getAbsolutePath()); // Llamamos al método que devuelve la ruta absoluta
+        JOptionPane.showMessageDialog(this, "RUTA" + f.getAbsolutePath(), "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+        abrirManual(f.getAbsolutePath());
+
         
-        //abrirManual("Presentacion/ManualUsuario.pdf");
-        //abrirManual("C:\\Program Files (x86)\\FastFoodSystem\\ManualUsuario.pdf");
         
-        ClassLoader cl=getClass().getClassLoader(); 
-URL resourcePath=cl.getResource("Manuales/ManualUsuario.pdf"); 
-        abrirManual(resourcePath.getPath());
     }//GEN-LAST:event_jMenuItemManualActionPerformed
 
-    public void abrirManual(String archivo){
+    public void abrirManual(String archivo) {
 
-     try {
-
-            File objetofile = new File (archivo);
+        System.out.println(archivo);
+        try {
+            File objetofile = new File(archivo);
             Desktop.getDesktop().open(objetofile);
 
-     }catch (IOException ex) {
+        } catch (IOException ex) {
 
             System.out.println(ex);
 
-     }
+        }
 
-} 
-    
+    }
+
     /**
      * @param args the command line arguments
      */
