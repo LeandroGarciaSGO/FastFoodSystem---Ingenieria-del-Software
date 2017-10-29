@@ -331,7 +331,8 @@ public class Comidas extends javax.swing.JFrame {
                 }
             } else {
                 try {
-                    if (!ABMC.modificarComida(C)) {
+                    //if (!ABMC.modificarComida(C)) {
+                    if (ABMC.nuevaComida(C)) {
                         JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Pertenece A Otra Comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "La Comida Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
