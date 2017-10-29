@@ -6,7 +6,9 @@
 package Presentacion;
 
 import Datos.Comida;
+import Datos.Usuario;
 import Logica.ABMComida;
+import Logica.OperacionesTransacciones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -26,14 +28,24 @@ public class Comidas extends javax.swing.JFrame {
     private int condatos_vacio;
     private String descripcion;
     ResultSet R;
+    Usuario usuarioSistema;
     // private String descAnt;
 
     public Comidas() {
         initComponents();
         setLocationRelativeTo(null);
         cargarTipoComida();
+        usuarioSistema = new Usuario();
+    }
+    
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
     }
 
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
+    
     public Comida getDatosComida() {
         return datosComida;
     }
@@ -57,6 +69,7 @@ public class Comidas extends javax.swing.JFrame {
     public void setDescripcion(String desc) {
         this.descripcion = desc;
     }
+
 
     void LlenarCampos(int boton) throws SQLException {
 
@@ -303,6 +316,9 @@ public class Comidas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        OperacionesTransacciones OT = new OperacionesTransacciones();
+        int accion;
+        int entidad = 3;
         if ((validarCampoDescripcion() && validarCampoPrecio()) && validarTipo()) {
             Comida C = new Comida();
             C.setIdComida(Integer.parseInt(jLabelCodigoComida.getText()));
@@ -314,6 +330,8 @@ public class Comidas extends javax.swing.JFrame {
             if (condatos_vacio != 1) {
                 try {
                     if (ABMC.modificarComida(C)) {
+                        accion = 5;
+                        OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoComida.getText()), usuarioSistema);
                         JOptionPane.showMessageDialog(this, "La Comida Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         //   JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                         GestionarComida volverGestionarComida = new GestionarComida();
@@ -336,6 +354,8 @@ public class Comidas extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Pertenece A Otra Comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "La Comida Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        accion = 6;
+                        OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoComida.getText()), usuarioSistema);
                         GestionarComida volverGestionarComida = new GestionarComida();
                         volverGestionarComida.setVisible(true);
                         this.dispose();
@@ -350,9 +370,13 @@ public class Comidas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        OperacionesTransacciones OT = new OperacionesTransacciones();
+        int accion = 7;
+        int entidad = 3;
         Comida C = new Comida();
         try {
             C.eliminar(Integer.parseInt(jLabelCodigoComida.getText()));
+            OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoComida.getText()), usuarioSistema);
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comidas.class.getName()).log(Level.SEVERE, null, ex);
@@ -393,10 +417,15 @@ public class Comidas extends javax.swing.JFrame {
 
     public boolean validarCampoDescripcion() {
         if (jTextFieldDescripComida.getText().length() > 0) {
-            if (jTextFieldDescripComida.getText().matches("[a-zA-Z\\s]+")) {
-                return true;
+            if (jTextFieldDescripComida.getText().length() <= 40) {
+                if (jTextFieldDescripComida.getText().matches("[a-zA-Z\\s]+")) {
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Descripcion\" No Debe Contener Mas de 40 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } else {

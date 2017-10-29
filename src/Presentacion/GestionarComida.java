@@ -6,6 +6,7 @@
 package Presentacion;
 
 import Datos.Comida;
+import Datos.Usuario;
 import Logica.ABMComida;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -29,6 +30,7 @@ public class GestionarComida extends javax.swing.JFrame {
 
     private TableRowSorter trsFiltro;
     private DefaultTableModel modelo;
+    Usuario usuarioSistema;
 
     /**
      * Creates new form GestionarComida
@@ -58,6 +60,15 @@ public class GestionarComida extends javax.swing.JFrame {
                 }
             }
         });
+        usuarioSistema = new Usuario();
+    }
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
     }
 
     /**
@@ -324,6 +335,7 @@ public class GestionarComida extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         }
+        C.setUsuarioSistema(usuarioSistema);        
         C.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonNuevaComidaActionPerformed
@@ -352,6 +364,7 @@ public class GestionarComida extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         }
+        VC.setUsuarioSistema(usuarioSistema);
         VC.setVisible(true);
         this.dispose();
 
@@ -420,6 +433,7 @@ public class GestionarComida extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         }
+        VC.setUsuarioSistema(usuarioSistema);
         VC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonModificarComidaActionPerformed

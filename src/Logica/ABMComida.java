@@ -12,35 +12,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Gonzalez
  */
 public class ABMComida {
 
-public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLException {
+    public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLException {
         ResultSet NC;
         NC = C.consultaComida(C.getDescripcion());
-        //NC = C.consultaComidaId2(C.getIdComida());
 
         if (NC.first()) {
             if (NC.getBoolean("estado")) {
                 if (C.getIdComida() == NC.getInt("idComida")) {
                     C.modificar();
-                    System.out.println("\nEXISTE + ACTIVO + ID\n");
+                    System.out.println("\nEXISTE + ACTIVO + ID 1\n");
                     return true;
                 } else {
-                    System.out.println("\nEXISTE + ACTIVO\n");
+                    System.out.println("\nEXISTE + ACTIVO 1\n");
                     return false;
                 }
             } else {
-                C.agregarNuevaComida();
-                System.out.println("\nEXISTE\n");
+                //C.agregarNuevaComida();
+                C.modificar();
+                System.out.println("\nEXISTE 1\n");
                 return true;
             }
         } else {
-            System.out.println("\nNADA\n");
+            System.out.println("\nNADA 1\n");
             C.agregarNuevaComida();
             return true;
         }
@@ -54,27 +53,24 @@ public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLExcep
             if (NC.getBoolean("estado")) {
                 if (C.getIdComida() == NC.getInt("idComida")) {
                     boolean a;
-                    a=modificarComida(C);
-                    //C.modificar();
-                    System.out.println("\nEXISTE + ACTIVO + ID + ???\n");
+                    a = modificarComida(C);
+                    System.out.println("\nEXISTE + ACTIVO + ID + ??? 2\n");
                     return !a;
                 } else {
-                    System.out.println("\nEXISTE + ACTIVO\n");
+                    System.out.println("\nEXISTE + ACTIVO 2\n");
                     return false;
                 }
             } else {
                 C.modificar();
-                System.out.println("\nEXISTE\n");
-                //return true;
+                System.out.println("\nEXISTE 2\n");
                 return false;
             }
+        } else {
+            System.out.println("\nNADA 2\n");
+            C.agregarNuevaComida();
+            return false;
         }
-        System.out.println("\nNADA\n");
-        C.agregarNuevaComida();
-        //return true;
-        return false;
     }
-    
 
     public Comida buscarComida(String desc) throws ClassNotFoundException, SQLException {
         ResultSet datosComida;
@@ -123,8 +119,8 @@ public boolean modificarComida(Comida C) throws ClassNotFoundException, SQLExcep
         }
         return null;
     }
-    
-    public ArrayList<Comida> recuperarComidas()throws ClassNotFoundException, SQLException{
+
+    public ArrayList<Comida> recuperarComidas() throws ClassNotFoundException, SQLException {
         ResultSet datosComida;
         Comida miComida = new Comida();
         ArrayList<Comida> listaComidas = new ArrayList<Comida>();

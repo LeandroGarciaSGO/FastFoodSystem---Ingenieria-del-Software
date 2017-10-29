@@ -31,7 +31,7 @@ public class VentanaClientes extends javax.swing.JFrame {
     public VentanaClientes() {
         initComponents();
         setLocationRelativeTo(null); //Centra la Ventana en la Pantalla
-       usuarioSistema = new Usuario();
+        usuarioSistema = new Usuario();
     }
     
     public Usuario getUsuarioSistema() {
