@@ -47,22 +47,47 @@ public class GestionarCadete extends javax.swing.JFrame {
     //AGREGO
     private PreparedStatement psPrepSencencias;
 
+    private TableRowSorter trsFiltro;
     //AGREGO ESTO PARA LA TABLA
     //Connection cn = Conexion.Cadena();
     /**
      * Creates new form GestionarCadete
      */
     public GestionarCadete() {
-        try {
-            initComponents();
-            cargarTablaCadetes();
-            setLocationRelativeTo(null);
-           // validarCampos();
-           // jButtonNuevoCadete.setEnabled(false);
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
-        }
+           initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        jButtonEliminar.setEnabled(false);
+        jButtonModificar.setEnabled(false);
+        String cabecera[] = {"Codigo", "Documento", "Nombre", "Apellido", "Telefono", "Domicilio", "tipo"};
+        String datos[][] = {};
+        modelo = new DefaultTableModel(datos, cabecera);
+        jTableCadetes.setModel(modelo);
+        cargarTablaCadetes();
+       //jButton.setBackground(java.awt.Color.red);
+        //jButtonCancelarSelecc.setEnabled(false);
+        jTableCadetes.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int fila = jTableCadetes.rowAtPoint(e.getPoint());
+                int columna = jTableCadetes.columnAtPoint(e.getPoint());
+                if ((fila > -1) && (columna > -1)) {
+                    jButtonEliminar.setEnabled(true);
+                    jButtonModificar.setEnabled(true);
+                    jButtonNuevoCadete.setEnabled(false);
+                    //jButtonCancelarSelecc.setEnabled(true);
+                }
+            }
+        });
+//        try {
+//            initComponents();
+//            cargarTablaCadetes();
+//            setLocationRelativeTo(null);
+//           // validarCampos();
+//           // jButtonNuevoCadete.setEnabled(false);
+//
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }
 
@@ -112,6 +137,9 @@ public class GestionarCadete extends javax.swing.JFrame {
             }
         });
         jTextFieldNumeroDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldNumeroDocumentoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldNumeroDocumentoKeyTyped(evt);
             }
@@ -181,26 +209,26 @@ public class GestionarCadete extends javax.swing.JFrame {
 
         jTableCadetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Documento", "Nombre", "Apellido", "Telefono"
+                "Codigo", "Documento", "Nombre", "Apellido", "Telefono", "Domicilio", "tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -281,29 +309,29 @@ public class GestionarCadete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    public void cargarTablaCadetes() throws ClassNotFoundException {
-        String datos[] = new String[5];
-        DefaultTableModel dtm = (DefaultTableModel) jTableCadetes.getModel();
-        while (dtm.getRowCount() > 0) {
-            dtm.removeRow(0);
-        }
-        try {
-            Connection conex = Conexion.Cadena();
-            String ConsultaSQL = "SELECT * FROM Cadete WHERE estado = '"+1+"' ";
-            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
-            while (rsDatos.next()) {
-                datos[0] = rsDatos.getString(1);
-                datos[1] = rsDatos.getString(7);
-                datos[2] = rsDatos.getString(2);
-                datos[3] = rsDatos.getString(3);
-                datos[4] = rsDatos.getString(5);
-                dtm.addRow(datos);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void cargarTablaCadetes() throws ClassNotFoundException {
+//        String datos[] = new String[5];
+//        DefaultTableModel dtm = (DefaultTableModel) jTableCadetes.getModel();
+//        while (dtm.getRowCount() > 0) {
+//            dtm.removeRow(0);
+//        }
+//        try {
+//            Connection conex = Conexion.Cadena();
+//            String ConsultaSQL = "SELECT * FROM Cadete WHERE estado = '"+1+"' ";
+//            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//            rsDatos = sentencia.executeQuery(ConsultaSQL);
+//            while (rsDatos.next()) {
+//                datos[0] = rsDatos.getString(1);
+//                datos[1] = rsDatos.getString(7);
+//                datos[2] = rsDatos.getString(2);
+//                datos[3] = rsDatos.getString(3);
+//                datos[4] = rsDatos.getString(5);
+//                dtm.addRow(datos);
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     private int validarCampos() {
        
@@ -323,43 +351,113 @@ public class GestionarCadete extends javax.swing.JFrame {
     
     private void jTextFieldNumeroDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumeroDocumentoActionPerformed
         // TODO add your handling code here:
-        
-        AMBCadete CD = new AMBCadete();
-        Cadete CA = new Cadete();
-        String cabecera[] = {"Codigo", "Documento", "Nombre", "Apellido", "Telefono"};
-        String datos[][] = {};
-        DefaultTableModel modelo = new DefaultTableModel(datos, cabecera);
+       // if (validarCampoDescripcion()) {
+            AMBCadete BC = new AMBCadete();
+            Cadete C = new Cadete();
+            try {
 
-        jTableCadetes.setModel(modelo);
-        try {
-            if(validarCampos()==1){
-            //cargarTablaCadetes();
-            CA = CD.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
-            if (CA != null) {
-                jButtonNuevoCadete.setEnabled(false);
-                int cod = CA.getIdCadete();
-                int doc = CA.getNumDocumento();
-                String nombre = CA.getNombre();
-                String apellido = CA.getApellido();
-                long tel = CA.getTelefono();
-                Object fila[] = {cod, doc, nombre, apellido, tel};
-                modelo.addRow(fila);
-                jButtonEliminar.setEnabled(true);
-                jButtonModificar.setEnabled(true);
-                //cargarTablaCadetes();
-
-            } else {
-               
-                jButtonEliminar.setEnabled(false);
-                jButtonModificar.setEnabled(false);
-                jButtonNuevoCadete.setEnabled(true);
-                JOptionPane.showMessageDialog(this, " ERROR: Cadete Inexistente, Presione Nuevo para Agregarlo", "Fast Food System", JOptionPane.ERROR_MESSAGE);
-
-            }}
-
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                C = BC.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
+                if (C == null) {
+//                jButtonEliminarComida.setEnabled(true);
+//                jButtonModificarComida.setEnabled(true);
+//                jButtonNuevaComida.setEnabled(false);
+//                jTextFieldDescripcion.setEditable(false);
+//                int cod = C.getIdComida();
+//                String desc = C.getDescripcion();
+//                float precio = C.getPrecio();
+//                int tipo = C.getTipo();
+//                Object fila[] = {cod, desc, precio, tipo};
+//                modelo.addRow(fila);
+//            } else {
+//                //jLabelError.setText("Comida Inexistente - Para Registrar presione \"Nueva Comida\"");
+                    JOptionPane.showMessageDialog(this, "El cadete No Existe\nPara registrarla presione \"Nueva Comida\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+//                jButtonNuevaComida.setEnabled(true);
+//                jButtonModificarComida.setEnabled(false);
+//                jButtonEliminarComida.setEnabled(false);
+//                //jTextFieldDescripcion.setEditable(false);
+                }
+//
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        //}
+//        
+//        AMBCadete CD = new AMBCadete();
+//        Cadete CA = new Cadete();
+//        String cabecera[] = {"Codigo", "Documento", "Nombre", "Apellido", "Telefono"};
+//        String datos[][] = {};
+//        DefaultTableModel modelo = new DefaultTableModel(datos, cabecera);
+//
+//        jTableCadetes.setModel(modelo);
+//        try {
+//            if(validarCampos()==1){
+//            //cargarTablaCadetes();
+//            CA = CD.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
+//            if (CA != null) {
+//                jButtonNuevoCadete.setEnabled(false);
+//                int cod = CA.getIdCadete();
+//                int doc = CA.getNumDocumento();
+//                String nombre = CA.getNombre();
+//                String apellido = CA.getApellido();
+//                long tel = CA.getTelefono();
+//                Object fila[] = {cod, doc, nombre, apellido, tel};
+//                modelo.addRow(fila);
+//                jButtonEliminar.setEnabled(true);
+//                jButtonModificar.setEnabled(true);
+//                //cargarTablaCadetes();
+//
+//            } else {
+//               
+//                jButtonEliminar.setEnabled(false);
+//                jButtonModificar.setEnabled(false);
+//                jButtonNuevoCadete.setEnabled(true);
+//                JOptionPane.showMessageDialog(this, " ERROR: Cadete Inexistente, Presione Nuevo para Agregarlo", "Fast Food System", JOptionPane.ERROR_MESSAGE);
+//
+//            }}
+//
+//        } catch (ClassNotFoundException | SQLException ex) {
+//            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        //}
+//        
+//        AMBCadete CD = new AMBCadete();
+//        Cadete CA = new Cadete();
+//        String cabecera[] = {"Codigo", "Documento", "Nombre", "Apellido", "Telefono"};
+//        String datos[][] = {};
+//        DefaultTableModel modelo = new DefaultTableModel(datos, cabecera);
+//
+//        jTableCadetes.setModel(modelo);
+//        try {
+//            if(validarCampos()==1){
+//            //cargarTablaCadetes();
+//            CA = CD.buscarCadete(Integer.parseInt(jTextFieldNumeroDocumento.getText()));
+//            if (CA != null) {
+//                jButtonNuevoCadete.setEnabled(false);
+//                int cod = CA.getIdCadete();
+//                int doc = CA.getNumDocumento();
+//                String nombre = CA.getNombre();
+//                String apellido = CA.getApellido();
+//                long tel = CA.getTelefono();
+//                Object fila[] = {cod, doc, nombre, apellido, tel};
+//                modelo.addRow(fila);
+//                jButtonEliminar.setEnabled(true);
+//                jButtonModificar.setEnabled(true);
+//                //cargarTablaCadetes();
+//
+//            } else {
+//               
+//                jButtonEliminar.setEnabled(false);
+//                jButtonModificar.setEnabled(false);
+//                jButtonNuevoCadete.setEnabled(true);
+//                JOptionPane.showMessageDialog(this, " ERROR: Cadete Inexistente, Presione Nuevo para Agregarlo", "Fast Food System", JOptionPane.ERROR_MESSAGE);
+//
+//            }}
+//
+//        } catch (ClassNotFoundException | SQLException ex) {
+//            Logger.getLogger(VentanaBuscarCliente.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jTextFieldNumeroDocumentoActionPerformed
 
     private void jButtonNuevoCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoCadeteActionPerformed
@@ -385,41 +483,43 @@ public class GestionarCadete extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        // TODO add your handling code here:
-        
-        DefaultTableModel modelo = (DefaultTableModel) jTableCadetes.getModel();
-        //int numFilas = modelo.getRowCount();
-        int fila = jTableCadetes.getSelectedRow();
-        if( fila >= 0){
-        //if (numFilas > 0) {
-            //int fila = jTableCadetes.getSelectedRow();
-           // JOptionPane.showMessageDialog(null, "FILA SELECT: " + fila);
-            int docCadete = Integer.parseInt(String.valueOf(modelo.getValueAt(fila, 1)));
-
-            AMBCadete BC = new AMBCadete();
-            Cadete C = new Cadete();
+        try {
+            // TODO add your handling code here:
+            DefaultTableModel modelo = (DefaultTableModel) jTableCadetes.getModel();
+            int fila = jTableCadetes.getSelectedRow();
             
-            try {
-                C = BC.buscarCadete(docCadete);
-                if (C != null) {
-                    Cadetes VC = new Cadetes();
-                    VC.setDatosCadete(C);
-                    VC.setCondatos_vacio(1); // 1 por que va con datos 
-                    VC.LlenarCampos();
-                    VC.setVisible(true);
-                    this.dispose();
-                } else {
-                    //jLabelError.setText("Comida Inexistente!");
-                }
-
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, " -. ERROR: No Selecciono Ningun Cadete", "Fast Food System", JOptionPane.ERROR_MESSAGE);
+            int cod = (int) jTableCadetes.getValueAt(fila, 0);
+            //int doc =  (int) jTableCadetes.getValueAt(fila,1));
+            
+            int doc = Integer.parseInt(String.valueOf(jTableCadetes.getValueAt(fila,1)));
+            String nombre = String.valueOf(jTableCadetes.getValueAt(fila, 2));
+            String apellido = String.valueOf(jTableCadetes.getValueAt(fila, 3));
+            long tel = (long) jTableCadetes.getValueAt(fila, 4);
+            String dom = String.valueOf(jTableCadetes.getValueAt(fila, 5));
+            String tipo =String.valueOf(jTableCadetes.getValueAt(fila, 6));
+            System.out.print(cod + doc + nombre + apellido + tel + dom + tipo );
+            
+            
+            
+            Cadete C = new Cadete (cod, doc, nombre, apellido, tel, dom, tipo);
+            AMBCadete BC = new AMBCadete();
+            
+            Cadetes VC = new Cadetes();
+            //Cadete CO = new Cadete (cod, doc, nombre, apellido, tel);
+            VC.setDatosCadete(C);
+            VC.setCondatos_vacio(1);
+            VC.LlenarCampos();
+            VC.setVisible(true);
+            this.dispose();
+//            }
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
@@ -427,26 +527,43 @@ public class GestionarCadete extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
 
        DefaultTableModel modelo = (DefaultTableModel) jTableCadetes.getModel();
-        int fila = jTableCadetes.getSelectedRow();
+  
+       int fila = jTableCadetes.getSelectedRow();
         if (fila >= 0) {
-            int docCadete = Integer.parseInt(String.valueOf(modelo.getValueAt(fila, 1))); 
+//            int docCadete = Integer.parseInt(String.valueOf(modelo.getValueAt(fila, 1))); 
+            int cod = (int) jTableCadetes.getValueAt(fila, 0);
+            int doc = Integer.parseInt(String.valueOf(jTableCadetes.getValueAt(fila,1)));
+            String nombre = String.valueOf(jTableCadetes.getValueAt(fila, 2));
+            String apellido = String.valueOf(jTableCadetes.getValueAt(fila, 3));
+            long tel = (long) jTableCadetes.getValueAt(fila, 4);
+            String dom = String.valueOf(jTableCadetes.getValueAt(fila, 5));
+            String tipo =String.valueOf(jTableCadetes.getValueAt(fila, 6));
+            System.out.print(cod + doc + nombre + apellido + tel + dom + tipo );
        
             Cadete CA = new Cadete();
             try {
+               int resp = JOptionPane.showConfirmDialog(this, "¿Esta Seguro que Desea Elimiar un cadete?", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
+               if (JOptionPane.OK_OPTION == resp) {
+                        this.dispose();
+                        CA.eliminardni(doc);
+                        JOptionPane.showMessageDialog(this, "El Cadete se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+            
+                     }else{
+                   
+                    GestionarCadete volverGestionarCadete = new GestionarCadete();
+                    volverGestionarCadete.setVisible(true);
+               }
                 
-                CA.eliminardni(docCadete);
-                //le agrego esto para que me cargue de nuevo la tabla
-                try {
-                    cargarTablaCadetes();
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            JOptionPane.showMessageDialog(this, "El Cliente se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-
+//            JOptionPane.showMessageDialog(this, "El Cadete se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+            //cargarTablaCadetes();
+            GestionarCadete volverGestionarCadete = new GestionarCadete();
+            volverGestionarCadete.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, " -. ERROR:  No Selecciono Ningun Cadete", "Fast Food System", JOptionPane.ERROR_MESSAGE);
         }
@@ -458,18 +575,80 @@ public class GestionarCadete extends javax.swing.JFrame {
         char c =evt.getKeyChar();
         if(c < '0'|| c> '9') evt.consume();
         
+        //Agrego esto para filtrar. defino arriba el trsFiltro.
+         jTextFieldNumeroDocumento.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(final KeyEvent e) {
+                //String cadena = (jTextFieldDescripcion.getText());
+                //jTextFieldDescripcion.setText(cadena);
+                //repaint();
+                trsFiltro.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldNumeroDocumento.getText(), 1));
+            }
+        });
+
+        trsFiltro = new TableRowSorter(jTableCadetes.getModel());
+        jTableCadetes.setRowSorter(trsFiltro);
+        jTableCadetes.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int fila = jTableCadetes.rowAtPoint(e.getPoint());
+                int columna = jTableCadetes.columnAtPoint(e.getPoint());
+                if ((fila > -1) && (columna > -1)) {
+                    jButtonEliminar.setEnabled(true);
+                    jButtonModificar.setEnabled(true);
+                    jButtonNuevoCadete.setEnabled(false);
+                    //jButtonCancelarSelecc.setEnabled(true);
+                }
+            }
+        });
+
+        
     }//GEN-LAST:event_jTextFieldNumeroDocumentoKeyTyped
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+private void cargarTablaCadetes() {
+        ResultSet Re;
         try {
-            cargarTablaCadetes();
-            jButtonNuevoCadete.setEnabled(true);
-            jButtonEliminar.setEnabled(true);
-            jButtonModificar.setEnabled(true);
+            Cadete C = new Cadete();
+            Re = C.consultarTodoLosCadetes();
+            try {
+                while (Re.next()) {
+                    int cod = Re.getInt("idCadete");
+                    String doc = Re.getString("numDocumento");
+                    String nom = Re.getString("nombre");
+                    String ape = Re.getString("apellido");
+                    long tel = Re.getLong("telefono");
+                    String dom = Re.getString("domicilio");
+                    String tipDoc = Re.getString("tipoDocumento");
+                    Object fila[] = {cod, doc, nom, ape, tel , dom , tipDoc};
+                    modelo.addRow(fila);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+    }    
+    
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //cargarTablaCadetes();
+        GestionarCadete volverGestionarCadete = new GestionarCadete();
+        volverGestionarCadete.setVisible(true);
+//        jButtonNuevoCadete.setEnabled(true);
+//        jButtonEliminar.setEnabled(true);
+//        jButtonModificar.setEnabled(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextFieldNumeroDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNumeroDocumentoKeyReleased
+        
+            // TODO add your handling code here:
+            //cargarTablaCadetes();
+        
+        
+        
+    }//GEN-LAST:event_jTextFieldNumeroDocumentoKeyReleased
 
     
     /**
@@ -497,6 +676,10 @@ public class GestionarCadete extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GestionarCadete.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

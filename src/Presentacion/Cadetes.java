@@ -35,6 +35,8 @@ public class Cadetes extends javax.swing.JFrame {
     private Statement sentencia;
     private ResultSet rsDatos;
     public int docant;
+    private int numDocumento;
+    
     /**
      * Creates new form DatosCadetes
      */
@@ -59,8 +61,16 @@ public class Cadetes extends javax.swing.JFrame {
     public void setCondatos_vacio(int condatos_vacio) {
         this.condatos_vacio = condatos_vacio;
     }
+    public int getNumDocumento() {
+        return numDocumento;
+    }
+
+    public void setNumDocumento(int numDocumento) {
+        this.numDocumento = numDocumento;
+    }
 
     void LlenarCampos() throws SQLException {
+       
         if (condatos_vacio == 1) {
             jLabelCodigoCadete.setText(String.valueOf(datosCadete.getIdCadete()));
             jTextFieldNombre.setText(datosCadete.getNombre());
@@ -81,6 +91,14 @@ public class Cadetes extends javax.swing.JFrame {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            //jTextFieldDocumento.setText(String.valueOf(getNumDocumento()));
+            
+            //jLabelCodigoCadete.setText(String.valueOf(AMBCadete.obtenerSiguienteId()));
+            //jLabelCodigoCadete.setText(String.valueOf(AMBCadete.obtenerSiguienteId()));
+            
+            //jTextFieldDocumento.setText(String.valueOf(getNumDocumento()));
+            
             //jLabelCodigoCadete.setText(String.valueOf(AMBCadete.obtenerSiguienteId()));
             //jLabelCodigoCadete.setText(String.valueOf(AMBCadete.obtenerSiguienteId()));
         }
@@ -157,9 +175,7 @@ public class Cadetes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("FastFoodSystem - Cadetes");
-        setMaximumSize(new java.awt.Dimension(600, 380));
         setMinimumSize(new java.awt.Dimension(600, 380));
-        setPreferredSize(new java.awt.Dimension(600, 420));
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cadete", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 1, 14))); // NOI18N
@@ -510,6 +526,14 @@ public class Cadetes extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Cadetes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

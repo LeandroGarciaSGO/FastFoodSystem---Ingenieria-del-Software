@@ -129,6 +129,17 @@ public class Cadete {
         this.numDocumento = 0;
         this.estado = false;
     }
+    
+    public Cadete(int id, int numDoc, String nomb, String ape, long tel , String dom, String tipo ){
+        this.idCadete = id;
+        this.nombre = nomb;
+        this.apellido = ape;
+        this.domicilio = dom;
+        this.telefono = tel;
+        this.tipoDocumento= tipo;
+        this.numDocumento = numDoc;
+        this.estado = false;
+    }
 
     
     
@@ -182,6 +193,18 @@ public ResultSet obtenerCadete() throws ClassNotFoundException{
     }
     return rsDatos;
 }
+public ResultSet consultarTodoLosCadetes() throws ClassNotFoundException {
+        try {
+            Connection conex = Conexion.Cadena();
+            String ConsultaSQL = "SELECT * FROM cadete WHERE estado = '"+1+"' ";
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rsDatos;
+    }
 
 public ResultSet consultaCadeteConId(int cod) throws ClassNotFoundException{
         try {
