@@ -39,9 +39,7 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuUsuarios = new javax.swing.JMenu();
-        jMenuItemNuevoUsuario = new javax.swing.JMenuItem();
-        jMenuItemModificarUsuario = new javax.swing.JMenuItem();
-        jMenuItemBorrarUsuario = new javax.swing.JMenuItem();
+        jMenuItemGestionUsuario = new javax.swing.JMenuItem();
         jMenuComidas = new javax.swing.JMenu();
         jMenuAyuda = new javax.swing.JMenu();
         jMenuItemInformacion = new javax.swing.JMenuItem();
@@ -50,9 +48,9 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FastFoodSystem - Administrador");
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximumSize(new java.awt.Dimension(500, 500));
-        setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(500, 500));
+        setMaximumSize(new java.awt.Dimension(740, 520));
+        setMinimumSize(new java.awt.Dimension(740, 520));
+        setPreferredSize(new java.awt.Dimension(740, 520));
         setResizable(false);
 
         jButtonNuevoUsuario.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -85,17 +83,9 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
 
         jMenuUsuarios.setText("Usuarios");
 
-        jMenuItemNuevoUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemNuevoUsuario.setText("Nuevo Cliente");
-        jMenuUsuarios.add(jMenuItemNuevoUsuario);
-
-        jMenuItemModificarUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemModificarUsuario.setText("Modificar Cliente");
-        jMenuUsuarios.add(jMenuItemModificarUsuario);
-
-        jMenuItemBorrarUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemBorrarUsuario.setText("Borrar Cliente");
-        jMenuUsuarios.add(jMenuItemBorrarUsuario);
+        jMenuItemGestionUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemGestionUsuario.setText("Gestion Usuarios");
+        jMenuUsuarios.add(jMenuItemGestionUsuario);
 
         jMenuBar1.add(jMenuUsuarios);
 
@@ -131,8 +121,8 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
                     .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonNuevoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonInformes, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addGap(260, 260, 260)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -147,7 +137,7 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,11 +197,9 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuAyuda;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuComidas;
-    private javax.swing.JMenuItem jMenuItemBorrarUsuario;
+    private javax.swing.JMenuItem jMenuItemGestionUsuario;
     private javax.swing.JMenuItem jMenuItemInformacion;
     private javax.swing.JMenuItem jMenuItemManual;
-    private javax.swing.JMenuItem jMenuItemModificarUsuario;
-    private javax.swing.JMenuItem jMenuItemNuevoUsuario;
     private javax.swing.JMenu jMenuUsuarios;
     // End of variables declaration//GEN-END:variables
 }

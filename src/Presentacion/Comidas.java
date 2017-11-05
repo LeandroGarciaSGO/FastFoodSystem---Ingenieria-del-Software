@@ -330,11 +330,12 @@ public class Comidas extends javax.swing.JFrame {
             if (condatos_vacio != 1) {
                 try {
                     if (ABMC.modificarComida(C)) {
-                        accion = 5;
+                        accion = 6;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoComida.getText()), usuarioSistema);
                         JOptionPane.showMessageDialog(this, "La Comida Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         //   JOptionPane.showMessageDialog(this, "ERROR: La comida ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                         GestionarComida volverGestionarComida = new GestionarComida();
+                        volverGestionarComida.setUsuarioSistema(usuarioSistema);
                         volverGestionarComida.setVisible(true);
                         this.dispose();
                     } else {
@@ -354,9 +355,10 @@ public class Comidas extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Pertenece A Otra Comida", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "La Comida Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                        accion = 6;
+                        accion = 5;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoComida.getText()), usuarioSistema);
                         GestionarComida volverGestionarComida = new GestionarComida();
+                        volverGestionarComida.setUsuarioSistema(usuarioSistema);
                         volverGestionarComida.setVisible(true);
                         this.dispose();
                     }
@@ -383,6 +385,7 @@ public class Comidas extends javax.swing.JFrame {
         }
         JOptionPane.showMessageDialog(this, "La Comida Se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
         GestionarComida volverGestionarComida = new GestionarComida();
+        volverGestionarComida.setUsuarioSistema(usuarioSistema);
         volverGestionarComida.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonEliminarActionPerformed

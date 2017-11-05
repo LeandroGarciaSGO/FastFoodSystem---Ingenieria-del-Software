@@ -335,6 +335,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuGestionarComidaActionPerformed(java.awt.event.ActionEvent evt) {
         GestionarComida GC = new GestionarComida();
+        GC.setUsuarioSistema(usuarioSistema);
         GC.setVisible(true);
     }
 
