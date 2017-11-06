@@ -9,6 +9,9 @@ import Datos.Cliente;
 import Datos.Conexion;
 import Datos.Usuario;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,15 +71,15 @@ public class PrincipalCocina extends javax.swing.JFrame {
         jButtonActualizarLista = new javax.swing.JButton();
         jButtonVerDetalle = new javax.swing.JButton();
         jButtonAyuda = new javax.swing.JButton();
-        jButtonSalir = new javax.swing.JButton();
         jLabelUsuario = new javax.swing.JLabel();
         jLabelUsuarioNombre = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTablaPedidos = new javax.swing.JTable();
+        jButtonCerrarSesion = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
 
         jDialogDetallePedido.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialogDetallePedido.setTitle("Detalle Del Pedido");
-        jDialogDetallePedido.setMaximumSize(new java.awt.Dimension(650, 572));
         jDialogDetallePedido.setMinimumSize(new java.awt.Dimension(650, 572));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle del Pedido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 18))); // NOI18N
@@ -272,24 +275,12 @@ public class PrincipalCocina extends javax.swing.JFrame {
         jButtonAyuda.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonAyuda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-ayuda.png"))); // NOI18N
         jButtonAyuda.setText("Ayuda");
-        jButtonAyuda.setMaximumSize(new java.awt.Dimension(300, 40));
-        jButtonAyuda.setMinimumSize(new java.awt.Dimension(300, 40));
-        jButtonAyuda.setPreferredSize(new java.awt.Dimension(300, 40));
+        jButtonAyuda.setMaximumSize(new java.awt.Dimension(180, 40));
+        jButtonAyuda.setMinimumSize(new java.awt.Dimension(180, 40));
+        jButtonAyuda.setPreferredSize(new java.awt.Dimension(180, 40));
         jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAyudaActionPerformed(evt);
-            }
-        });
-
-        jButtonSalir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-salir-programa.png"))); // NOI18N
-        jButtonSalir.setText("Salir del Programa");
-        jButtonSalir.setMaximumSize(new java.awt.Dimension(300, 40));
-        jButtonSalir.setMinimumSize(new java.awt.Dimension(300, 40));
-        jButtonSalir.setPreferredSize(new java.awt.Dimension(300, 40));
-        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSalirActionPerformed(evt);
             }
         });
 
@@ -324,27 +315,55 @@ public class PrincipalCocina extends javax.swing.JFrame {
         jTableTablaPedidos.setPreferredSize(new java.awt.Dimension(660, 400));
         jScrollPane2.setViewportView(jTableTablaPedidos);
 
+        jButtonCerrarSesion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jButtonCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-cerrar-sesion.png"))); // NOI18N
+        jButtonCerrarSesion.setText("Cerrar Sesion");
+        jButtonCerrarSesion.setMaximumSize(new java.awt.Dimension(210, 40));
+        jButtonCerrarSesion.setMinimumSize(new java.awt.Dimension(210, 40));
+        jButtonCerrarSesion.setPreferredSize(new java.awt.Dimension(210, 40));
+        jButtonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        jButtonSalir.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-salir-programa.png"))); // NOI18N
+        jButtonSalir.setText("Salir del Programa");
+        jButtonSalir.setMaximumSize(new java.awt.Dimension(210, 40));
+        jButtonSalir.setMinimumSize(new java.awt.Dimension(210, 40));
+        jButtonSalir.setPreferredSize(new java.awt.Dimension(210, 40));
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonActualizarLista, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonVerDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelUsuario)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabelUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonActualizarLista, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonVerDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabelUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -356,15 +375,16 @@ public class PrincipalCocina extends javax.swing.JFrame {
                     .addComponent(jButtonVerDetalle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelUsuario)
                     .addComponent(jLabelUsuarioNombre))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -425,11 +445,23 @@ public class PrincipalCocina extends javax.swing.JFrame {
         }
 
     }
-    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_jButtonSalirActionPerformed
+    
+    public void abrirManual(String archivo) {
 
+        System.out.println(archivo);
+        try {
+            File objetofile = new File(archivo);
+            Desktop.getDesktop().open(objetofile);
+
+        } catch (IOException ex) {
+
+            System.out.println(ex);
+
+        }
+
+    }
+    
+    
     private void jButtonActualizarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarListaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonActualizarListaActionPerformed
@@ -440,6 +472,10 @@ public class PrincipalCocina extends javax.swing.JFrame {
 
     private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
         // TODO add your handling code here:
+        File f = new File("Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
+        System.out.println("RUTA" + f.getAbsolutePath()); // Llamamos al método que devuelve la ruta absoluta
+        JOptionPane.showMessageDialog(this, "RUTA" + f.getAbsolutePath(), "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+        abrirManual(f.getAbsolutePath());
     }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     private void jRadioButtonTerminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTerminarPedidoActionPerformed
@@ -462,6 +498,23 @@ public class PrincipalCocina extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDialogDetallePedido.dispose();
     }//GEN-LAST:event_jButtonSalirDetallePedidoActionPerformed
+
+    private void jButtonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarSesionActionPerformed
+        int resp = JOptionPane.showConfirmDialog(this, "¿Esta Seguro que Desea Cerrar Sesion?", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.OK_OPTION == resp) {
+            this.dispose();
+            Login L = new Login();
+            L.setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonCerrarSesionActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        int resp = JOptionPane.showConfirmDialog(this, "¿Esta Seguro que Desea Salir del Programa?", "FastFoodSystem - ATENCION", JOptionPane.YES_NO_OPTION);
+        if (JOptionPane.OK_OPTION == resp) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -538,6 +591,7 @@ public class PrincipalCocina extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonActualizarLista;
     private javax.swing.JButton jButtonAyuda;
+    private javax.swing.JButton jButtonCerrarSesion;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonSalirDetallePedido;
     private javax.swing.JButton jButtonVerDetalle;
