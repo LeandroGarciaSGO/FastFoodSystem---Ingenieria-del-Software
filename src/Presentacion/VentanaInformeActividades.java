@@ -53,12 +53,12 @@ public class VentanaInformeActividades extends javax.swing.JFrame {
         if (informe != null) {
             for (int i = 0; i < informe.size(); i++) {                
                 datos[0] = String.valueOf(informe.get(i).getIdTransaccion());
-                datos[1] = String.valueOf(informe.get(i).getFecha());
-                datos[2] = String.valueOf(informe.get(i).getHora());
-                datos[3] = String.valueOf(informe.get(i).getIdUsuario());
-                datos[4] = informe.get(i).getDescripcion();                
-                datos[5] = String.valueOf(informe.get(i).getTabla());
-                datos[6] = String.valueOf(informe.get(i).getIdEntidad());
+                //datos[1] = String.valueOf(informe.get(i).getFecha());
+                //datos[2] = String.valueOf(informe.get(i).getHora());
+                //datos[3] = String.valueOf(informe.get(i).getIdUsuario());
+                //datos[4] = informe.get(i).getDescripcion();                
+                //datos[5] = String.valueOf(informe.get(i).getTabla());
+                //datos[6] = String.valueOf(informe.get(i).getIdEntidad());
                 tablaP.addRow(datos);
             }
         }
@@ -83,7 +83,8 @@ public class VentanaInformeActividades extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jTablePedidosListos = new javax.swing.JTable();
         jButtonCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -103,49 +104,57 @@ public class VentanaInformeActividades extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(615, 500));
         jPanel1.setPreferredSize(new java.awt.Dimension(615, 500));
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 566, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 93, Short.MAX_VALUE)
+        );
+
         jTablePedidosListos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Fecha", "Hora", "Usuario", "Descripcion", "Tabla", "IDTabla"
+                "ID", "Fecha", "Hora", "IDUsuario", "Actividad", "Tabla", "IDTabla"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTablePedidosListos.setMaximumSize(new java.awt.Dimension(580, 330));
-        jTablePedidosListos.setMinimumSize(new java.awt.Dimension(580, 330));
-        jTablePedidosListos.setPreferredSize(new java.awt.Dimension(580, 330));
-        jTablePedidosListos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTablePedidosListos);
-        if (jTablePedidosListos.getColumnModel().getColumnCount() > 0) {
-            jTablePedidosListos.getColumnModel().getColumn(0).setResizable(false);
-            jTablePedidosListos.getColumnModel().getColumn(1).setResizable(false);
-            jTablePedidosListos.getColumnModel().getColumn(2).setResizable(false);
-            jTablePedidosListos.getColumnModel().getColumn(3).setResizable(false);
-        }
+        jScrollPane2.setViewportView(jTablePedidosListos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(23, 23, 23))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButtonCancelar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -331,7 +340,8 @@ public class VentanaInformeActividades extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNombre1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTablePedidosListos;
     // End of variables declaration//GEN-END:variables
 }
