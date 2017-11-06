@@ -219,11 +219,11 @@
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jDateChooser1" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="jDateChooserInicio" min="-2" pref="190" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="jLabelNombre1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jDateChooser2" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="jDateChooserFinal" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
@@ -239,8 +239,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooserFinal" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDateChooserInicio" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelNombre" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelNombre1" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -268,9 +268,9 @@
             <Property name="text" type="java.lang.String" value="Hasta:"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserInicio">
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooserFinal">
         </Component>
         <Component class="javax.swing.JButton" name="jButtonGenerarInforme">
           <Properties>

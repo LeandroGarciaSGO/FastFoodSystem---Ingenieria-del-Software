@@ -12,6 +12,7 @@ import Datos.Pedido;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -19,13 +20,13 @@ import java.util.ArrayList;
  */
 public class OperacionesAdicionales {
     
-    public ArrayList<InformeActividad> obtenerActividades() throws ClassNotFoundException, SQLException {
+    public ArrayList<InformeActividad> obtenerActividades(String ini,String fin) throws ClassNotFoundException, SQLException {
         ResultSet informe;
         InformeActividad I = new InformeActividad();
 
         //Facturacion factura = new Facturacion();
         ArrayList<InformeActividad> inf = new ArrayList<InformeActividad>();
-        informe = I.obtenerTodasActividades();
+        informe = I.obtenerTodasActividades(ini,fin);
         while (informe.next()) {
             I = new InformeActividad();
             I.setIdTransaccion(informe.getInt("idTransaccion"));

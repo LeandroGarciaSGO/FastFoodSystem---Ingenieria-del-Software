@@ -6,12 +6,14 @@
 package Datos;
 
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -46,9 +48,21 @@ public class InformeActividad {
     
     
     
-    public ResultSet obtenerTodasActividades() throws ClassNotFoundException, SQLException {
+//    public ResultSet obtenerTodasActividades2(Date i,Date f) throws ClassNotFoundException, SQLException {
+//        Connection conex = Conexion.Cadena();
+//        String formato = "yyyy/MM/dd";
+//        SimpleDateFormat sdf = new SimpleDateFormat(formato);
+//        System.out.println("FECHA" + i);
+//        String h = String.valueOf(sdf.format(i));
+//        String ConsultaSQL = "SELECT * FROM transacciones where fecha = '" + h + "'";
+//        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//        rsDatos = sentencia.executeQuery(ConsultaSQL);
+//        return rsDatos;
+//    }
+    
+    public ResultSet obtenerTodasActividades(String i,String f) throws ClassNotFoundException, SQLException {
         Connection conex = Conexion.Cadena();
-        String ConsultaSQL = "SELECT * FROM transacciones";
+        String ConsultaSQL = "SELECT * FROM transacciones where fecha >= '" + i + "' AND fecha <= '" + "f'";
         sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         rsDatos = sentencia.executeQuery(ConsultaSQL);
         return rsDatos;
