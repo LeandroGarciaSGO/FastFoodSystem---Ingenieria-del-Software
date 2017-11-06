@@ -236,13 +236,13 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
 
     private void jMenuItemInformeActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInformeActividadesActionPerformed
         // TODO add your handling code here:
-        InformeActividades IA = new InformeActividades();
+        VentanaInformeActividades IA = new VentanaInformeActividades();
         IA.setVisible(true);
     }//GEN-LAST:event_jMenuItemInformeActividadesActionPerformed
 
     private void jButtonInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInformesActionPerformed
         // TODO add your handling code here:
-        InformeActividades IA = new InformeActividades();
+        VentanaInformeActividades IA = new VentanaInformeActividades();
         IA.setVisible(true);
     }//GEN-LAST:event_jButtonInformesActionPerformed
 
