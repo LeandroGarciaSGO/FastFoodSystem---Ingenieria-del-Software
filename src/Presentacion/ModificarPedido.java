@@ -10,7 +10,9 @@ package Presentacion;
  * @author Mariano
  */
 import Datos.Pedido;
+import Datos.Usuario;
 import Logica.OperacionesPedido;
+import Logica.OperacionesTransacciones;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
@@ -27,6 +29,7 @@ public class ModificarPedido extends javax.swing.JFrame {
      */
     private java.sql.Statement sentencia, sentencia2;
     private ResultSet rsDatos, rsDatos2;
+    Usuario usuarioSistema;
     
     public ModificarPedido() throws ClassNotFoundException, SQLException {
         initComponents();
@@ -36,6 +39,15 @@ public class ModificarPedido extends javax.swing.JFrame {
         jButtonCancelarSeleccion.setEnabled(false);
         jButtonCancelarSeleccion.setBackground(java.awt.Color.red);
         cargarTabla("","",0);
+        usuarioSistema = new Usuario();
+    }
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
     }
 
     /**
@@ -273,6 +285,7 @@ public class ModificarPedido extends javax.swing.JFrame {
                     telefono = Long.parseLong(String.valueOf(modelo.getValueAt(filasselec[i], 1)));
                     DP.mostrarTablaModificar(cod, telefono);
                 }
+                DP.setUsuarioSistema(usuarioSistema);
                 DP.setVisible(true);
             }
             else{
@@ -288,13 +301,17 @@ public class ModificarPedido extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
         Pedido P = new Pedido();
+        OperacionesTransacciones OT = new OperacionesTransacciones();
         DefaultTableModel modelo = (DefaultTableModel) jTableMostrarPedidos.getModel();
         int fila = jTableMostrarPedidos.getSelectedRow();
+        int entidad = 5;
+        int accion = 15;
         try {
             if (fila >= 0) {
                 int filasselec[]  = jTableMostrarPedidos.getSelectedRows();
                 for (int i=0; i<filasselec.length;i++){
                     P.eliminarPedido(Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0))));
+                    OT.registrarTransaccion(accion, entidad, Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec[i], 0))), usuarioSistema);
                     modelo.removeRow(filasselec[i]-i);
                 }
                 JOptionPane.showMessageDialog(this, "El pedido se elimino correctamente", "Fast Food System", JOptionPane.OK_OPTION);

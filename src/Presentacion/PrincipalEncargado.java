@@ -66,7 +66,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jMenuComidas = new javax.swing.JMenu();
         jMenuGestionarComida = new javax.swing.JMenuItem();
         jMenuPedidos = new javax.swing.JMenu();
-        jMenuItemNuevoPedido = new javax.swing.JMenuItem();
+        jMenuItemGestionarPedido = new javax.swing.JMenuItem();
         jMenuCadetes = new javax.swing.JMenu();
         jMenuItemNuevoCadete = new javax.swing.JMenuItem();
         jMenuFacturacion = new javax.swing.JMenu();
@@ -209,14 +209,14 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuPedidos.setText("Pedidos");
 
-        jMenuItemNuevoPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItemNuevoPedido.setText("Gestionar Pedidos");
-        jMenuItemNuevoPedido.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemGestionarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemGestionarPedido.setText("Gestionar Pedidos");
+        jMenuItemGestionarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNuevoPedidoActionPerformed(evt);
+                jMenuItemGestionarPedidoActionPerformed(evt);
             }
         });
-        jMenuPedidos.add(jMenuItemNuevoPedido);
+        jMenuPedidos.add(jMenuItemGestionarPedido);
 
         jMenuBar1.add(jMenuPedidos);
 
@@ -375,6 +375,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jButtonNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPedidoActionPerformed
         // TODO add your handling code here:
         GestionarPedido GP = new GestionarPedido();
+        GP.setUsuarioSistema(usuarioSistema);
         GP.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoPedidoActionPerformed
 
@@ -383,6 +384,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         ModificarPedido MP;
         try {
             MP = new ModificarPedido();
+            MP.setUsuarioSistema(usuarioSistema);
             MP.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
@@ -391,17 +393,18 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonModificarPedidoActionPerformed
 
-    private void jMenuItemNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoPedidoActionPerformed
+    private void jMenuItemGestionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarPedidoActionPerformed
         // TODO add your handling code here:
-        GestionarPedido GP;
-        GP = new GestionarPedido();
+        GestionarPedido GP = new GestionarPedido();
+        GP.setUsuarioSistema(usuarioSistema);
         GP.setVisible(true);
-    }//GEN-LAST:event_jMenuItemNuevoPedidoActionPerformed
+    }//GEN-LAST:event_jMenuItemGestionarPedidoActionPerformed
 
     private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed
         try {
             // TODO add your handling code here:
             ModificarPedido MP = new ModificarPedido();
+            MP.setUsuarioSistema(usuarioSistema);
             MP.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
@@ -512,11 +515,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuGestionarComida;
     private javax.swing.JMenuItem jMenuItemAnularFactura;
     private javax.swing.JMenuItem jMenuItemGenerarFactura;
+    private javax.swing.JMenuItem jMenuItemGestionarPedido;
     private javax.swing.JMenuItem jMenuItemInformacion;
     private javax.swing.JMenuItem jMenuItemManual;
     private javax.swing.JMenuItem jMenuItemNuevoCadete;
     private javax.swing.JMenuItem jMenuItemNuevoCliente;
-    private javax.swing.JMenuItem jMenuItemNuevoPedido;
     private javax.swing.JMenu jMenuPedidos;
     // End of variables declaration//GEN-END:variables
 }

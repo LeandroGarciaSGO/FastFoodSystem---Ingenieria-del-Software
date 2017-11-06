@@ -5,6 +5,7 @@
  */
 package Presentacion;
 
+import Datos.Usuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,12 +16,22 @@ import java.util.logging.Logger;
  */
 public class GestionarPedido extends javax.swing.JFrame {
 
+    Usuario usuarioSistema;
     /**
      * Creates new form GestionarPedido
      */
     public GestionarPedido() {
         initComponents();
         setLocationRelativeTo(null);
+        usuarioSistema = new Usuario();
+    }
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
     }
 
     /**
@@ -118,6 +129,7 @@ public class GestionarPedido extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GestionarPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
+        DT.setUsuarioSistema(usuarioSistema);
         DT.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoPedidoActionPerformed
 
@@ -126,6 +138,7 @@ public class GestionarPedido extends javax.swing.JFrame {
         ModificarPedido MP;
         try {
             MP = new ModificarPedido();
+            MP.setUsuarioSistema(usuarioSistema);
             MP.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(GestionarPedido.class.getName()).log(Level.SEVERE, null, ex);

@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import Datos.Pedido;
+import Datos.Usuario;
 import Datos.Zona;
 import Logica.ABMComida;
 import Logica.OperacionesPedido;
@@ -44,6 +45,7 @@ public class DatosPedido extends javax.swing.JFrame {
     private Cliente Cl;
     private Pedido P;
     private Cliente C;
+    Usuario usuarioSistema;
     
     public DatosPedido() throws ClassNotFoundException, SQLException {
         initComponents();
@@ -66,6 +68,15 @@ public class DatosPedido extends javax.swing.JFrame {
         jLabelMostrarHora.setText(hora);
         cargarJComboBoxZona();
         cargarJComboBoxComidaDisponible();
+        usuarioSistema = new Usuario();
+    }
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
     }
 
     /**
@@ -586,8 +597,6 @@ public class DatosPedido extends javax.swing.JFrame {
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         // TODO add your handling code here:
-        //DetallePedido DP = new DetallePedido();
-        //DefaultTableModel dtm = (DefaultTableModel)jTableDetallesPedido.getModel();
         try {
             if(validarCamposPedido(3)){//Para validar que el campo seleccionar comida y cantidad no esten vacío
                 String[] datos = new String[5];
@@ -642,6 +651,7 @@ public class DatosPedido extends javax.swing.JFrame {
                     CP.mostrarNumPedido(0);
                 }
                 this.dispose();
+                CP.setUsuarioSistema(usuarioSistema);
                 CP.setP(P);
                 CP.setDP(listaDetallePedido);
                 CP.setVisible(true);
@@ -667,7 +677,6 @@ public class DatosPedido extends javax.swing.JFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         // TODO add your handling code here:
-        //DefaultTableModel modelo = (DefaultTableModel) jTableDetallesPedido.getModel();
         int fila = jTableDetallesPedido.getSelectedRow();
         if (fila >= 0) {
             int filasselec[]  = jTableDetallesPedido.getSelectedRows();
@@ -693,7 +702,7 @@ public class DatosPedido extends javax.swing.JFrame {
         if(Character.isLetter(c)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(this, "La Cantidad Deben Ser Números","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La Cantidad Debe Ser Un Número","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldCantidadKeyTyped
 
@@ -780,23 +789,26 @@ public class DatosPedido extends javax.swing.JFrame {
         switch (v) {
             case 0:
                 if(jTextFieldTelefono.getText().length()<=0){
-                    JOptionPane.showMessageDialog(this,"-. ERROR: El Teléfono No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"ERROR: El Teléfono No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }   break;
             case 1:
                 if(jTextFieldLugarDeEnvio.getText().length()<=0){
-                    JOptionPane.showMessageDialog(this,"-. ERROR: El Lugar De Envío No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"ERROR: El Lugar De Envío No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }   if(jComboBoxZona.getSelectedIndex()==0){
-                    JOptionPane.showMessageDialog(this,"-. ERROR: Debe Seleccionar Una Zona","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"ERROR: Debe Seleccionar Una Zona","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }   if(jTableDetallesPedido.getRowCount()==0){
+                    JOptionPane.showMessageDialog(this,"ERRO: El Pedido No Contiene Datos Del Pedido","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }   break;
             default:
                 if(jComboBoxSeleccionarComida.getSelectedIndex()==0){
-                    JOptionPane.showMessageDialog(this,"-. ERROR: Debe Seleccionar Una Comida","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"ERROR: Debe Seleccionar Una Comida","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }   if(jTextFieldCantidad.getText().length()<=0){
-                    JOptionPane.showMessageDialog(this,"-. ERROR: La Cantidad No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"ERROR: La Cantidad No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }   break;
         }

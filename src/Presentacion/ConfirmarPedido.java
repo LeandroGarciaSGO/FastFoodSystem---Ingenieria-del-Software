@@ -13,8 +13,10 @@ package Presentacion;
 import Datos.Cadete;
 import Datos.DetallePedido;
 import Datos.Pedido;
+import Datos.Usuario;
 import Logica.AMBCadete;
 import Logica.OperacionesPedido;
+import Logica.OperacionesTransacciones;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,7 +24,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ConfirmarPedido extends javax.swing.JFrame {
-    
+    Usuario usuarioSistema;
     Pedido P;
     ArrayList<DetallePedido> DP;
     ArrayList<DetallePedido> DPMod;
@@ -41,6 +43,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
         DP = new ArrayList<DetallePedido>();
         DPMod = new ArrayList<DetallePedido>();
         cargarJComboBoxCadeteDisponible();
+        usuarioSistema = new Usuario();
     }
 
     public Pedido getP() {
@@ -82,7 +85,14 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     public void setCod(int cod) {
         this.cod = cod;
     }
-    
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -167,16 +177,16 @@ public class ConfirmarPedido extends javax.swing.JFrame {
     private void jButtonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarActionPerformed
         // TODO add your handling code here:
         OperacionesPedido ABMP = new OperacionesPedido();
+        OperacionesTransacciones OT = new OperacionesTransacciones();
         AMBCadete ABMC = new AMBCadete();
         Cadete C = new Cadete();
         int numLinea = 0;
+        int entidad = 5;
         if(jComboBoxSeleccionarCadete.getSelectedIndex()>0){
             try {
-            //Valida selección de un cadete
-            C = ABMC.consultaCadeteEstado(Integer.parseInt(String.valueOf(jComboBoxSeleccionarCadete.getSelectedItem()).substring(0,1)));
-            if(C!=null){
                 P.setIdCadete(Integer.parseInt(String.valueOf(jComboBoxSeleccionarCadete.getSelectedItem()).substring(0,1)));
                 if (b==0){
+                    int accion = 14;
                     int x = ABMP.nuevoPedido(P);
                     if(x > 0){
                         for(int i = 0; i<DP.size(); i++){
@@ -185,6 +195,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                             DP.get(i).setNumLinea(numLinea);
                         }
                         ABMP.nuevoDetallePedido(DP);
+                        OT.registrarTransaccion(accion, entidad, P.getIdPedido(), usuarioSistema);
                         JOptionPane.showMessageDialog(this, "El pedido se registro correctamente y su Número de Pedido es: "+ x, "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{
@@ -192,6 +203,7 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                     }
                 }
                 else if (JOptionPane.showConfirmDialog(null, "¿Desea modificar el pedido?","Fast Food System",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION){
+                    int accion = 16;
                     ABMP.modificarPedido(P);
                     ABMP.eliminarDetallePedido(P.getIdPedido());
                     for(int i = 0; i<DPMod.size(); i++){
@@ -200,13 +212,10 @@ public class ConfirmarPedido extends javax.swing.JFrame {
                         DPMod.get(i).setNumLinea(numLinea);
                     }
                     ABMP.nuevoDetallePedido(DPMod);
+                    OT.registrarTransaccion(accion, entidad, P.getIdPedido(), usuarioSistema);
                     JOptionPane.showMessageDialog(this, "El pedido se modifico correctamente y su Número de Pedido es: "+ P.getIdPedido(), "Fast Food System", JOptionPane.INFORMATION_MESSAGE);
                 }
                 this.dispose();
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "El cadete NO está disponible", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-            }
             } catch (SQLException ex) {
                 Logger.getLogger(ConfirmarPedido.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
