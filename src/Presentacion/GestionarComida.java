@@ -335,7 +335,8 @@ public class GestionarComida extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         }
-        C.setUsuarioSistema(usuarioSistema);        
+        C.setUsuarioSistema(usuarioSistema);
+        System.out.println(usuarioSistema.getTipoUsuario());
         C.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonNuevaComidaActionPerformed
@@ -365,6 +366,7 @@ public class GestionarComida extends javax.swing.JFrame {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         }
         VC.setUsuarioSistema(usuarioSistema);
+        System.out.println(usuarioSistema.getTipoUsuario());
         VC.setVisible(true);
         this.dispose();
 
@@ -434,6 +436,7 @@ public class GestionarComida extends javax.swing.JFrame {
             Logger.getLogger(GestionarComida.class.getName()).log(Level.SEVERE, null, ex);
         }
         VC.setUsuarioSistema(usuarioSistema);
+        System.out.println(usuarioSistema.getTipoUsuario());
         VC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonModificarComidaActionPerformed
@@ -504,10 +507,15 @@ public class GestionarComida extends javax.swing.JFrame {
 
     public boolean validarCampoDescripcion() {
         if (jTextFieldDescripcion.getText().length() > 0) {
-            if (jTextFieldDescripcion.getText().matches("[A-Za-z\\s]+")) {
-                return true;
+            if (jTextFieldDescripcion.getText().length() <= 40) {
+                if (jTextFieldDescripcion.getText().matches("[A-Za-z\\s]+")) {
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Descripcion\" No Debe Contener Mas de 40 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } else {

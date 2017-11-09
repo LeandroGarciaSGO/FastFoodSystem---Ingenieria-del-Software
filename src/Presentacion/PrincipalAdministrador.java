@@ -6,6 +6,7 @@
 
 package Presentacion;
 
+import Datos.Usuario;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
  * @author Leandro
  */
 public class PrincipalAdministrador extends javax.swing.JFrame {
+    
+    Usuario usuarioSistema;
 
     /**
      * Creates new form PrincipalEncargado
@@ -24,8 +27,16 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
     public PrincipalAdministrador() {
         initComponents();
         setLocationRelativeTo(null);
+        usuarioSistema = new Usuario();
         
-        
+    }
+    
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
     }
     
     
@@ -123,6 +134,11 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
 
         jMenuItemGestionUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGestionUsuario.setText("Gestion Usuarios");
+        jMenuItemGestionUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGestionUsuarioActionPerformed(evt);
+            }
+        });
         jMenuUsuarios.add(jMenuItemGestionUsuario);
 
         jMenuBar1.add(jMenuUsuarios);
@@ -245,6 +261,12 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
         VentanaInformeActividades IA = new VentanaInformeActividades();
         IA.setVisible(true);
     }//GEN-LAST:event_jButtonInformesActionPerformed
+
+    private void jMenuItemGestionUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionUsuarioActionPerformed
+        GestionarUsuario GU = new GestionarUsuario();
+        GU.setUsuarioSistema(usuarioSistema);
+        GU.setVisible(true);
+    }//GEN-LAST:event_jMenuItemGestionUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
