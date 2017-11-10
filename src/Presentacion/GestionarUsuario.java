@@ -142,7 +142,7 @@ public class GestionarUsuario extends javax.swing.JFrame {
         );
 
         jButtonNuevoUsu.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonNuevoUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-nueva-comida.png"))); // NOI18N
+        jButtonNuevoUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-nuevo-usuario.png"))); // NOI18N
         jButtonNuevoUsu.setText("Nuevo Usuario");
         jButtonNuevoUsu.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonNuevoUsu.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -154,7 +154,7 @@ public class GestionarUsuario extends javax.swing.JFrame {
         });
 
         jButtonModificarUsu.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonModificarUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-comida.png"))); // NOI18N
+        jButtonModificarUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-usuario.png"))); // NOI18N
         jButtonModificarUsu.setText("Modificar Usuario");
         jButtonModificarUsu.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonModificarUsu.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -166,7 +166,7 @@ public class GestionarUsuario extends javax.swing.JFrame {
         });
 
         jButtonEliminarUsu.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonEliminarUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-eliminar-comida.png"))); // NOI18N
+        jButtonEliminarUsu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-borrar-usuario.png"))); // NOI18N
         jButtonEliminarUsu.setText("Eliminar Usuario");
         jButtonEliminarUsu.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonEliminarUsu.setMinimumSize(new java.awt.Dimension(180, 50));

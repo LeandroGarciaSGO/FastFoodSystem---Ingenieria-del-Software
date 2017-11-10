@@ -201,31 +201,31 @@ public class Usuario {
         return rsDatos;
     }
 
-    public ResultSet consultaTipoDocu() throws ClassNotFoundException {
-        try {
-            Connection conex = Conexion.Cadena();
-            String ConsultaSQL = "SELECT tipoDocumento FROM usuario";
-            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
+//    public ResultSet consultaTipoDocu() throws ClassNotFoundException {
+//        try {
+//            Connection conex = Conexion.Cadena();
+//            String ConsultaSQL = "SELECT tipoDocumento FROM usuario";
+//            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//            rsDatos = sentencia.executeQuery(ConsultaSQL);
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return rsDatos;
+//    }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rsDatos;
-    }
-
-    public ResultSet consultaTipoUsuario() throws ClassNotFoundException {
-        try {
-            Connection conex = Conexion.Cadena();
-            String ConsultaSQL = "SELECT tipoUsuario FROM usuario";
-            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rsDatos = sentencia.executeQuery(ConsultaSQL);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return rsDatos;
-    }
+//    public ResultSet consultaTipoUsuario() throws ClassNotFoundException {
+//        try {
+//            Connection conex = Conexion.Cadena();
+//            String ConsultaSQL = "SELECT tipoUsuario FROM usuario";
+//            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//            rsDatos = sentencia.executeQuery(ConsultaSQL);
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return rsDatos;
+//    }
 
 //public ResultSet consultaUsuarioId(int idUsuario) throws ClassNotFoundException {
 //        try {
@@ -315,7 +315,7 @@ public class Usuario {
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("UPDATE usuario SET nombreUsuario = ? , nombreYApellido = ? , contraseña = ? ,tipoDocumento = ?, numDocumento = ?, tipoUsuario = ? ,estado = ? WHERE idComida = ?", PreparedStatement.RETURN_GENERATED_KEYS);
+            psPrepSencencias = cn.prepareStatement("UPDATE usuario SET nombreUsuario = ? , nombreYApellido = ? , contraseña = ? ,tipoDocumento = ?, numDocumento = ?, tipoUsuario = ? ,estado = ? WHERE idUsuario = ?", PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
             psPrepSencencias.setString(1, nombreUsuario);
             psPrepSencencias.setString(2, nombreYApellido);
@@ -329,7 +329,6 @@ public class Usuario {
             psPrepSencencias.executeUpdate();
             //obtengo el id del registro recien insertado
         } catch (SQLException ex) {
-            //Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;

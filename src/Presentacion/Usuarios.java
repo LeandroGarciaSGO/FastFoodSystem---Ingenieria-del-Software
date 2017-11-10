@@ -32,8 +32,8 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         initComponents();
         setLocationRelativeTo(null);
-        cargarTipoDocu();
-        cargarTipoUsuario();
+//        cargarTipoDocu();
+//        cargarTipoUsuario();
         usuarioSistema = new Usuario();
     }
 
@@ -100,7 +100,7 @@ public class Usuarios extends javax.swing.JFrame {
             jTextFieldNombUsu.setText(datosUsuario.getNombreUsuario());
             jTextFieldNombApe.setText(datosUsuario.getNombreYApellido());
             jPasswordContra.setText(datosUsuario.getContraseña());
-            jComboBoxTipoDocu.setSelectedIndex(Integer.parseInt(datosUsuario.getTipoDocumento()));
+            jComboBoxTipoDocu.setSelectedItem(datosUsuario.getTipoDocumento());
             jTextFieldNumDocu.setText(String.valueOf(datosUsuario.getNumDocumento()));
             jComboBoxTipoUsu.setSelectedIndex(datosUsuario.getTipoUsuario());
         } else {
@@ -142,6 +142,7 @@ public class Usuarios extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,7 +171,7 @@ public class Usuarios extends javax.swing.JFrame {
         jTextFieldNombApe.setMinimumSize(new java.awt.Dimension(210, 20));
         jTextFieldNombApe.setPreferredSize(new java.awt.Dimension(210, 20));
 
-        jComboBoxTipoUsu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un tipo de usuario..." }));
+        jComboBoxTipoUsu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un tipo de usuario...", "Administrador", "Empleado", "Cocina" }));
         jComboBoxTipoUsu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTipoUsuActionPerformed(evt);
@@ -199,7 +200,7 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxTipoDocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un tipo de documento..." }));
+        jComboBoxTipoDocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione un tipo de documento...", "DNI", "Pasaporte", "Cedula" }));
         jComboBoxTipoDocu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTipoDocuActionPerformed(evt);
@@ -283,7 +284,7 @@ public class Usuarios extends javax.swing.JFrame {
         );
 
         jButtonEliminar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-eliminar-comida.png"))); // NOI18N
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-borrar-usuario.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonEliminar.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -318,34 +319,41 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventana-usuarios.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                        .addGap(24, 24, 24)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -392,14 +400,24 @@ public class Usuarios extends javax.swing.JFrame {
             U.setNombreUsuario(jTextFieldNombUsu.getText());
             U.setNombreYApellido(jTextFieldNombApe.getText());
             U.setContraseña(jPasswordContra.getText());
-            U.setTipoDocumento(String.valueOf(jComboBoxTipoDocu.getSelectedIndex()));
+//            int tipoD = jComboBoxTipoDocu.getSelectedIndex();
+//            switch (tipoD){
+//                case 1: U.setTipoDocumento("DNI");
+//                    break;
+//                case 2: U.setTipoDocumento("Pasaporte");
+//                    break;
+//                case 3: U.setTipoDocumento("Cedula");
+//                    break;
+//            }
+            U.setTipoDocumento(String.valueOf(jComboBoxTipoDocu.getSelectedItem()));
+            //System.out.print(jComboBoxTipoDocu.getSelectedItem());
             U.setNumDocumento(Integer.parseInt(jTextFieldNumDocu.getText()));
             U.setTipoUsuario(jComboBoxTipoUsu.getSelectedIndex());
             ABMUsuario ABMU = new ABMUsuario();
             if (condatos_vacio != 1) {
                 try {
                     if (ABMU.modificarUsuario(U)) {
-                        accion = 13;
+                        accion = 11;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdUsu.getText()), usuarioSistema);
                         JOptionPane.showMessageDialog(this, "El Usuario Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         GestionarUsuario volverGestionarUsuario = new GestionarUsuario();
@@ -421,7 +439,7 @@ public class Usuarios extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "ERROR: El Nombre De Usuario Pertenece A Otro Usuario", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "El Usuario Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                        accion = 11;
+                        accion = 13;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdUsu.getText()), usuarioSistema);
                         GestionarUsuario volverGestionarUsuario = new GestionarUsuario();
                         volverGestionarUsuario.setUsuarioSistema(usuarioSistema);
@@ -437,39 +455,39 @@ public class Usuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void cargarTipoDocu() {
-        try {
-            Usuario U = new Usuario();
-            R = U.consultaTipoDocu();
-            try {
-                while (R.next()) {
-                    jComboBoxTipoDocu.addItem(R.getObject("tipoDocumento"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//    private void cargarTipoDocu() {
+//        try {
+//            Usuario U = new Usuario();
+//            R = U.consultaTipoDocu();
+//            try {
+//                while (R.next()) {
+//                    jComboBoxTipoDocu.addItem(R.getObject("tipoDocumento"));
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void cargarTipoUsuario() {
-        try {
-            Usuario U = new Usuario();
-            R = U.consultaTipoUsuario();
-            try {
-                while (R.next()) {
-                    jComboBoxTipoUsu.addItem(R.getObject("tipoUsuario"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    private void cargarTipoUsuario() {
+//        try {
+//            Usuario U = new Usuario();
+//            R = U.consultaTipoUsuario();
+//            try {
+//                while (R.next()) {
+//                    jComboBoxTipoUsu.addItem(R.getObject("tipoUsuario"));
+//                }
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     private boolean validarCampoNombreUsuario() {
         if (jTextFieldNombUsu.getText().length() > 0) {
@@ -626,6 +644,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxTipoDocu;
     private javax.swing.JComboBox jComboBoxTipoUsu;
     private javax.swing.JLabel jLabeContra;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelError;
     private javax.swing.JLabel jLabelIdUsu;
     private javax.swing.JLabel jLabelIdUsuario;
