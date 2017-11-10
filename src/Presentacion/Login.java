@@ -226,6 +226,7 @@ public class Login extends javax.swing.JFrame {
                     }else{
                         PrincipalCocina PC = new PrincipalCocina();
                         //AGREGAR SET
+                        PC.setUsuarioSistema (respuesta);
                         PC.setVisible(true); 
                     }
                 }
@@ -277,6 +278,7 @@ public class Login extends javax.swing.JFrame {
                     }else{
                         PrincipalCocina PC = new PrincipalCocina();
                         //AGREGAR SET
+                        PC.setUsuarioSistema(respuesta);
                         PC.setVisible(true); 
                     }
                 }

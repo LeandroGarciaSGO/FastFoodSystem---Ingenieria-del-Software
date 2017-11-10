@@ -437,9 +437,9 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
     private void jMenuItemManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemManualActionPerformed
          //ANDA PERO NO EMPAQUETADO
-        File f = new File("Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
+        File f = new File("src\\Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
         System.out.println("RUTA" + f.getAbsolutePath()); // Llamamos al método que devuelve la ruta absoluta
-        JOptionPane.showMessageDialog(this, "RUTA" + f.getAbsolutePath(), "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+        //JOptionPane.showMessageDialog(this, "RUTA" + f.getAbsolutePath(), "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
         abrirManual(f.getAbsolutePath());
 
         
