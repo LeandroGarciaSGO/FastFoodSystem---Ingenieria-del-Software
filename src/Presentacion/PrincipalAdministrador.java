@@ -265,6 +265,7 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
     private void jMenuItemGestionUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionUsuarioActionPerformed
         GestionarUsuario GU = new GestionarUsuario();
         GU.setUsuarioSistema(usuarioSistema);
+        System.out.println(usuarioSistema.getIdUsuario());
         GU.setVisible(true);
     }//GEN-LAST:event_jMenuItemGestionUsuarioActionPerformed
 

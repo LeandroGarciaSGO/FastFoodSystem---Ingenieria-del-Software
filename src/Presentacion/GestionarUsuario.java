@@ -250,6 +250,7 @@ public class GestionarUsuario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableUsuario.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableUsuario);
         if (jTableUsuario.getColumnModel().getColumnCount() > 0) {
             jTableUsuario.getColumnModel().getColumn(0).setResizable(false);
@@ -405,7 +406,7 @@ public class GestionarUsuario extends javax.swing.JFrame {
         String tipoDocu = String.valueOf(jTableUsuario.getValueAt(fila, 4));
         int docu = (int) jTableUsuario.getValueAt(fila, 5);
         int tipoUsu = (int) jTableUsuario.getValueAt(fila, 6);
-        System.out.print(id+ nombUsu + nombApe +contra+ tipoDocu + docu + tipoUsu);
+        System.out.println(id + nombUsu + nombApe +contra+ tipoDocu + docu + tipoUsu);
 
         Usuarios VU = new Usuarios();
         Usuario U = new Usuario(id, nombUsu, nombApe, contra ,tipoDocu, docu, tipoUsu);
@@ -432,7 +433,7 @@ public class GestionarUsuario extends javax.swing.JFrame {
         String tipoDocu = String.valueOf(jTableUsuario.getValueAt(fila, 4));
         int docu = (int) jTableUsuario.getValueAt(fila, 5);
         int tipoUsu = (int) jTableUsuario.getValueAt(fila, 6);
-        System.out.print(id+ nombUsu + nombApe +contra+ tipoDocu + docu + tipoUsu);
+        System.out.println(id + nombUsu + nombApe +contra+ tipoDocu + docu + tipoUsu);
 
         Usuarios VU = new Usuarios();
         Usuario U = new Usuario(id, nombUsu, nombApe, contra, tipoDocu, docu, tipoUsu);
@@ -480,11 +481,11 @@ public class GestionarUsuario extends javax.swing.JFrame {
                     modelo.addRow(fila);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GestionarUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GestionarUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

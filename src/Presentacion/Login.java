@@ -3,10 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
-
 package Presentacion;
 
 import Datos.Usuario;
@@ -207,50 +203,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIngresarActionPerformed
-        OperacionesLogueo L = new OperacionesLogueo();
-        try {        
-            Usuario respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
-            if(respuesta != null){
-                if(respuesta.getTipoUsuario() != 0){
-                JOptionPane.showMessageDialog(this, "BIENVENIDO A FASTFOODSYSTEM", "Ingreso Exitoso", JOptionPane.INFORMATION_MESSAGE);
-                if(respuesta.getTipoUsuario() == 1){
-                    PrincipalAdministrador PA = new PrincipalAdministrador();
-                    //AGREGAR UN SET
-                    PA.setVisible(true); 
-                }else{
-                    if(respuesta.getTipoUsuario() == 2)
-                    {
-                        PrincipalEncargado PE = new PrincipalEncargado();
-                        PE.setUsuarioSistema(respuesta);
-                        PE.setVisible(true); 
-                    }else{
-                        PrincipalCocina PC = new PrincipalCocina();
-                        //AGREGAR SET
-                        PC.setVisible(true); 
-                    }
-                }
-                OperacionesTransacciones OT = new OperacionesTransacciones();
-                int accion = 1;
-                int entidad = 0;
-                OT.registrarTransaccion(accion,entidad,0,respuesta);
-                this.dispose();                               
-            }
-            else
-            {
-                 JOptionPane.showMessageDialog(this, "Nombre de Usuario Y/O Contraseña Incorrecta", "-. ERROR!!!", JOptionPane.ERROR_MESSAGE);
-
-            }
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "Nombre de Usuario Y/O Contraseña Incorrecta", "-. ERROR!!!", JOptionPane.ERROR_MESSAGE);
-            }
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ingresoAlSistema();
     }//GEN-LAST:event_jButtonIngresarActionPerformed
 
     private void jTextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsuarioActionPerformed
@@ -258,55 +211,54 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUsuarioActionPerformed
 
     private void jPasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldContraseñaActionPerformed
-        OperacionesLogueo L = new OperacionesLogueo();
-        try {        
-            Usuario respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
-            if(respuesta != null){
-                if(respuesta.getTipoUsuario() != 0){
-                JOptionPane.showMessageDialog(this, "BIENVENIDO A FASTFOODSYSTEM", "Ingreso Exitoso", JOptionPane.INFORMATION_MESSAGE);
-                if(respuesta.getTipoUsuario() == 1){
-                    PrincipalAdministrador PA = new PrincipalAdministrador();
-                    //AGREGAR UN SET
-                    PA.setVisible(true); 
-                }else{
-                    if(respuesta.getTipoUsuario() == 2)
-                    {
-                        PrincipalEncargado PE = new PrincipalEncargado();
-                        PE.setUsuarioSistema(respuesta);
-                        PE.setVisible(true); 
-                    }else{
-                        PrincipalCocina PC = new PrincipalCocina();
-                        //AGREGAR SET
-                        PC.setVisible(true); 
-                    }
-                }
-                OperacionesTransacciones OT = new OperacionesTransacciones();
-                int accion = 1;
-                int entidad = 0;
-                OT.registrarTransaccion(accion,entidad,0,respuesta);
-                this.dispose();                               
-            }
-            else
-            {
-                 JOptionPane.showMessageDialog(this, "ERROR: Nombre de Usuario Y/O Contraseña Incorrecta", "FastFoodSysyem", JOptionPane.ERROR_MESSAGE);
-
-            }
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(this, "ERROR: Nombre de Usuario Y/O Contraseña Incorrecta", "FastFoodSysyem", JOptionPane.ERROR_MESSAGE);
-            }
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ingresoAlSistema();
     }//GEN-LAST:event_jPasswordFieldContraseñaActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void ingresoAlSistema() {
+        OperacionesLogueo L = new OperacionesLogueo();
+        try {
+            Usuario respuesta = L.autenticar(jTextFieldUsuario.getText(), jPasswordFieldContraseña.getText());
+            if (respuesta != null) {
+                if (respuesta.getTipoUsuario() != 0) {
+                    JOptionPane.showMessageDialog(this, "BIENVENIDO A FASTFOODSYSTEM", "Ingreso Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                    if (respuesta.getTipoUsuario() == 1) {
+                        PrincipalAdministrador PA = new PrincipalAdministrador();
+                        PA.setUsuarioSistema(respuesta);
+                        PA.setVisible(true);
+                    } else {
+                        if (respuesta.getTipoUsuario() == 2) {
+                            PrincipalEncargado PE = new PrincipalEncargado();
+                            PE.setUsuarioSistema(respuesta);
+                            PE.setVisible(true);
+                        } else {
+                            PrincipalCocina PC = new PrincipalCocina();
+                            //AGREGAR SET
+                            PC.setVisible(true);
+                        }
+                    }
+                    OperacionesTransacciones OT = new OperacionesTransacciones();
+                    int accion = 1;
+                    int entidad = 0;
+                    OT.registrarTransaccion(accion, entidad, 0, respuesta);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR: Nombre de Usuario Y/O Contraseña Incorrecta", "FastFoodSysyem", JOptionPane.ERROR_MESSAGE);
+
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "ERROR: Nombre de Usuario Y/O Contraseña Incorrecta", "FastFoodSysyem", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * @param args the command line arguments
