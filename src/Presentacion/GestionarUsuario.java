@@ -7,7 +7,6 @@ package Presentacion;
 
 import Datos.Usuario;
 import Logica.ABMUsuario;
-//import Logica.ABMUsuario;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -493,12 +492,12 @@ public class GestionarUsuario extends javax.swing.JFrame {
     public boolean validarCampoNombreUsu() {
         if (jTextFieldNombre.getText().length() > 0) {
             if (jTextFieldNombre.getText().length() <= 20) {
-                //if (jTextFieldDescripcion.getText().matches("[A-Za-z\\s]+")) {
+                if (jTextFieldNombre.getText().matches("[A-Za-z\\s]+")) {
                     return true;
-                //} else {
-                //    JOptionPane.showMessageDialog(this, "ERROR: La Descripcion Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                //    return false;
-                //}
+                } else {
+                    JOptionPane.showMessageDialog(this, "ERROR: El Nombre De Usuario Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre de Usuario\" No Debe Contener Mas de 20 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;

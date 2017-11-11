@@ -483,6 +483,7 @@ public class GestionarComida extends javax.swing.JFrame {
 
     private void cargarTablaComida() {
         ResultSet Re;
+        
         try {
             Comida C = new Comida();
             Re = C.consultarTodasLasComidas();

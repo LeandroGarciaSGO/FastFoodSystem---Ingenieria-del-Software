@@ -239,7 +239,7 @@ public class Usuario {
 //        }
 //        return rsDatos;
 //    }
-    public ResultSet consultaUsuarioId2(int idUsuario) throws ClassNotFoundException {
+    public ResultSet consultaUsuarioId(int idUsuario) throws ClassNotFoundException {
         try {
             Connection conex = Conexion.Cadena();
             String ConsultaSQL = "SELECT * FROM usuario WHERE idUsuario = '" + idUsuario + "'";
@@ -269,7 +269,7 @@ public class Usuario {
     public void agregarNuevoUsuario() throws ClassNotFoundException {
         try {
             Connection conex = Conexion.Cadena();
-            psPrepSencencias = conex.prepareStatement("insert into usuario (nombreUsuario, nombreYApellido, contraseña, tipoDocumento, numDocumento, tipoUsuario, estado) values (?, ?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            psPrepSencencias = conex.prepareStatement("insert into usuario (nombreUsuario, nombreYApellido, contraseña, tipoDocumento, numDocumento, tipoUsuario, estado) values (?, ?, MD5(?), ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             psPrepSencencias.setString(1, nombreUsuario);
             psPrepSencencias.setString(2, nombreYApellido);
             psPrepSencencias.setString(3, contraseña);
@@ -305,7 +305,7 @@ public class Usuario {
 
         } catch (SQLException ex) {
             //Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger(Comida.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

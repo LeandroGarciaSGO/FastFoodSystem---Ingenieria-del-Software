@@ -488,7 +488,13 @@ public class Usuarios extends javax.swing.JFrame {
     private boolean validarCampoNombreUsuario() {
         if (jTextFieldNombUsu.getText().length() > 0) {
             if (jTextFieldNombUsu.getText().length() <= 20) {
-                return true;
+                if (jTextFieldNombUsu.getText().matches("[A-Za-z\\s]+")){
+                    return true;
+                }else{
+                    JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre de Usuario\" Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre de Usuario\" No Debe Contener Mas de 20 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
@@ -522,23 +528,8 @@ public class Usuarios extends javax.swing.JFrame {
     private boolean validarCampoContraseña() {
         if (jPasswordContra.getText().length() >= 8) {
             if (jPasswordContra.getText().length() <= 50) {
-                if (jPasswordContra.getText().matches("[[A-Z]+[a-z]+[0-9]+[!|#|$|&|=|?|¿|+|-|*|-|_]+]+")) {
-                   // if (jPasswordContra.getText().matches("[a-z]+")) {
-                     //   if (jPasswordContra.getText().matches("[0-9]+")) {
-                      //      if (jPasswordContra.getText().matches("[!|#|$|&|=|?|¿|+|-|*|-|_]+")) {
-                                return true;
-                       //     } else {
-                      //          JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Al Menos Uno De Los Siguientes Caracteres:\n! # $ & = ? ¿ + - * - _", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                      //          return false;
-                      //      }
-                       // } else {
-                       //     JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Debe Contener Al Menos Un Numero", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                       //     return false;
-                       // }
-                    //} else {
-                    //    JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Debe Contener Al Menos Una Letra Minuscula", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-                    //    return false;
-                    //}
+                if (jPasswordContra.getText().matches("[[A-Z]+[a-z]+[0-9]+[@|¡|!|#|$|&|=|?|¿|+|*|-|_]+]+")) {
+                    return true;
                 } else {
                     JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Debe Contener Al Menos Una Letra Mayuscula, Una Letra Minuscula, Un Numero y Un Caracter Especial", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     return false;

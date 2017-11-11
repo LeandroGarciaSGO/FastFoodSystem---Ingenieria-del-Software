@@ -31,7 +31,6 @@ public class ABMUsuario {
                     return false;
                 }
             } else {
-                //C.agregarNuevaComida();
                 U.modificar();
                 System.out.println("\nEXISTE 1\n");
                 return true;
@@ -45,7 +44,7 @@ public class ABMUsuario {
 
     public boolean nuevoUsuario(Usuario U) throws ClassNotFoundException, SQLException {
         ResultSet NU;
-        NU = U.consultaUsuarioId2(U.getIdUsuario());
+        NU = U.consultaUsuarioId(U.getIdUsuario());
 
         if (NU.first()) {
             if (NU.getBoolean("estado")) {
@@ -86,7 +85,7 @@ public class ABMUsuario {
             miUsuario.setContraseña(datosUsuario.getString("contraseña"));
             miUsuario.setTipoDocumento(datosUsuario.getString("tipoDocumento"));
             miUsuario.setNumDocumento(datosUsuario.getInt("numDocumento"));
-            miUsuario.setTipoDocumento(datosUsuario.getString("tipoUsuario"));
+            miUsuario.setTipoUsuario(datosUsuario.getInt("tipoUsuario"));
             miUsuario.setEstado(datosUsuario.getBoolean("estado"));
             if (miUsuario.isEstado()) {
                 return miUsuario;
