@@ -8,6 +8,7 @@ package Presentacion;
 import Datos.Cliente;
 import Datos.Conexion;
 import Datos.Usuario;
+import Logica.OperacionesTransacciones;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.io.File;
@@ -34,6 +35,8 @@ public class PrincipalCocina extends javax.swing.JFrame {
     private Statement sentencia;
     private ResultSet rsDatos;
     private String estadoPedido;
+    Usuario usuarioSistema;
+    int codigoPedido;
 
     /**
      * Creates new form PrincipalEncargado
@@ -44,8 +47,18 @@ public class PrincipalCocina extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         cargarTablaPedidos();
+        usuarioSistema = new Usuario();
 
     }
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,8 +84,6 @@ public class PrincipalCocina extends javax.swing.JFrame {
         jButtonActualizarLista = new javax.swing.JButton();
         jButtonVerDetalle = new javax.swing.JButton();
         jButtonAyuda = new javax.swing.JButton();
-        jLabelUsuario = new javax.swing.JLabel();
-        jLabelUsuarioNombre = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTablaPedidos = new javax.swing.JTable();
         jButtonCerrarSesion = new javax.swing.JButton();
@@ -284,13 +295,6 @@ public class PrincipalCocina extends javax.swing.JFrame {
             }
         });
 
-        jLabelUsuario.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabelUsuario.setText("Usuario:");
-
-        jLabelUsuarioNombre.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
-        jLabelUsuarioNombre.setText("...");
-        jLabelUsuarioNombre.setToolTipText("");
-
         jTableTablaPedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -344,26 +348,19 @@ public class PrincipalCocina extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonActualizarLista, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonVerDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabelUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelUsuarioNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonActualizarLista, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonVerDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -380,11 +377,7 @@ public class PrincipalCocina extends javax.swing.JFrame {
                     .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelUsuario)
-                    .addComponent(jLabelUsuarioNombre))
-                .addGap(27, 27, 27))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         pack();
@@ -397,7 +390,7 @@ public class PrincipalCocina extends javax.swing.JFrame {
         int fila = jTableTablaPedidos.getSelectedRow();
         if (fila >= 0) {
             int filasselec = jTableTablaPedidos.getSelectedRow();
-            int codigoPedido = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec, 0)));
+            codigoPedido = Integer.parseInt(String.valueOf(modelo.getValueAt(filasselec, 0)));
             try {
                 cargarTablaDetallesPedido(codigoPedido);
             } catch (ClassNotFoundException ex) {
@@ -472,10 +465,10 @@ public class PrincipalCocina extends javax.swing.JFrame {
 
     private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
         // TODO add your handling code here:
-        File f = new File("Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
+        File f = new File("src\\Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
         System.out.println("RUTA" + f.getAbsolutePath()); // Llamamos al método que devuelve la ruta absoluta
-        JOptionPane.showMessageDialog(this, "RUTA" + f.getAbsolutePath(), "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-        abrirManual(f.getAbsolutePath());
+        //JOptionPane.showMessageDialog(this, "RUTA" + f.getAbsolutePath(), "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+        abrirManual(f.getAbsolutePath()); 
     }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     private void jRadioButtonTerminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTerminarPedidoActionPerformed
@@ -484,14 +477,24 @@ public class PrincipalCocina extends javax.swing.JFrame {
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
 // TODO add your handling code he
+        OperacionesTransacciones OT = new OperacionesTransacciones();
         int numPedido = Integer.parseInt(jLabelNumPedido.getText());
         actualizarEstado(numPedido, estadoPedido);
+        int entidad = 3;
         try {
             cargarTablaPedidos();
+            if(jRadioButtonIniciarElaboracion.isSelected()){
+            int accion = 19;
+            OT.registrarTransaccion(accion, entidad, codigoPedido, usuarioSistema);
+        }
+           else{
+            int accion = 20;
+            OT.registrarTransaccion(accion, entidad, codigoPedido, usuarioSistema);
+        } 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PrincipalCocina.class.getName()).log(Level.SEVERE, null, ex);
         }
-        jDialogDetallePedido.dispose();        // TODO add your handling code here:
+       jDialogDetallePedido.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     private void jButtonSalirDetallePedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirDetallePedidoActionPerformed
@@ -598,8 +601,6 @@ public class PrincipalCocina extends javax.swing.JFrame {
     private javax.swing.JDialog jDialogDetallePedido;
     private javax.swing.JLabel jLabelNumPedido;
     private javax.swing.JLabel jLabelPedido;
-    private javax.swing.JLabel jLabelUsuario;
-    private javax.swing.JLabel jLabelUsuarioNombre;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButtonIniciarElaboracion;
