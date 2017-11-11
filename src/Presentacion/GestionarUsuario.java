@@ -96,7 +96,8 @@ public class GestionarUsuario extends javax.swing.JFrame {
         jButtonCancelarSelecc = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FastFoodSystem - Gestionar Usuario");
 
         jPanelNombreUsu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Verdana", 0, 14))); // NOI18N
 

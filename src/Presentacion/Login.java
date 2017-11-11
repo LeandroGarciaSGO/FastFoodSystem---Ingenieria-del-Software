@@ -236,7 +236,7 @@ public class Login extends javax.swing.JFrame {
                             PE.setVisible(true);
                         } else {
                             PrincipalCocina PC = new PrincipalCocina();
-                            //AGREGAR SET
+                            PC.setUsuarioSistema(respuesta);
                             PC.setVisible(true);
                         }
                     }
