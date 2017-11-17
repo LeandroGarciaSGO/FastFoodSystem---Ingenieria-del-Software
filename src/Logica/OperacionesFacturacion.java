@@ -100,6 +100,49 @@ public class OperacionesFacturacion {
            factura.insertarDetalle();
        }
    }
+
+    public Facturacion buscarFactura(int id) throws SQLException, ClassNotFoundException {
+        ResultSet datosFactura;        
+        Facturacion f = new Facturacion();
+        datosFactura = f.obtenerFactura(id);
+        if(datosFactura.first()){
+            f = new Facturacion();
+            f.setNumFactura(datosFactura.getInt("numFactura"));
+            f.setImporte(0);
+            Pedido p = new Pedido();
+            p.setFecha(datosFactura.getDate("fecha"));
+            p.setIdPedido(datosFactura.getInt("idPedido"));
+            //p.setHora(datosFactura.getTime("hora"));            
+            p.setHora(null);
+            f.setDatospedido(p);
+            Cliente c = new Cliente();
+            //c.setIdCliente(datosFactura.getInt("idCliente"));
+            c.setIdCliente(0);
+            c.setNombre(datosFactura.getString("nombreCliente"));
+            f.setDatoscliente(c);
+            f.setEstado(datosFactura.getBoolean("estado"));
+            return f;
+        }
+        return null;
+    }
+    
+    
+    public Cliente buscarCliente(long telefono) throws ClassNotFoundException, SQLException {
+        ResultSet datosCliente;
+        Cliente miCliente = new Cliente();
+        datosCliente = miCliente.obtenerCliente(telefono);
+        if (datosCliente.first()) {
+            miCliente.setIdCliente(datosCliente.getInt("idCliente"));
+            miCliente.setNombre(datosCliente.getString("nombre"));
+            miCliente.setApellido(datosCliente.getString("apellido"));
+            miCliente.setDomicilio(datosCliente.getString("domicilio"));
+            miCliente.setTelefono(datosCliente.getLong("telefono"));
+            miCliente.setEstado(datosCliente.getBoolean("estado"));
+            return miCliente;            
+        }
+        return null;
+    }
+    
    
 
     

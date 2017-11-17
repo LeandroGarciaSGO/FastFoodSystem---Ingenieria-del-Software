@@ -91,6 +91,11 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
         jButtonNuevoUsuario.setMaximumSize(new java.awt.Dimension(210, 80));
         jButtonNuevoUsuario.setMinimumSize(new java.awt.Dimension(210, 80));
         jButtonNuevoUsuario.setPreferredSize(new java.awt.Dimension(210, 80));
+        jButtonNuevoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoUsuarioActionPerformed(evt);
+            }
+        });
 
         jButtonInformes.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jButtonInformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-informes.png"))); // NOI18N
@@ -268,6 +273,13 @@ public class PrincipalAdministrador extends javax.swing.JFrame {
         System.out.println(usuarioSistema.getIdUsuario());
         GU.setVisible(true);
     }//GEN-LAST:event_jMenuItemGestionUsuarioActionPerformed
+
+    private void jButtonNuevoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoUsuarioActionPerformed
+        GestionarUsuario GU = new GestionarUsuario();
+        GU.setUsuarioSistema(usuarioSistema);
+        System.out.println(usuarioSistema.getIdUsuario());
+        GU.setVisible(true);
+    }//GEN-LAST:event_jButtonNuevoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

@@ -23,6 +23,7 @@ public class Facturacion {
     private Cliente datoscliente;
     private float importe;
     private float tarifaDeEnvio;
+    private boolean estado;
     
     public Facturacion(){
         this.datoscliente = null;
@@ -91,6 +92,14 @@ public class Facturacion {
 
     public void setTarifaDeEnvio(float tarifaDeEnvio) {
         this.tarifaDeEnvio = tarifaDeEnvio;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
     
@@ -171,4 +180,26 @@ public class Facturacion {
             rsDatos = psPrepSencencias.getGeneratedKeys();
          //}
     }
+
+    public ResultSet obtenerFactura(int id) throws ClassNotFoundException{
+        try {
+            Connection conex = Conexion.Cadena();            
+            String ConsultaSQL = "SELECT * FROM factura WHERE numFactura = " + id; 
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);            
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos;       
+    }
+
+    public void anular(int numFactura) throws ClassNotFoundException, SQLException {
+        Connection cn = Conexion.Cadena();
+        psPrepSencencias = cn.prepareStatement("UPDATE factura SET estado = ? WHERE numFactura = ?" ,PreparedStatement.RETURN_GENERATED_KEYS);
+        psPrepSencencias.setBoolean(1, false);
+        psPrepSencencias.setInt(2, numFactura);
+        psPrepSencencias.executeUpdate();
+    }
+    
+   
 }

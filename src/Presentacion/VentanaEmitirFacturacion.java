@@ -841,7 +841,7 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                 Pedido p = new Pedido();
                 p = Factura.getDatospedido();
                 p.modificarEstado(4);
-                OF.guardarDetalle(Factura, listaDetalles);
+                OF.guardarDetalle(Factura, listaDetalles);                
                 JOptionPane.showMessageDialog(this, "La Factura se Imprimio y se Guardo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                 VentanaGenerarFactura VGF = new VentanaGenerarFactura();
                 VGF.setVisible(true);

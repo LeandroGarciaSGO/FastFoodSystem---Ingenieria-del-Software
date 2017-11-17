@@ -79,7 +79,6 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FastFoodSystem - Principal");
         setBackground(new java.awt.Color(153, 204, 255));
-        setMaximumSize(new java.awt.Dimension(740, 520));
         setMinimumSize(new java.awt.Dimension(740, 520));
         setResizable(false);
 
@@ -246,6 +245,11 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuItemAnularFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAnularFactura.setText("Anular Factura");
+        jMenuItemAnularFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAnularFacturaActionPerformed(evt);
+            }
+        });
         jMenuFacturacion.add(jMenuItemAnularFactura);
 
         jMenuBar1.add(jMenuFacturacion);
@@ -445,6 +449,12 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenuItemManualActionPerformed
+
+    private void jMenuItemAnularFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnularFacturaActionPerformed
+        // TODO add your handling code here:
+        VentanaAnularFactura VAF = new VentanaAnularFactura();
+        VAF.setVisible(true);
+    }//GEN-LAST:event_jMenuItemAnularFacturaActionPerformed
 
     public void abrirManual(String archivo) {
 

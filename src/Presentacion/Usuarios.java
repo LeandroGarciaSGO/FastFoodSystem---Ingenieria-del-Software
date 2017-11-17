@@ -528,7 +528,8 @@ public class Usuarios extends javax.swing.JFrame {
     private boolean validarCampoContraseña() {
         if (jPasswordContra.getText().length() >= 8) {
             if (jPasswordContra.getText().length() <= 50) {
-                if (jPasswordContra.getText().matches("[[A-Z]+[a-z]+[0-9]+[@|¡|!|#|$|&|=|?|¿|+|*|-|_]+]+")) {
+                //if (jPasswordContra.getText().matches("[   [A-Z]    +    [a-z]   +   [0-9]   +   [@|¡|!|#|$|&|=|?|¿|+|*|-|_]    ]+")) {
+                if (jPasswordContra.getText().matches("(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,50}$")) {
                     return true;
                 } else {
                     JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Debe Contener Al Menos Una Letra Mayuscula, Una Letra Minuscula, Un Numero y Un Caracter Especial", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
@@ -554,8 +555,8 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     private boolean validarNumeroDocu() {
-        if (jTextFieldNumDocu.getText().length() > 0) {
-            if (jTextFieldNumDocu.getText().length() <= 9) {
+        
+            if (jTextFieldNumDocu.getText().length() == 9) {
                 if (jTextFieldNumDocu.getText().matches("[0-9]+")) {
                     return true;
                 } else {
@@ -563,13 +564,10 @@ public class Usuarios extends javax.swing.JFrame {
                     return false;
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Numero de Documento\" No Debe Contener Mas de 9 Numeros", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Numero de Documento\" Debe Contener 9 Numeros", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Numero de Documento\" No Debe Estar Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+        
     }
 
     private boolean validarTipoUsuario() {
