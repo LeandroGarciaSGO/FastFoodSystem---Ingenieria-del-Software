@@ -66,6 +66,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jMenuComidas = new javax.swing.JMenu();
         jMenuGestionarComida = new javax.swing.JMenuItem();
         jMenuPedidos = new javax.swing.JMenu();
+        jMenuItemNuevoPedido = new javax.swing.JMenuItem();
         jMenuItemGestionarPedido = new javax.swing.JMenuItem();
         jMenuCadetes = new javax.swing.JMenu();
         jMenuItemNuevoCadete = new javax.swing.JMenuItem();
@@ -208,7 +209,16 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuPedidos.setText("Pedidos");
 
-        jMenuItemGestionarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNuevoPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNuevoPedido.setText("Nuevo Pedido");
+        jMenuItemNuevoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNuevoPedidoActionPerformed(evt);
+            }
+        });
+        jMenuPedidos.add(jMenuItemNuevoPedido);
+
+        jMenuItemGestionarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGestionarPedido.setText("Gestionar Pedidos");
         jMenuItemGestionarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +231,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuCadetes.setText("Cadetes");
 
-        jMenuItemNuevoCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNuevoCadete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemNuevoCadete.setText("Gestionar Cadetes");
         jMenuItemNuevoCadete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,7 +244,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuFacturacion.setText("Facturacion");
 
-        jMenuItemGenerarFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemGenerarFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemGenerarFactura.setText("Generar Factura");
         jMenuItemGenerarFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +253,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
         jMenuFacturacion.add(jMenuItemGenerarFactura);
 
-        jMenuItemAnularFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemAnularFactura.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemAnularFactura.setText("Anular Factura");
         jMenuItemAnularFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,7 +266,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuAyuda.setText("Ayuda");
 
-        jMenuItemInformacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemInformacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemInformacion.setText("Informacion");
         jMenuItemInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -265,7 +275,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
         jMenuAyuda.add(jMenuItemInformacion);
 
-        jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemManual.setText("Manual de Usuario");
         jMenuItemManual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,9 +388,15 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonModificarClienteActionPerformed
     private void jButtonNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoPedidoActionPerformed
         // TODO add your handling code here:
-        GestionarPedido GP = new GestionarPedido();
-        GP.setUsuarioSistema(usuarioSistema);
-        GP.setVisible(true);
+        DatosPedido DP = null;
+        try {
+            DP = new DatosPedido();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DP.setVisible(true);
     }//GEN-LAST:event_jButtonNuevoPedidoActionPerformed
 
     private void jButtonModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarPedidoActionPerformed
@@ -396,13 +412,6 @@ public class PrincipalEncargado extends javax.swing.JFrame {
             Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonModificarPedidoActionPerformed
-
-    private void jMenuItemGestionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarPedidoActionPerformed
-        // TODO add your handling code here:
-        GestionarPedido GP = new GestionarPedido();
-        GP.setUsuarioSistema(usuarioSistema);
-        GP.setVisible(true);
-    }//GEN-LAST:event_jMenuItemGestionarPedidoActionPerformed
 
     private void jButtonCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPedidoActionPerformed
         try {
@@ -455,6 +464,33 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         VentanaAnularFactura VAF = new VentanaAnularFactura();
         VAF.setVisible(true);
     }//GEN-LAST:event_jMenuItemAnularFacturaActionPerformed
+
+    private void jMenuItemGestionarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionarPedidoActionPerformed
+        // TODO add your handling code here:
+        ModificarPedido MP;
+        try {
+            MP = new ModificarPedido();
+            MP.setUsuarioSistema(usuarioSistema);
+            MP.setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemGestionarPedidoActionPerformed
+
+    private void jMenuItemNuevoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoPedidoActionPerformed
+        // TODO add your handling code here:
+        DatosPedido DP = null;
+        try {
+            DP = new DatosPedido();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DP.setVisible(true);
+    }//GEN-LAST:event_jMenuItemNuevoPedidoActionPerformed
 
     public void abrirManual(String archivo) {
 
@@ -530,6 +566,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemManual;
     private javax.swing.JMenuItem jMenuItemNuevoCadete;
     private javax.swing.JMenuItem jMenuItemNuevoCliente;
+    private javax.swing.JMenuItem jMenuItemNuevoPedido;
     private javax.swing.JMenu jMenuPedidos;
     // End of variables declaration//GEN-END:variables
 }

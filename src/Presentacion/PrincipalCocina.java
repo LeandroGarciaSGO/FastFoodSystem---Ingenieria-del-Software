@@ -465,7 +465,7 @@ public class PrincipalCocina extends javax.swing.JFrame {
 
     private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
         // TODO add your handling code here:
-        File f = new File("src\\Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
+        File f = new File("Manuales\\ManualUsuario.pdf"); // Creamos un objeto file
         System.out.println("RUTA" + f.getAbsolutePath()); // Llamamos al método que devuelve la ruta absoluta
         //JOptionPane.showMessageDialog(this, "RUTA" + f.getAbsolutePath(), "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
         abrirManual(f.getAbsolutePath()); 

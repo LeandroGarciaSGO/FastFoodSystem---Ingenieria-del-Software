@@ -99,7 +99,7 @@ public class Usuarios extends javax.swing.JFrame {
             jLabelIdUsu.setText(String.valueOf(datosUsuario.getIdUsuario()));
             jTextFieldNombUsu.setText(datosUsuario.getNombreUsuario());
             jTextFieldNombApe.setText(datosUsuario.getNombreYApellido());
-            jPasswordContra.setText(datosUsuario.getContraseña());
+            //jPasswordContra.setText(datosUsuario.getContraseña());
             jComboBoxTipoDocu.setSelectedItem(datosUsuario.getTipoDocumento());
             jTextFieldNumDocu.setText(String.valueOf(datosUsuario.getNumDocumento()));
             jComboBoxTipoUsu.setSelectedIndex(datosUsuario.getTipoUsuario());
@@ -529,7 +529,7 @@ public class Usuarios extends javax.swing.JFrame {
         if (jPasswordContra.getText().length() >= 8) {
             if (jPasswordContra.getText().length() <= 50) {
                 //if (jPasswordContra.getText().matches("[   [A-Z]    +    [a-z]   +   [0-9]   +   [@|¡|!|#|$|&|=|?|¿|+|*|-|_]    ]+")) {
-                if (jPasswordContra.getText().matches("(?=\\w*\\d)(?=\\w*[A-Z])(?=\\w*[a-z])\\S{8,50}$")) {
+                if (jPasswordContra.getText().matches("^(?=.*\\d)(?=.*[\\u0021-\\u002b\\u003c-\\u0040])(?=.*[A-Z])(?=.*[a-z])\\S{8,50}$")) {
                     return true;
                 } else {
                     JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Debe Contener Al Menos Una Letra Mayuscula, Una Letra Minuscula, Un Numero y Un Caracter Especial", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);

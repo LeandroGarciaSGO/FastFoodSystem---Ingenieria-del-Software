@@ -40,7 +40,7 @@ public class GestionarUsuario extends javax.swing.JFrame {
         setResizable(false);
         jButtonEliminarUsu.setEnabled(false);
         jButtonModificarUsu.setEnabled(false);
-        String cabecera[] = {"Id", "Nombre Usuario", "Nombre y Apellido", "Contraseña" ,"Tipo Documento", "Nro Documento", "Tipo Usuario"};
+        String cabecera[] = {"Id", "Nombre Usuario", "Nombre y Apellido","Tipo Documento", "Nro Documento", "Tipo Usuario"};
         String datos[][] = {};
         modelo = new DefaultTableModel(datos, cabecera);
         jTableUsuario.setModel(modelo);
@@ -473,11 +473,18 @@ public class GestionarUsuario extends javax.swing.JFrame {
                     int id = Re.getInt("idUsuario");
                     String nombUsu = Re.getString("nombreUsuario");
                     String nombApe = Re.getString("nombreYApellido");
-                    String contra = Re.getString("contraseña");
+                    //String contra = Re.getString("contraseña");
                     String tipoDocu = Re.getString("tipoDocumento");
                     int docu = Re.getInt("numDocumento");
                     int tipoUsu = Re.getInt("tipoUsuario");
-                    Object fila[] = {id,nombUsu,nombApe,contra,tipoDocu,docu,tipoUsu};
+                    String tipoU = "";
+                    switch(tipoUsu){
+                        case 1: tipoU = "Administrador"; break;
+                        case 2: tipoU = "Encargado"; break;
+                        case 3: tipoU = "Cocinero"; break;
+                    }
+                    
+                    Object fila[] = {id,nombUsu,nombApe,tipoDocu,docu,tipoU};
                     modelo.addRow(fila);
                 }
             } catch (SQLException ex) {
