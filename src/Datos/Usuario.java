@@ -55,6 +55,9 @@ public class Usuario {
         this.numDocumento = docu;
         this.tipoUsuario = tipoUsu;
         this.estado = false;
+        this.sentencia = null;
+        this.rsDatos = null;
+        this.psPrepSencencias = null;
     }
 
     
@@ -312,28 +315,52 @@ public class Usuario {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public boolean modificar() throws ClassNotFoundException {
+    
+    
+    public void modificar2() throws ClassNotFoundException {
         try {
-            //System.out.println(tipo);
+            int id = idUsuario;
             Connection cn = Conexion.Cadena();
             // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
             // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("UPDATE usuario SET nombreUsuario = ? , nombreYApellido = ? , contraseña = ? ,tipoDocumento = ?, numDocumento = ?, tipoUsuario = ? ,estado = ? WHERE idUsuario = ?", PreparedStatement.RETURN_GENERATED_KEYS);
+            psPrepSencencias = cn.prepareStatement("UPDATE usuario SET estado = true WHERE idUsuario = " + id, PreparedStatement.RETURN_GENERATED_KEYS);
+            // cargo parametros
+            //psPrepSencencias.setBoolean(1, true);
+            //psPrepSencencias.setInt(2, id);
+            //ejecuto sentencia
+            psPrepSencencias.executeUpdate();
+            //obtengo el id del registro recien insertado
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    
+    
+    public boolean modificar() throws ClassNotFoundException {
+        try {      
+            Connection cn = Conexion.Cadena();
+            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
+            // para poder obtener el ID del campo autoincrement
+            psPrepSencencias = cn.prepareStatement("UPDATE usuario SET nombreUsuario = ? , nombreYApellido = ?, contraseña = MD5(?) ,tipoDocumento = ?, numDocumento = ? ,tipoUsuario = ?,estado = ? WHERE idUsuario = ?",PreparedStatement.RETURN_GENERATED_KEYS);
             // cargo parametros
             psPrepSencencias.setString(1, nombreUsuario);
             psPrepSencencias.setString(2, nombreYApellido);
             psPrepSencencias.setString(3, contraseña);
+            
             psPrepSencencias.setString(4, tipoDocumento);
-            psPrepSencencias.setInt(5, numDocumento);
-            psPrepSencencias.setInt(6, tipoUsuario);
-            psPrepSencencias.setBoolean(7, true);
+             psPrepSencencias.setInt(5, numDocumento);
+              psPrepSencencias.setInt(6, tipoUsuario);
+            psPrepSencencias.setBoolean(7, estado);
             psPrepSencencias.setInt(8, idUsuario);
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();
             //obtengo el id del registro recien insertado
+           
         } catch (SQLException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
     }

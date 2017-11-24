@@ -31,6 +31,8 @@ public class ABMUsuario {
                     return false;
                 }
             } else {
+                U.setIdUsuario(NU.getInt("idUsuario"));
+                U.setEstado(true);
                 U.modificar();
                 System.out.println("\nEXISTE 1\n");
                 return true;
