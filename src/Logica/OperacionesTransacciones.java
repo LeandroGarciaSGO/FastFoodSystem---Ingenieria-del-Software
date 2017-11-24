@@ -37,7 +37,10 @@ public class OperacionesTransacciones {
             case 18: res = "Factura Anulada"; break;
             case 19: res = "Se Inicio Elaboracion de Pedido"; break;
             case 20: res = "Se Termino el Pedido"; break;
-            case 21: res = "Se Envio al Cliente el Pedido"; break;           
+            case 21: res = "Se Envio al Cliente el Pedido"; break;
+            case 22: res = "Registo de una Zona"; break;
+            case 23: res = "Modificacion de una Zona"; break;
+            case 24: res = "Eliminacion de una Zona"; break; 
         }
         return res;
     }
@@ -50,7 +53,8 @@ public class OperacionesTransacciones {
             case 3: res = "Comida"; break;
             case 4: res = "Cadete"; break;
             case 5: res = "Pedido"; break;
-            case 6: res = "Factura"; break;                   
+            case 6: res = "Factura"; break;
+            case 7: res = "Zona"; break;
         }
         return res;       
     }

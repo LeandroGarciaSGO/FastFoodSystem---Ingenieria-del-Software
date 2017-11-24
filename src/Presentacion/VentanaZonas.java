@@ -297,8 +297,8 @@ public class VentanaZonas extends javax.swing.JFrame {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         OperacionesTransacciones OT = new OperacionesTransacciones();
-        int accion = 12;
-        int entidad = 2;
+        int accion = 24;
+        int entidad = 7;
         Zona U = new Zona();
         try {
             U.eliminar(Integer.parseInt(jLabelIdZona.getText()));
@@ -324,7 +324,7 @@ public class VentanaZonas extends javax.swing.JFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         OperacionesTransacciones OT = new OperacionesTransacciones();
         int accion;
-        int entidad = 2;
+        int entidad = 7;
         if (((((validarCampoNombreUsuario() && validarCampoNombreApellido()) && validarCampoContraseña()) && validarTipoDocu())
                 && validarNumeroDocu()) && validarTipoUsuario()) {
             Zona U = new Zona();
@@ -338,7 +338,7 @@ public class VentanaZonas extends javax.swing.JFrame {
             if (condatos_vacio == 1) {
                 try {
                     if (OpeA.modificarZona(U)) {
-                        accion = 11;
+                        accion = 23;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdZona.getText()), usuarioSistema);
                         JOptionPane.showMessageDialog(this, "La Zona Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         VentanaGestionarZonas volverGestionar = new VentanaGestionarZonas();
@@ -360,7 +360,7 @@ public class VentanaZonas extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "ERROR: El Nombre De Zona Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "La Zona Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                        accion = 13;
+                        accion = 22;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdZona.getText()), usuarioSistema);
                         VentanaGestionarZonas volverGestionar = new VentanaGestionarZonas();
                         volverGestionar.setUsuarioSistema(usuarioSistema);
@@ -368,6 +368,8 @@ public class VentanaZonas extends javax.swing.JFrame {
                         this.dispose();
                     }
                 } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
                     Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

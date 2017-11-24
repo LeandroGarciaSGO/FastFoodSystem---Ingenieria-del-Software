@@ -61,10 +61,14 @@ public class OperacionesAdicionales {
                     U.actualizar();
                     return true;
                 } else {
+                    
                     return false;
                 }
             }
         }
+        if(!r2.first()){
+                        U.actualizar();
+                        return true;}
         return false;
 //        if(r.first() && r.getBoolean("estado")){
 //            U.actualizar();          
