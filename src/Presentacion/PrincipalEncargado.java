@@ -364,6 +364,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jMenuItemGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGenerarFacturaActionPerformed
         // TODO add your handling code here:
         VentanaGenerarFactura VGF = new VentanaGenerarFactura();
+        VGF.setUsuarioSistema(usuarioSistema);
         VGF.setVisible(true);
     }//GEN-LAST:event_jMenuItemGenerarFacturaActionPerformed
 
@@ -377,6 +378,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jButtonGenerarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarFacturaActionPerformed
         // TODO add your handling code here:
         VentanaGenerarFactura VGF = new VentanaGenerarFactura();
+        VGF.setUsuarioSistema(usuarioSistema);
         VGF.setVisible(true);
     }//GEN-LAST:event_jButtonGenerarFacturaActionPerformed
 
@@ -462,6 +464,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jMenuItemAnularFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAnularFacturaActionPerformed
         // TODO add your handling code here:
         VentanaAnularFactura VAF = new VentanaAnularFactura();
+        VAF.setDatosUsuario(usuarioSistema);
         VAF.setVisible(true);
     }//GEN-LAST:event_jMenuItemAnularFacturaActionPerformed
 

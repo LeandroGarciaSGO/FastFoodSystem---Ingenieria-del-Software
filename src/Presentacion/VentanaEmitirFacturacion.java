@@ -9,9 +9,11 @@ import Datos.Cadete;
 import Datos.DetallePedido;
 import Datos.Facturacion;
 import Datos.Pedido;
+import Datos.Usuario;
 import Datos.Zona;
 import Logica.AMBCadete;
 import Logica.OperacionesFacturacion;
+import Logica.OperacionesTransacciones;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
@@ -38,6 +40,15 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
         private float importeTotal;
         private Zona z;
         private OperacionesFacturacion OF;
+        private Usuario usuarioSistema;
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
     /**
      * Creates new form VentanaFacturacion
      */
@@ -841,7 +852,11 @@ public class VentanaEmitirFacturacion extends javax.swing.JFrame implements Prin
                 Pedido p = new Pedido();
                 p = Factura.getDatospedido();
                 p.modificarEstado(4);
-                OF.guardarDetalle(Factura, listaDetalles);                
+                OF.guardarDetalle(Factura, listaDetalles);
+                OperacionesTransacciones OT = new OperacionesTransacciones();
+                int accion = 17;
+                int entidad = 6;
+                OT.registrarTransaccion(accion,entidad, Factura.getNumFactura(), usuarioSistema);
                 JOptionPane.showMessageDialog(this, "La Factura se Imprimio y se Guardo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                 VentanaGenerarFactura VGF = new VentanaGenerarFactura();
                 VGF.setVisible(true);

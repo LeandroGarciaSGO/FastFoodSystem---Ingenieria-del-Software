@@ -6,6 +6,8 @@
 package Presentacion;
 
 import Datos.Facturacion;
+import Datos.Usuario;
+import Logica.OperacionesTransacciones;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +27,16 @@ public class VentanaConfirmacion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public Facturacion factura;
+    private Facturacion factura;
+    private Usuario datosUsuario;
+
+    public Usuario getDatosUsuario() {
+        return datosUsuario;
+    }
+
+    public void setDatosUsuario(Usuario datosUsuario) {
+        this.datosUsuario = datosUsuario;
+    }
 
     public Facturacion getFactura() {
         return factura;
@@ -220,7 +231,15 @@ public class VentanaConfirmacion extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(VentanaConfirmacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        JOptionPane.showMessageDialog(this, "La Factura Se Anulo Correctamente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+        OperacionesTransacciones OP = new OperacionesTransacciones();
+        int accion = 18;
+        int entidad = 6;
+        try {
+            OP.registrarTransaccion(accion, entidad, factura.getNumFactura(), datosUsuario);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VentanaConfirmacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(this, "La Factura Se Anulo Correctamente", "FastFoodSystem", JOptionPane.OK_OPTION);
         this.dispose();
     }//GEN-LAST:event_jButtonAnularActionPerformed
 
@@ -261,8 +280,6 @@ public class VentanaConfirmacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnular;
-    private javax.swing.JButton jButtonEliminar;
-    private javax.swing.JButton jButtonEliminar1;
     private javax.swing.JLabel jLabelDomicilioFactura;
     private javax.swing.JLabel jLabelFactura;
     private javax.swing.JLabel jLabelFec;

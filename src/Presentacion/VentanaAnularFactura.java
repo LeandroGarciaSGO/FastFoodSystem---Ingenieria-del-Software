@@ -6,6 +6,7 @@
 package Presentacion;
 
 import Datos.Facturacion;
+import Datos.Usuario;
 import Logica.OperacionesFacturacion;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -25,7 +26,19 @@ public class VentanaAnularFactura extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
+    private Usuario datosUsuario;
 
+    public Usuario getDatosUsuario() {
+        return datosUsuario;
+    }
+
+    public void setDatosUsuario(Usuario datosUsuario) {
+        this.datosUsuario = datosUsuario;
+    }
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,11 +173,12 @@ public class VentanaAnularFactura extends javax.swing.JFrame {
             }
             if(res!=null){
                 if(!res.isEstado()){
-                    JOptionPane.showMessageDialog(this, "La Factura Ya Esta Anulada", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "ERROR: La Factura Ya Esta Anulada", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             
                 }else{
             VentanaConfirmacion VC = new VentanaConfirmacion();
             VC.setFactura(res);
+            VC.setDatosUsuario(datosUsuario);
             VC.cargarDatos();
             VC.setVisible(true);
             this.dispose();}
@@ -172,7 +186,7 @@ public class VentanaAnularFactura extends javax.swing.JFrame {
 //                 JOptionPane.showMessageDialog(this, "La Factura Se Anulo Correctamente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
 //            }
             }else{
-                 JOptionPane.showMessageDialog(this, "La Factura Inexistente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                 JOptionPane.showMessageDialog(this, "ERROR: La Factura Inexistente", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
             }
 //            if(res == 0){
 //                 JOptionPane.showMessageDialog(this, "La Factura No Se Puede Anular", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);

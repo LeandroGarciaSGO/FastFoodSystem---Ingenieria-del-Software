@@ -6,6 +6,7 @@
 package Presentacion;
 
 import Datos.Facturacion;
+import Datos.Usuario;
 import Logica.OperacionesCliente;
 import Logica.OperacionesFacturacion;
 import java.sql.SQLException;
@@ -21,7 +22,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VentanaGenerarFactura extends javax.swing.JFrame {
     ArrayList<Facturacion> listaPedListos = new ArrayList<Facturacion>();
+    private Usuario usuarioSistema;
 
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
     /**
      * Creates new form VentanaGenerarFactura
      */
@@ -184,6 +193,7 @@ public class VentanaGenerarFactura extends javax.swing.JFrame {
             int indice = jTablePedidosListos.getSelectedRow();
             System.out.print(indice);
             VentanaEmitirFacturacion VEF = new VentanaEmitirFacturacion();
+            VEF.setUsuarioSistema(usuarioSistema);
          try {
              VEF.setFactura(listaPedListos.get(indice));
              VEF.cargarDatosFactura();
