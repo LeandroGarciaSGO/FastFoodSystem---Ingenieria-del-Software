@@ -340,7 +340,7 @@ public class VentanaZonas extends javax.swing.JFrame {
                     if (OpeA.modificarZona(U)) {
                         accion = 11;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdZona.getText()), usuarioSistema);
-                        JOptionPane.showMessageDialog(this, "La Zon Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La Zona Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         VentanaGestionarZonas volverGestionar = new VentanaGestionarZonas();
                         volverGestionar.setUsuarioSistema(usuarioSistema);
                         volverGestionar.setVisible(true);

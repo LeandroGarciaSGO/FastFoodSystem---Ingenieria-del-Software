@@ -46,16 +46,18 @@ public class Usuario {
         this.estado = false;
     }
 
-    public Usuario(int id, String nombreUsu, String nombApe, String contra, String tipoDocu, int docu, int tipoUsu) {
+    public Usuario(int id, String nombreUsu, String nombApe, String tipoDocu, int docu, int tipoUsu) {
         this.idUsuario = id;
         this.nombreUsuario = nombreUsu;
         this.nombreYApellido = nombApe;
-        this.contraseña = contra;
+        //this.contraseña = contra;
         this.tipoDocumento = tipoDocu;
         this.numDocumento = docu;
         this.tipoUsuario = tipoUsu;
         this.estado = false;
     }
+
+    
 
 
 

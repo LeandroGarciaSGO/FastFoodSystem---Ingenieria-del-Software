@@ -402,14 +402,24 @@ public class GestionarUsuario extends javax.swing.JFrame {
         int id = (int) jTableUsuario.getValueAt(fila, 0);
         String nombUsu = String.valueOf(jTableUsuario.getValueAt(fila, 1));
         String nombApe = String.valueOf(jTableUsuario.getValueAt(fila, 2));
-        String contra = String.valueOf(jTableUsuario.getValueAt(fila, 3));
-        String tipoDocu = String.valueOf(jTableUsuario.getValueAt(fila, 4));
-        int docu = (int) jTableUsuario.getValueAt(fila, 5);
-        int tipoUsu = (int) jTableUsuario.getValueAt(fila, 6);
-        System.out.println(id + nombUsu + nombApe +contra+ tipoDocu + docu + tipoUsu);
+        String contra = "";
+//String contra = String.valueOf(jTableUsuario.getValueAt(fila, 3));
+        String tipoDocu = String.valueOf(jTableUsuario.getValueAt(fila, 3));
+        int docu = (int) jTableUsuario.getValueAt(fila, 4);
+        String tipoUsu =  (String) jTableUsuario.getValueAt(fila, 5);
+        int tipoU = 0;
+        if (tipoUsu.equals("Administrador")) {
+            tipoU = 1;
+        }
+        if (tipoUsu.equals("Encargado")) {
+            tipoU = 2;
+        }
+        if (tipoUsu.equals("Cocinero")) {
+            tipoU = 2;
+        }
 
         Usuarios VU = new Usuarios();
-        Usuario U = new Usuario(id, nombUsu, nombApe, contra ,tipoDocu, docu, tipoUsu);
+        Usuario U = new Usuario(id, nombUsu, nombApe, tipoDocu, docu, tipoU);
         VU.setDatosUsuario(U);
         VU.setCondatos_vacio(1);
         try {
@@ -429,14 +439,28 @@ public class GestionarUsuario extends javax.swing.JFrame {
         int id = (int) jTableUsuario.getValueAt(fila, 0);
         String nombUsu = String.valueOf(jTableUsuario.getValueAt(fila, 1));
         String nombApe = String.valueOf(jTableUsuario.getValueAt(fila, 2));
-        String contra = String.valueOf(jTableUsuario.getValueAt(fila, 3));
-        String tipoDocu = String.valueOf(jTableUsuario.getValueAt(fila, 4));
-        int docu = (int) jTableUsuario.getValueAt(fila, 5);
-        int tipoUsu = (int) jTableUsuario.getValueAt(fila, 6);
+        //String contra = String.valueOf(jTableUsuario.getValueAt(fila, 3));
+        String contra = "";
+        String tipoDocu = String.valueOf(jTableUsuario.getValueAt(fila, 3));
+        int docu = (int) jTableUsuario.getValueAt(fila, 4);
+        String tipoUsu =  (String) jTableUsuario.getValueAt(fila, 5);
+        int tipoU = 0;
+        if (tipoUsu.equals("Administrador")) {
+            tipoU = 1;
+        }
+        if (tipoUsu.equals("Encargado")) {
+            tipoU = 2;
+        }
+        if (tipoUsu.equals("Cocinero")) {
+            tipoU = 2;
+        }
+        
+       
+        
         System.out.println(id + nombUsu + nombApe +contra+ tipoDocu + docu + tipoUsu);
 
         Usuarios VU = new Usuarios();
-        Usuario U = new Usuario(id, nombUsu, nombApe, contra, tipoDocu, docu, tipoUsu);
+        Usuario U = new Usuario(id, nombUsu, nombApe, tipoDocu, docu, tipoU);
         VU.setDatosUsuario(U);
         VU.setCondatos_vacio(1);
         try {
