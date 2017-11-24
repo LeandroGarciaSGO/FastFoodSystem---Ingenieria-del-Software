@@ -314,30 +314,7 @@ public class Usuario {
             //Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    
-    public void modificar2() throws ClassNotFoundException {
-        try {
-            int id = idUsuario;
-            Connection cn = Conexion.Cadena();
-            // preparo la sentencia el parametro RETURN_GENERATED_KEYS debe ser especificado explicitamente
-            // para poder obtener el ID del campo autoincrement
-            psPrepSencencias = cn.prepareStatement("UPDATE usuario SET estado = true WHERE idUsuario = " + id, PreparedStatement.RETURN_GENERATED_KEYS);
-            // cargo parametros
-            //psPrepSencencias.setBoolean(1, true);
-            //psPrepSencencias.setInt(2, id);
-            //ejecuto sentencia
-            psPrepSencencias.executeUpdate();
-            //obtengo el id del registro recien insertado
-
-        } catch (SQLException ex) {
-            //Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    
+    }    
     
     public boolean modificar() throws ClassNotFoundException {
         try {      

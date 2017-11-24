@@ -559,6 +559,8 @@ public class DatosPedido extends javax.swing.JFrame {
                     jLabelMostrarPedidoNum.setText(String.valueOf(P.obtenerSiguienteIdPedido()));
                 }
                 else{
+                    jButtonBuscar.setEnabled(false);
+                    jTextFieldTelefono.setEnabled(false);
                     jLabelMensajeExistenciaCliente.setText("\"Cliente Inexistente\"");
                 }
             }
@@ -723,6 +725,8 @@ public class DatosPedido extends javax.swing.JFrame {
         OperacionesPedido ABMP = new OperacionesPedido();
         ABMComida ABMCo = new ABMComida();
         jButtonNuevoCliente.setEnabled(false);
+        jButtonBuscar.setEnabled(false);
+        jTextFieldTelefono.setEnabled(false);
         idP = codP;
         P = ABMP.buscarPedido(codP);
         Cl = buscarCliente(telefono);
