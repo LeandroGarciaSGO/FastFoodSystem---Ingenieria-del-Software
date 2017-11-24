@@ -69,6 +69,7 @@ public class DatosPedido extends javax.swing.JFrame {
         cargarJComboBoxZona();
         cargarJComboBoxComidaDisponible();
         usuarioSistema = new Usuario();
+        jButtonNuevoCliente.setEnabled(false);
     }
 
     public Usuario getUsuarioSistema() {
@@ -561,6 +562,7 @@ public class DatosPedido extends javax.swing.JFrame {
                 else{
                     jButtonBuscar.setEnabled(false);
                     jTextFieldTelefono.setEnabled(false);
+                    jButtonNuevoCliente.setEnabled(true);
                     jLabelMensajeExistenciaCliente.setText("\"Cliente Inexistente\"");
                 }
             }
