@@ -440,6 +440,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private void jMenuItemNuevoCadeteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevoCadeteActionPerformed
         // TODO add your handling code here:
         GestionarCadete DC = new GestionarCadete();
+        DC.setUsuarioSistema(usuarioSistema);
         DC.setVisible(true);
 
     }//GEN-LAST:event_jMenuItemNuevoCadeteActionPerformed

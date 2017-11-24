@@ -17,6 +17,7 @@ import Datos.Usuario;
 import Logica.ABMComida;
 
 import Logica.AMBCadete;
+import Logica.OperacionesTransacciones;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -48,13 +49,24 @@ public class GestionarCadete extends javax.swing.JFrame {
     private PreparedStatement psPrepSencencias;
 
     private TableRowSorter trsFiltro;
-    //AGREGO ESTO PARA LA TABLA
-    //Connection cn = Conexion.Cadena();
+    private Usuario usuarioSistema;
+
+    
+    
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+
+    }
+
     /**
      * Creates new form GestionarCadete
      */
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
+
     public GestionarCadete() {
-           initComponents();
+        initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         jButtonEliminar.setEnabled(false);
@@ -64,7 +76,7 @@ public class GestionarCadete extends javax.swing.JFrame {
         modelo = new DefaultTableModel(datos, cabecera);
         jTableCadetes.setModel(modelo);
         cargarTablaCadetes();
-       //jButton.setBackground(java.awt.Color.red);
+        //jButton.setBackground(java.awt.Color.red);
         //jButtonCancelarSelecc.setEnabled(false);
         jTableCadetes.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -88,7 +100,6 @@ public class GestionarCadete extends javax.swing.JFrame {
 //        } catch (ClassNotFoundException ex) {
 //            Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
     }
 
 
@@ -464,7 +475,7 @@ public class GestionarCadete extends javax.swing.JFrame {
         Cadetes C = new Cadetes();
 
         try {
-           
+            C.setUsuarioSistema(usuarioSistema);
             C.LlenarCampos();
            
         } catch (SQLException ex) {
@@ -505,6 +516,7 @@ public class GestionarCadete extends javax.swing.JFrame {
             AMBCadete BC = new AMBCadete();
             
             Cadetes VC = new Cadetes();
+            VC.setUsuarioSistema(usuarioSistema);
             //Cadete CO = new Cadete (cod, doc, nombre, apellido, tel);
             VC.setDatosCadete(C);
             VC.setCondatos_vacio(1);
@@ -546,23 +558,32 @@ public class GestionarCadete extends javax.swing.JFrame {
                if (JOptionPane.OK_OPTION == resp) {
                         this.dispose();
                         CA.eliminardni(doc);
+                        OperacionesTransacciones OP = new OperacionesTransacciones();
+                        int accion = 10;
+                        int entidad = 4;                        
+                        OP.registrarTransaccion(accion, entidad, cod, usuarioSistema);
                         JOptionPane.showMessageDialog(this, "El Cadete se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
             
                      }else{
                    
                     GestionarCadete volverGestionarCadete = new GestionarCadete();
+                    volverGestionarCadete.setUsuarioSistema(usuarioSistema);
                     volverGestionarCadete.setVisible(true);
+                    this.dispose();
                }
                 
                 
             } catch (SQLException ex) {
                 Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } catch (ClassNotFoundException ex) {
+               Logger.getLogger(GestionarCadete.class.getName()).log(Level.SEVERE, null, ex);
+           }
 
 //            JOptionPane.showMessageDialog(this, "El Cadete se Elimino Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
             //cargarTablaCadetes();
             GestionarCadete volverGestionarCadete = new GestionarCadete();
             volverGestionarCadete.setVisible(true);
+            volverGestionarCadete.setUsuarioSistema(usuarioSistema);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, " -. ERROR:  No Selecciono Ningun Cadete", "Fast Food System", JOptionPane.ERROR_MESSAGE);

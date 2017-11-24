@@ -327,7 +327,7 @@ public class VentanaClientes extends javax.swing.JFrame {
                     C.insertar();
                     accion = 2;
                     
-                    OT.registrarTransaccion(accion,entidad,0,usuarioSistema);
+                    OT.registrarTransaccion(accion,entidad,Integer.parseInt(jLabelNumeroCliente.getText()),usuarioSistema);
                     //if(ABMC.nuevoCliente(C))
                     //{
                     //JOptionPane.showMessageDialog(this, "-. ERROR: El Cliente Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);

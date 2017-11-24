@@ -12,6 +12,7 @@ import Datos.Conexion;
 import Datos.Usuario;
 //import Logica.ABMCliente;
 import Logica.ABMComida;
+import Logica.OperacionesTransacciones;
 import java.sql.Connection;
 import java.sql.ResultSet;
 //import Datos.Comida;
@@ -36,6 +37,15 @@ public class Cadetes extends javax.swing.JFrame {
     private ResultSet rsDatos;
     public int docant;
     private int numDocumento;
+    private Usuario usuarioSistema;
+
+    public Usuario getUsuarioSistema() {
+        return usuarioSistema;
+    }
+
+    public void setUsuarioSistema(Usuario usuarioSistema) {
+        this.usuarioSistema = usuarioSistema;
+    }
     
     /**
      * Creates new form DatosCadetes
@@ -405,9 +415,15 @@ public class Cadetes extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(this, "-. ERROR: El cadete ya existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(this, "El cadete se registro correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                           GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            OperacionesTransacciones OT = new OperacionesTransacciones();
+                            int accion = 8;
+                            int entidad = 4;
+                            OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoCadete.getText()), usuarioSistema);
+                            GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            volverGestionarCadete.setUsuarioSistema(usuarioSistema);
                             volverGestionarCadete.setVisible(true);
-                            setVisible(false);
+                            this.dispose();
+                            //setVisible(false);
                         }
                         
                     } catch (SQLException ex) {
@@ -430,10 +446,16 @@ public class Cadetes extends javax.swing.JFrame {
                             C.setIdCadete(datosCadete.getIdCadete());
                             
                             C.cargar();
+                            OperacionesTransacciones OT = new OperacionesTransacciones();
+                            int accion = 9;
+                            int entidad = 4;
+                            OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoCadete.getText()), usuarioSistema);
                             JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                             GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            volverGestionarCadete.setUsuarioSistema(usuarioSistema);
                             volverGestionarCadete.setVisible(true);
-                            setVisible(false);
+                            //setVisible(false);
+                            this.dispose();
                             
                         }else{
                             
@@ -442,9 +464,19 @@ public class Cadetes extends javax.swing.JFrame {
                                 
                                 C.cargar();
                                 JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem" ,JOptionPane.INFORMATION_MESSAGE);
-                                GestionarCadete volverGestionarCadete= new GestionarCadete();
-                                volverGestionarCadete.setVisible(true);
-                                setVisible(false);
+//                                GestionarCadete volverGestionarCadete= new GestionarCadete();
+//                                volverGestionarCadete.setVisible(true);
+//                                setVisible(false);
+                            OperacionesTransacciones OT = new OperacionesTransacciones();
+                            int accion = 9;
+                            int entidad = 4;
+                            OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelCodigoCadete.getText()), usuarioSistema);
+                            JOptionPane.showMessageDialog(this, "El cadete se modifico exitosamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                            GestionarCadete volverGestionarCadete= new GestionarCadete();
+                            volverGestionarCadete.setUsuarioSistema(usuarioSistema);
+                            volverGestionarCadete.setVisible(true);
+                            //setVisible(false);
+                            this.dispose();
                                 
                             }else {
                                 JOptionPane.showMessageDialog(this, "-. ERROR: El Cadete Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
@@ -459,6 +491,7 @@ public class Cadetes extends javax.swing.JFrame {
                     Logger.getLogger(Cadetes.class.getName()).log(Level.SEVERE, null, ex);
                 } 
             }
+            
         
 }  
 
