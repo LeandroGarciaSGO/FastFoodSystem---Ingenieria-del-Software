@@ -73,6 +73,8 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         jMenuFacturacion = new javax.swing.JMenu();
         jMenuItemGenerarFactura = new javax.swing.JMenuItem();
         jMenuItemAnularFactura = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuAyuda = new javax.swing.JMenu();
         jMenuItemInformacion = new javax.swing.JMenuItem();
         jMenuItemManual = new javax.swing.JMenuItem();
@@ -264,9 +266,22 @@ public class PrincipalEncargado extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuFacturacion);
 
+        jMenu1.setText("Zonas");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Gestionar Zonas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
         jMenuAyuda.setText("Ayuda");
 
-        jMenuItemInformacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemInformacion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemInformacion.setText("Informacion");
         jMenuItemInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -275,7 +290,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         });
         jMenuAyuda.add(jMenuItemInformacion);
 
-        jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemManual.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItemManual.setText("Manual de Usuario");
         jMenuItemManual.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,6 +511,18 @@ public class PrincipalEncargado extends javax.swing.JFrame {
         DP.setVisible(true);
     }//GEN-LAST:event_jMenuItemNuevoPedidoActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        VentanaGestionarZonas VGZ = null;
+        try {
+            VGZ = new VentanaGestionarZonas();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PrincipalEncargado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        VGZ.setUsuarioSistema(usuarioSistema);
+        VGZ.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     public void abrirManual(String archivo) {
 
         System.out.println(archivo);
@@ -556,6 +583,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNuevoPedido;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenuAyuda;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadetes;
@@ -563,6 +591,7 @@ public class PrincipalEncargado extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuComidas;
     private javax.swing.JMenu jMenuFacturacion;
     private javax.swing.JMenuItem jMenuGestionarComida;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItemAnularFactura;
     private javax.swing.JMenuItem jMenuItemGenerarFactura;
     private javax.swing.JMenuItem jMenuItemGestionarPedido;

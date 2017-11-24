@@ -78,6 +78,40 @@ public class Zona {
         }       
         return rsDatos;       
     }
+
+    public ResultSet consultarTodasLasZonas() throws ClassNotFoundException {
+        try {
+            Connection conex = Conexion.Cadena();         
+            String ConsultaSQL = "SELECT * FROM zona";
+            sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rsDatos = sentencia.executeQuery(ConsultaSQL);
+        } catch (SQLException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return rsDatos; 
+    }
+
+    public int obtenerSiguienteId() throws ClassNotFoundException, SQLException {
+         Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "SELECT (MAX(idZona) )AS 'ID' FROM zona";
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+        if (rsDatos.first()) {
+            int id = rsDatos.getInt("ID") + 1;
+            //numFactura = id;
+            return id;
+        } else {
+            //numFactura = 1;
+            return 1;
+        }
+    }
+
+    public void eliminar(int id) throws ClassNotFoundException, SQLException {
+         Connection conex = Conexion.Cadena();
+        String ConsultaSQL = "DETELE FROM zona where idZona = " + id;
+        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        rsDatos = sentencia.executeQuery(ConsultaSQL);
+    }
     
     
 }

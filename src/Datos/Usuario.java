@@ -57,6 +57,8 @@ public class Usuario {
         this.estado = false;
     }
 
+
+
     public Statement getSentencia() {
         return sentencia;
     }
