@@ -143,7 +143,7 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
         );
 
         jButtonNuevaZona.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonNuevaZona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-nuevo-usuario.png"))); // NOI18N
+        jButtonNuevaZona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-zona.png"))); // NOI18N
         jButtonNuevaZona.setText("Nuevo Zona");
         jButtonNuevaZona.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonNuevaZona.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -155,7 +155,7 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
         });
 
         jButtonModificarZona.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonModificarZona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-modificar-usuario.png"))); // NOI18N
+        jButtonModificarZona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-zona.png"))); // NOI18N
         jButtonModificarZona.setText("Modificar Zona");
         jButtonModificarZona.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonModificarZona.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -167,7 +167,7 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
         });
 
         jButtonEliminarZona.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonEliminarZona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-borrar-usuario.png"))); // NOI18N
+        jButtonEliminarZona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-delete.png"))); // NOI18N
         jButtonEliminarZona.setText("Eliminar Zona");
         jButtonEliminarZona.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonEliminarZona.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -409,20 +409,19 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
 
         int id = (int) jTableUsuario.getValueAt(fila, 0);
         String des = String.valueOf(jTableUsuario.getValueAt(fila, 1));
-        float pre = Float.parseFloat((String) jTableUsuario.getValueAt(fila, 2));
-        
-        VentanaZonas VZ = new VentanaZonas();
+       float pre = Float.parseFloat(String.valueOf(jTableUsuario.getValueAt(fila, 2)));
+        VentanaZonas VZ = new VentanaZonas();      
+        VZ.setCondatos_vacio(1);
         try {
-            try {
-                VZ.LlenarCampos(2, id, des, pre);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(VentanaGestionarZonas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            VZ.LlenarCampos(3, id, des, pre);
         } catch (SQLException ex) {
             Logger.getLogger(VentanaGestionarZonas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VentanaGestionarZonas.class.getName()).log(Level.SEVERE, null, ex);
         }
+           
        
-        VZ.setCondatos_vacio(3);
+        
         
         VZ.setUsuarioSistema(usuarioSistema);
         System.out.println(usuarioSistema.getTipoUsuario());
@@ -438,6 +437,7 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
         float pre = (float)(jTableUsuario.getValueAt(fila, 2));
         
         VentanaZonas VZ = new VentanaZonas();
+        VZ.setCondatos_vacio(1);
         try {
             try {
                 VZ.LlenarCampos(2, id, des, pre);
@@ -448,7 +448,7 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
             Logger.getLogger(VentanaGestionarZonas.class.getName()).log(Level.SEVERE, null, ex);
         }
        
-        VZ.setCondatos_vacio(1);
+        
         
         VZ.setUsuarioSistema(usuarioSistema);
         System.out.println(usuarioSistema.getTipoUsuario());
@@ -475,12 +475,16 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
         Re = Z.consultarTodasLasZonas();
         try {
             while (Re.next()) {
+                boolean estado = Re.getBoolean("estado");
+                if(estado){
                 int id = Re.getInt("idZona");
                 String des = Re.getString("Descripcion");
                 float pre = Re.getInt("precio");
                 
+                
                 Object fila[] = {id,des,pre};
                 modelo.addRow(fila);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(VentanaGestionarZonas.class.getName()).log(Level.SEVERE, null, ex);

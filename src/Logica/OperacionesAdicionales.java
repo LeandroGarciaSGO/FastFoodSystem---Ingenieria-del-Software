@@ -9,6 +9,7 @@ import Datos.Cliente;
 import Datos.Facturacion;
 import Datos.InformeActividad;
 import Datos.Pedido;
+import Datos.Zona;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -46,6 +47,14 @@ public class OperacionesAdicionales {
             System.out.println(informe.getString("tabla"));
         }
         return inf;
+    }
+
+    public boolean modificarZona(Zona U) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean nuevaZona(Zona U) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

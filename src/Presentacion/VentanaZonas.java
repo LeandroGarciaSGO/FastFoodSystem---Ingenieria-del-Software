@@ -8,6 +8,7 @@ package Presentacion;
 import Datos.Usuario;
 import Datos.Zona;
 import Logica.ABMUsuario;
+import Logica.OperacionesAdicionales;
 import Logica.OperacionesTransacciones;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -208,7 +209,7 @@ public class VentanaZonas extends javax.swing.JFrame {
         );
 
         jButtonEliminar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-borrar-usuario.png"))); // NOI18N
+        jButtonEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Iconos_Botones/icono-delete.png"))); // NOI18N
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.setMaximumSize(new java.awt.Dimension(180, 50));
         jButtonEliminar.setMinimumSize(new java.awt.Dimension(180, 50));
@@ -243,7 +244,7 @@ public class VentanaZonas extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventana-usuarios.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icono-ubicacion.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,13 +255,13 @@ public class VentanaZonas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(16, 16, 16)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -283,8 +284,14 @@ public class VentanaZonas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        GestionarUsuario volverGestionarUsuario = new GestionarUsuario();
-        volverGestionarUsuario.setVisible(true);
+        VentanaGestionarZonas volverGestionar = null;
+        try {
+            volverGestionar = new VentanaGestionarZonas();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        volverGestionar.setUsuarioSistema(usuarioSistema);
+        volverGestionar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -320,49 +327,45 @@ public class VentanaZonas extends javax.swing.JFrame {
         int entidad = 2;
         if (((((validarCampoNombreUsuario() && validarCampoNombreApellido()) && validarCampoContraseña()) && validarTipoDocu())
                 && validarNumeroDocu()) && validarTipoUsuario()) {
-            Usuario U = new Usuario();
-            U.setIdUsuario(Integer.parseInt(jLabelIdZona.getText()));
-            U.setNombreUsuario(jTextFieldDes.getText());
-            U.setNombreYApellido(jTextFieldPre.getText());
+            Zona U = new Zona();
+            U.setIdZona(Integer.parseInt(jLabelIdZona.getText()));
+            U.setDescripcion(jTextFieldDes.getText());
+            U.setPrecio(Float.parseFloat(jTextFieldPre.getText()));
             
             //System.out.print(jComboBoxTipoDocu.getSelectedItem());
             
-            ABMUsuario ABMU = new ABMUsuario();
+            OperacionesAdicionales OpeA = new OperacionesAdicionales();
             if (condatos_vacio != 1) {
                 try {
-                    if (ABMU.modificarUsuario(U)) {
+                    if (OpeA.modificarZona(U)) {
                         accion = 11;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdZona.getText()), usuarioSistema);
-                        JOptionPane.showMessageDialog(this, "El Usuario Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
-                        GestionarUsuario volverGestionarUsuario = new GestionarUsuario();
-                        volverGestionarUsuario.setUsuarioSistema(usuarioSistema);
-                        volverGestionarUsuario.setVisible(true);
+                        JOptionPane.showMessageDialog(this, "La Zon Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        VentanaGestionarZonas volverGestionar = new VentanaGestionarZonas();
+                        volverGestionar.setUsuarioSistema(usuarioSistema);
+                        volverGestionar.setVisible(true);
                         this.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(this, "ERROR: El Usuario Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "ERROR: La Zona Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
 
-                } catch (SQLException ex) {
-                    Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 try {
-                    if (ABMU.nuevoUsuario(U)) {
-                        JOptionPane.showMessageDialog(this, "ERROR: El Nombre De Usuario Pertenece A Otro Usuario", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+                    if (OpeA.nuevaZona(U)) {
+                        JOptionPane.showMessageDialog(this, "ERROR: El Nombre De Zona Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, "El Usuario Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La Zona Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         accion = 13;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdZona.getText()), usuarioSistema);
-                        GestionarUsuario volverGestionarUsuario = new GestionarUsuario();
-                        volverGestionarUsuario.setUsuarioSistema(usuarioSistema);
-                        volverGestionarUsuario.setVisible(true);
+                        VentanaGestionarZonas volverGestionar = new VentanaGestionarZonas();
+                        volverGestionar.setUsuarioSistema(usuarioSistema);
+                        volverGestionar.setVisible(true);
                         this.dispose();
                     }
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
                     Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

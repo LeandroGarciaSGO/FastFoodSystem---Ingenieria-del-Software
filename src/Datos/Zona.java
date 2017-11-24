@@ -108,9 +108,8 @@ public class Zona {
 
     public void eliminar(int id) throws ClassNotFoundException, SQLException {
          Connection conex = Conexion.Cadena();
-        String ConsultaSQL = "DETELE FROM zona where idZona = " + id;
-        sentencia = conex.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        rsDatos = sentencia.executeQuery(ConsultaSQL);
+         psPrepSencencias = conex.prepareStatement("UPDATE zona SET estado = FALSE where idZona = " + id,PreparedStatement.RETURN_GENERATED_KEYS);
+       psPrepSencencias.executeUpdate();
     }
     
     
