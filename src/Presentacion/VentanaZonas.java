@@ -335,12 +335,12 @@ public class VentanaZonas extends javax.swing.JFrame {
             //System.out.print(jComboBoxTipoDocu.getSelectedItem());
             
             OperacionesAdicionales OpeA = new OperacionesAdicionales();
-            if (condatos_vacio != 1) {
+            if (condatos_vacio == 1) {
                 try {
                     if (OpeA.modificarZona(U)) {
                         accion = 11;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdZona.getText()), usuarioSistema);
-                        JOptionPane.showMessageDialog(this, "La Zona Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La Zona Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         VentanaGestionarZonas volverGestionar = new VentanaGestionarZonas();
                         volverGestionar.setUsuarioSistema(usuarioSistema);
                         volverGestionar.setVisible(true);
@@ -351,13 +351,15 @@ public class VentanaZonas extends javax.swing.JFrame {
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
 
+                } catch (SQLException ex) {
+                    Logger.getLogger(VentanaZonas.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 try {
                     if (OpeA.nuevaZona(U)) {
                         JOptionPane.showMessageDialog(this, "ERROR: El Nombre De Zona Ya Existe", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
                     } else {
-                        JOptionPane.showMessageDialog(this, "La Zona Se Modifico Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La Zona Se Cargo Correctamente", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                         accion = 13;
                         OT.registrarTransaccion(accion, entidad, Integer.parseInt(jLabelIdZona.getText()), usuarioSistema);
                         VentanaGestionarZonas volverGestionar = new VentanaGestionarZonas();

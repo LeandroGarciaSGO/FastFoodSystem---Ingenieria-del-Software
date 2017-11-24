@@ -49,12 +49,43 @@ public class OperacionesAdicionales {
         return inf;
     }
 
-    public boolean modificarZona(Zona U) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean modificarZona(Zona U) throws SQLException, ClassNotFoundException {
+        ResultSet r = U.buscarZona();
+        ResultSet r2 = U.buscarZonaDes();
+        if (r.first() && r2.first()) {
+            if (r.getInt("idZona") == r2.getInt("idZona") && r.getBoolean("estado")) {
+                U.actualizar();
+                return true;
+            } else {
+                if (r.getBoolean("estado") == false) {
+                    U.actualizar();
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+//        if(r.first() && r.getBoolean("estado")){
+//            U.actualizar();          
+//            return true;
+//        }else{
+//            if(r.first()){
+//                U.actualizar(); 
+//                return true;
+//            }
+//        }
+//        return false;
     }
 
-    public boolean nuevaZona(Zona U) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean nuevaZona(Zona U) throws ClassNotFoundException, SQLException {
+        ResultSet r = U.buscarZonaDes();
+        if(r.first()){
+            return true;
+        }else{
+        U.insertar();
+        return false;
+        }
     }
     
 }
