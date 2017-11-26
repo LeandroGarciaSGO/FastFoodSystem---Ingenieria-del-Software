@@ -34,6 +34,8 @@ public class ABMComida {
                 }
             } else {
                 //C.agregarNuevaComida();
+                C.setIdComida(NC.getInt("idComida"));
+                C.setEstado(true);
                 C.modificar();
                 System.out.println("\nEXISTE 1\n");
                 return true;

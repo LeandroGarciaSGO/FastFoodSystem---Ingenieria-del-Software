@@ -330,7 +330,7 @@ public class Usuario {
             psPrepSencencias.setString(4, tipoDocumento);
              psPrepSencencias.setInt(5, numDocumento);
               psPrepSencencias.setInt(6, tipoUsuario);
-            psPrepSencencias.setBoolean(7, estado);
+            psPrepSencencias.setBoolean(7, true);
             psPrepSencencias.setInt(8, idUsuario);
             //ejecuto sentencia
             psPrepSencencias.executeUpdate();
