@@ -799,7 +799,10 @@ public class DatosPedido extends javax.swing.JFrame {
                     return false;
                 }   break;
             case 1:
-                if(jTextFieldLugarDeEnvio.getText().length()<=0){
+                if(jLabelMostrarTelefono.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this, "ERROR: Debe Buscar Un Cliente Para El Envío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }   if(jTextFieldLugarDeEnvio.getText().length()<=0){
                     JOptionPane.showMessageDialog(this,"ERROR: El Lugar De Envío No Debe Ser Vacío","FastFoodSystem",JOptionPane.ERROR_MESSAGE);
                     return false;
                 }   if(jComboBoxZona.getSelectedIndex()==0){
