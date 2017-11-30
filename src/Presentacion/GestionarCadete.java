@@ -381,7 +381,7 @@ public class GestionarCadete extends javax.swing.JFrame {
 //                modelo.addRow(fila);
 //            } else {
 //                //jLabelError.setText("Comida Inexistente - Para Registrar presione \"Nueva Comida\"");
-                    JOptionPane.showMessageDialog(this, "El cadete No Existe\nPara registrarla presione \"Nueva Comida\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "El cadete No Existe\nPara registrarlo presione \"Nuevo\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
 //                jButtonNuevaComida.setEnabled(true);
 //                jButtonModificarComida.setEnabled(false);
 //                jButtonEliminarComida.setEnabled(false);
