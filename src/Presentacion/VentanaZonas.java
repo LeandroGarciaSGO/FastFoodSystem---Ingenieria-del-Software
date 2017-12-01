@@ -325,8 +325,7 @@ public class VentanaZonas extends javax.swing.JFrame {
         OperacionesTransacciones OT = new OperacionesTransacciones();
         int accion;
         int entidad = 7;
-        if (((((validarCampoNombreUsuario() && validarCampoNombreApellido()) && validarCampoContraseña()) && validarTipoDocu())
-                && validarNumeroDocu()) && validarTipoUsuario()) {
+        if (validarDescripcion() && validarPrecio()) {
             Zona U = new Zona();
             U.setIdZona(Integer.parseInt(jLabelIdZona.getText()));
             U.setDescripcion(jTextFieldDes.getText());
@@ -376,140 +375,31 @@ public class VentanaZonas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-//    private void cargarTipoDocu() {
-//        try {
-//            Usuario U = new Usuario();
-//            R = U.consultaTipoDocu();
-//            try {
-//                while (R.next()) {
-//                    jComboBoxTipoDocu.addItem(R.getObject("tipoDocumento"));
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
 
-//    private void cargarTipoUsuario() {
-//        try {
-//            Usuario U = new Usuario();
-//            R = U.consultaTipoUsuario();
-//            try {
-//                while (R.next()) {
-//                    jComboBoxTipoUsu.addItem(R.getObject("tipoUsuario"));
-//                }
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(Usuarios.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-
-    private boolean validarCampoNombreUsuario() {
-//        if (jTextFieldNombUsu.getText().length() > 0) {
-//            if (jTextFieldNombUsu.getText().length() <= 20) {
-//                if (jTextFieldNombUsu.getText().matches("[A-Za-z\\s]+")){
-//                    return true;
-//                }else{
-//                    JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre de Usuario\" Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                    return false;
-//                }
-//                
-//            } else {
-//                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre de Usuario\" No Debe Contener Mas de 20 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                return false;
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre de Usuario\" No Debe Estar Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
-return true;
+    private boolean validarDescripcion() {
+        if (jTextFieldDes.getText().length() > 0) {
+            return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "ERROR: La Descripcion No Debe Ser Vacia", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
     }
 
-    private boolean validarCampoNombreApellido() {
-//        if (jTextFieldNombApe.getText().length() > 0) {
-//            if (jTextFieldNombApe.getText().length() <= 40) {
-//                if (jTextFieldNombApe.getText().matches("[A-Za-z\\s]+")) {
-//                    return true;
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre y Apellido\" Debe Contener Solo Letras", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                    return false;
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre y Apellido\" No Debe Contener Mas de 40 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                return false;
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Nombre y Apellido\" No Debe Estar Vacio", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
+    private boolean validarPrecio() {
+        try{
+        Float.parseFloat(jTextFieldPre.getText());
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "ERROR: El Precio Debe Ser Numerico", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+                
 
 return true;
     }
 
-    private boolean validarCampoContraseña() {
-//        if (jPasswordContra.getText().length() >= 8) {
-//            if (jPasswordContra.getText().length() <= 50) {
-//                //if (jPasswordContra.getText().matches("[   [A-Z]    +    [a-z]   +   [0-9]   +   [@|¡|!|#|$|&|=|?|¿|+|*|-|_]    ]+")) {
-//                if (jPasswordContra.getText().matches("^(?=.*\\d)(?=.*[\\u0021-\\u002b\\u003c-\\u0040])(?=.*[A-Z])(?=.*[a-z])\\S{8,50}$")) {
-//                    return true;
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Debe Contener Al Menos Una Letra Mayuscula, Una Letra Minuscula, Un Numero y Un Caracter Especial", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                    return false;
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" No Debe Contener Mas de 50 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                return false;
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Contraseña\" Debe Tener Como Minimo 8 Caracteres", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
-return true;
-    }
-
-    private boolean validarTipoDocu() {
-//        if (jComboBoxTipoDocu.getSelectedIndex() != 0) {
-//            return true;
-//        } else {
-//            JOptionPane.showMessageDialog(this, "ERROR: Debe Seleccionar Un Tipo De Documento", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
-return true;
-    }
-
-    private boolean validarNumeroDocu() {
-        
-//            if (jTextFieldNumDocu.getText().length() == 9) {
-//                if (jTextFieldNumDocu.getText().matches("[0-9]+")) {
-//                    return true;
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Numero de Documento\" Debe Contener Solo Numeros", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                    return false;
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(this, "ERROR: El Campo \"Numero de Documento\" Debe Contener 9 Numeros", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//                return false;
-//            }
-        return true;
-    }
-
-    private boolean validarTipoUsuario() {
-//        if (jComboBoxTipoUsu.getSelectedIndex() != 0) {
-//            return true;
-//        } else {
-//            JOptionPane.showMessageDialog(this, "ERROR: Debe Seleccionar Un Tipo De Usuario", "FastFoodSystem", JOptionPane.ERROR_MESSAGE);
-//            return false;
-//        }
-return true;
-    }
-
-    /**
+       /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
