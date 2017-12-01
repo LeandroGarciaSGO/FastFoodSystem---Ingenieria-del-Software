@@ -341,7 +341,7 @@ public class VentanaGestionarZonas extends javax.swing.JFrame {
             try {
                 U = BU.buscarUsuario(String.valueOf(jTextFieldDescripcion.getText()));
                 if (U == null) {
-                    JOptionPane.showMessageDialog(this, "El Usuario No Existe\nPara registrarlo presione \"Nuevo Usuario\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "La Zona No Existe\nPara registrarlo presione \"Nueva Zona\"", "FastFoodSystem", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(VentanaGestionarZonas.class.getName()).log(Level.SEVERE, null, ex);
