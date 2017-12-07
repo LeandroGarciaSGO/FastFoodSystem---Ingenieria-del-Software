@@ -575,27 +575,11 @@ public class DatosPedido extends javax.swing.JFrame {
 
     private void jComboBoxZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxZonaActionPerformed
         // TODO add your handling code here:
-        switch(String.valueOf(jComboBoxZona.getSelectedItem())){
-            case "Centro":
-                jLabelMostrarImporte.setText(String.valueOf(listaZonas.get(0).getPrecio()));
-                P.setZona(listaZonas.get(0).getIdZona());
-                break;
-            case "Norte":
-                jLabelMostrarImporte.setText(String.valueOf(listaZonas.get(1).getPrecio()));
-                P.setZona(listaZonas.get(1).getIdZona());
-                break;
-            case "Sur":
-                jLabelMostrarImporte.setText(String.valueOf(listaZonas.get(2).getPrecio()));
-                P.setZona(listaZonas.get(2).getIdZona());
-                break;
-            case "Este":
-                jLabelMostrarImporte.setText(String.valueOf(listaZonas.get(3).getPrecio()));
-                P.setZona(listaZonas.get(3).getIdZona());
-                break;
-            case "Oeste":
-                jLabelMostrarImporte.setText(String.valueOf(listaZonas.get(4).getPrecio()));
-                P.setZona(listaZonas.get(4).getIdZona());
-                break;
+        for(int i=0; i<listaZonas.size(); i++){
+            if(String.valueOf(jComboBoxZona.getSelectedItem()).equals(String.valueOf(listaZonas.get(i).getDescripcion()))){
+                jLabelMostrarImporte.setText(String.valueOf(listaZonas.get(i).getPrecio()));
+                P.setZona(listaZonas.get(i).getIdZona());
+            }
         }
     }//GEN-LAST:event_jComboBoxZonaActionPerformed
 
